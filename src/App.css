@@ -1,0 +1,442 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    /* overflow-y: auto; */
+}
+
+/* --------------------  React player stylling ---------------------
+------------------------------------------------------------------------ */
+.Courses-container {
+    width: 100%;
+    background-color: white;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    padding-top: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 80px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.file-container {
+    background-color: #676767;
+    margin-bottom: 60px;
+    overflow: auto;
+}
+
+/* --------------------  admin courses page styling ---------------------
+------------------------------------------------------------------------ */
+
+.MuiDrawer-paper {
+    top: unset !important;
+    z-index: unset !important;
+    right: -2px !important;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+        rgba(60, 64, 67, 0.15) 0px 2px 6px 2px !important;
+    height: 100vh !important;
+}
+
+.drawer-style .MuiDrawer-paper {
+    right: unset !important;
+}
+.drawer-style .MuiDrawer-paper {
+    top: 0px !important;
+}
+
+.MuiDrawer-paperAnchorLeft {
+    left: unset !important;
+}
+
+.MuiDrawer-root {
+    top: 64px !important;
+}
+
+.drawer-style .MuiDrawer-root {
+    top: 0px !important;
+}
+
+.MuiBackdrop-root {
+    top: 55px !important;
+}
+
+.drawer-style .MuiBackdrop-root {
+    top: 0px !important;
+}
+
+.MuiTypography-body1 {
+    font-weight: bold !important;
+}
+
+.makeStyles-menuButton-12 {
+    margin-right: 0 !important;
+}
+
+/* pagination */
+.MuiTablePagination-input,
+#mui-8101 {
+    display: none !important;
+}
+
+/* password input  */
+
+.MuiInput-formControl {
+    margin-top: 12px !important;
+    height: 42px !important;
+    border: 1px solid #ced4da !important;
+    border-radius: 0.25rem !important;
+    background-color: white;
+}
+
+.makeStyles-formControl-16 {
+    width: unset !important;
+}
+
+.MuiInputLabel-formControl {
+    top: -6px !important;
+}
+
+.MuiInput-underline:before {
+    left: unset !important;
+}
+
+.MuiFormControl-root {
+    width: 100% !important;
+    margin: 0 !important;
+}
+
+/* card  */
+.MuiCard-root {
+    height: 100% !important;
+}
+
+.MuiCardContent-root {
+    min-height: 150px !important;
+}
+
+/* -------------popover notfications------------ */
+.pop > .MuiPopover-paper {
+    max-width: calc(40% - 100px) !important;
+    min-width: unset;
+    width: 50%;
+}
+
+.notify {
+    font-size: calc(0.8rem + 0.8vw);
+    background: linear-gradient(to right, #803bec 30%, #803bec 100%);
+    color: white;
+    text-align: center;
+    padding: 5px 0px 5px 0px;
+}
+
+.App-logo {
+    height: 20vmin;
+    pointer-events: none;
+}
+
+.App-logo {
+    animation: App-logo-spin infinite 5s linear;
+}
+
+@keyframes App-logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+#loader {
+    z-index: 10000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(155, 155, 155, 0.7);
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.control-panel {
+    font-size: 16px;
+    color: black;
+    background-color: white;
+    border-radius: 5px;
+    width: fit-content;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+.disabled {
+    cursor: not-allowed;
+    color: lightgray;
+}
+
+/* side nav bar */
+.gUinLK,
+.kmTErc,
+.eOHHjX {
+    padding: 0 !important;
+}
+
+/* progres bar */
+.MuiLinearProgress-barColorPrimary {
+    background-color: #007bff !important;
+}
+
+.MuiLinearProgress-colorPrimary {
+    background-color: white !important;
+}
+
+.MuiTypography-colorTextSecondary {
+    font-weight: bold !important;
+    color: black !important;
+}
+@media screen and (max-width: 1024px) {
+    .right-space {
+        width: 0 !important;
+    }
+    .home-card {
+        margin-right: 0 !important;
+    }
+    .align-mid {
+        align-items: center !important;
+        padding: 10px;
+    }
+
+    .simple-img img {
+        width: 100%;
+        height: auto;
+    }
+
+    .simple-text {
+        width: unset !important;
+    }
+
+    .img-text {
+        width: 90%;
+    }
+
+    /* exam review redesign */
+    .section {
+        width: 90% !important;
+        margin-bottom: 150px !important;
+    }
+
+    /* courses design */
+
+    .course-mid {
+        justify-content: space-around;
+    }
+    .card-mid {
+        margin-right: 0 !important;
+    }
+
+    .MuiAccordionSummary-content {
+        display: block !important;
+    }
+
+    .pop > .MuiPopover-paper {
+        max-width: unset !important;
+        width: 80% !important;
+        left: 70px !important;
+    }
+
+    .MuiPopover-paper {
+        max-height: 400px !important;
+    }
+}
+
+@media screen and (max-width: 599px) {
+    .profile-info {
+        font-size: unset !important;
+    }
+
+    .top-right-triangle {
+        border-top: 50px solid !important;
+        border-left: 50px solid transparent !important;
+    }
+
+    .bottom-right-triangle {
+        border-bottom: 50px solid !important;
+        border-left: 50px solid transparent !important;
+    }
+
+    .top-left-triangle {
+        border-top: 50px solid !important;
+        border-right: 50px solid transparent !important;
+    }
+
+    .bottom-left-triangle {
+        border-bottom: 50px solid !important;
+        border-right: 50px solid transparent !important;
+    }
+
+    .circle {
+        height: unset !important;
+    }
+
+    .circle img {
+        border-radius: 50%;
+        width: 60% !important;
+        height: 60% !important;
+    }
+
+    .profile-subcontainer {
+        padding-top: 50px !important;
+    }
+
+    .chat-container {
+        width: 100% !important;
+        right: 0 !important;
+    }
+
+    .admin-unit {
+        display: block !important;
+    }
+}
+
+@media screen and (max-width: 599px) {
+    .side-bar-to-left {
+        position: absolute !important;
+        left: -60px !important;
+    }
+
+    .side-bar-to-right {
+        left: 0px !important;
+        text-align: center !important;
+        top: 0 !important;
+    }
+
+    .routes-no-padding {
+        padding: unset !important;
+    }
+    .requests-page {
+        padding-top: 55px !important;
+    }
+
+    .card-mid,
+    .MuiCard-root {
+        width: 100% !important;
+        max-width: unset !important;
+    }
+}
+
+@media screen and (max-width: 380px) {
+    .contact-us {
+        align-items: unset !important;
+        justify-content: center;
+    }
+
+    .container-contact {
+        padding: unset !important;
+    }
+
+    .section {
+        width: 600px !important;
+        padding-right: 15px !important;
+    }
+
+    .title-container a {
+        font-size: 14px !important;
+    }
+
+    .title {
+        padding: 5px;
+    }
+
+    .Courses-container {
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+    }
+
+    .MuiDrawer-paper {
+        width: 100% !important;
+        height: 95vh;
+        padding-bottom: 100px;
+    }
+
+    .courses-header {
+        flex-direction: column !important;
+        align-items: unset !important;
+    }
+
+    .courses-header div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .zoom-container {
+        width: unset !important;
+        min-height: 40vh !important;
+    }
+
+    .zoom-card-component > div {
+        align-items: unset !important;
+    }
+}
+@media screen and (max-width: 320px) {
+    .profile-info {
+        font-size: 11px !important;
+    }
+
+    .contact-us {
+        align-items: unset !important;
+        justify-content: center;
+    }
+    .company-info {
+        font-size: 12px !important;
+    }
+
+    /* exam review redesign */
+    .section {
+        margin-bottom: 300px !important;
+    }
+
+    .chat-container {
+        height: 400px !important;
+    }
+
+    .content {
+        display: block !important;
+    }
+
+    .bBgwSF img,
+    .ca-dVYs,
+    .bBgwSF {
+        display: none !important;
+    }
+
+    .kmTErc {
+        top: 4rem !important;
+    }
+
+    .emEOSq {
+        height: 78vh !important;
+    }
+
+    .kmTErc,
+    .iEuMwL {
+        padding: 0 !important;
+        top: 4rem !important;
+    }
+
+    .side-bar-to-right {
+        top: -67px !important;
+        border-radius: unset !important;
+        height: 100vh;
+    }
+}

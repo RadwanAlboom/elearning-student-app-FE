@@ -1,0 +1,353 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster+Two:ital@1&family=Open+Sans&family=Oswald&family=Poppins:wght@100&family=STIX+Two+Math&display=swap');
+
+.admin-courses,
+.requests-page,
+.contact-us,
+.course-curriculum {
+    display: block;
+    width: 100%;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 20px;
+    padding-top: 65px;
+    padding-bottom: 60px;
+}
+
+.contact-us {
+    height: 92vh;
+    display: flex;
+    align-items: center;
+}
+
+.requests-page {
+    padding-top: 20px !important;
+}
+
+.requests-header {
+    margin-bottom: 20px;
+}
+.courses-header,
+.requests-header {
+    background-color: white;
+    border-radius: 5px;
+    padding-left: 5px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em,
+        rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em,
+        rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+}
+
+.add-btn {
+    background-color: #803bec !important;
+    z-index: 2 !important;
+}
+
+.add-btn:hover {
+    background-color: #5217ae !important;
+}
+
+.cancel-btn {
+    background-color: #eb3333 !important;
+    z-index: 2 !important;
+}
+
+.cancel-btn:hover {
+    background-color: #c50000 !important;
+}
+
+/* --------------------  React Pagination Stylling ---------------------
+------------------------------------------------------------------------ */
+
+.paginationBttns {
+    list-style: none;
+    outline: hidden !important;
+    display: flex;
+    justify-content: center;
+}
+
+.paginationBttns a {
+    padding: 10px;
+    margin: 8px;
+    border-radius: 5px;
+    text-decoration: none;
+    outline: none;
+    border: 1px solid #0f0f15;
+    color: #0f0f15;
+    cursor: pointer;
+}
+
+.paginationBttns a:hover {
+    color: white !important;
+    background-color: #0f0f15;
+}
+
+.paginationActive a {
+    color: white !important;
+    background-color: #0f0f15;
+}
+
+/* --------------------  Admin Unit Stylling ---------------------
+------------------------------------------------------------------------ */
+.admin-unit {
+    width: 100%;
+    background-color: white;
+    min-height: 5vh;
+    display: flex;
+    justify-content: space-between;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    overflow: hidden;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+}
+
+.title-container,
+.actions-container {
+    word-break: break-word;
+    display: flex;
+    align-items: stretch;
+}
+
+.unit-icon {
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+    padding: 10px;
+}
+
+.btn-conatiner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.title {
+    align-self: center;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.delete-btn,
+.update-btn {
+    margin-right: 10px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+/* --------------------  lessons admin page Stylling ---------------------
+------------------------------------------------------------------------ */
+.updateBtn {
+    margin-right: 10px;
+    height: 40px;
+}
+.deleteBtn {
+    color: red;
+    margin-right: 10px;
+    height: 40px;
+}
+.on-hover {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+}
+.on-hover:hover {
+    background-color: rgb(240, 240, 240);
+    cursor: pointer;
+}
+
+.access-card {
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em,
+        rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em,
+        rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+}
+
+/* ---------------teacher card style ---------- */
+
+.user-icon-container {
+    position: relative;
+}
+.user-icon {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    background-color: white;
+    height: 110px;
+    width: 110px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.google-container {
+    margin-bottom: 14px;
+}
+
+.google-container span {
+    font-weight: bold !important;
+    color: black !important;
+}
+
+/* -------- Styling exam drop down------------ */
+.exam-drop {
+    width: 170px;
+    margin-bottom: 10px;
+}
+
+/* -------Styling home page -------- */
+
+.home-image {
+    width: 100%;
+    height: 70vh;
+    position: relative;
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.logo-container {
+    color: white;
+    position: absolute;
+    top: 40%;
+    left: 10px;
+    transform: translate(0%, -50%);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100%;
+}
+
+.home-logo {
+    width: 80px;
+    height: 80px;
+}
+
+.about-courses {
+    width: 100%;
+    padding: 20px;
+    background-color: #ffff85;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.home-container {
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+        rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+
+.user-friendly {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 15px;
+    flex-wrap: wrap;
+}
+
+.simple-text {
+    width: 40%;
+    margin-top: 15px;
+}
+
+.home-card {
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+        rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    overflow: hidden;
+}
+
+.bottom-container {
+    width: 100%;
+    position: relative;
+    background-color: black;
+}
+
+.social-icons {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    height: 10vh;
+}
+
+.social-icons a {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.copyright_right {
+    color: white;
+    padding: 15px;
+}
+
+.active-link {
+    background-color: #ffffb6;
+}
+
+/* --------zoom link stylling -----------*/
+
+.zoom-page {
+    width: 100%;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 20px;
+    padding-bottom: 100px;
+}
+
+.zoom-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.zoom-container {
+    margin-top: 20px;
+    width: 70%;
+    background-color: white;
+    min-height: 20vh;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+        rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+
+.zoom-card-component {
+    padding: 10px;
+    font-size: 15px;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.zoom-card-component > div {
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.link-info {
+    color: #803bec;
+}
+.break-info {
+    word-break: break-word;
+    margin-left: 4px;
+}
+
+/* ----------file browser------------ */
+.custom-file-input {
+    cursor: pointer;
+}

@@ -1,0 +1,117 @@
+.profile-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    overflow-y: auto;
+}
+
+.profile-subcontainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 90%;
+    height: 80%;
+    background-color: white;
+    margin-top: 45px;
+    border-radius: 5px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+        rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    padding-top: 100px;
+    overflow: hidden;
+}
+
+.top-left-triangle {
+    width: 0;
+    height: 0;
+    border-top: 100px solid;
+    border-right: 100px solid transparent;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.bottom-left-triangle {
+    width: 0;
+    height: 0;
+    border-bottom: 100px solid;
+    border-right: 100px solid transparent;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+.top-right-triangle {
+    width: 0;
+    height: 0;
+    border-top: 100px solid;
+    border-left: 100px solid transparent;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.bottom-right-triangle {
+    width: 0;
+    height: 0;
+    border-bottom: 100px solid;
+    border-left: 100px solid transparent;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+.circle {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+}
+
+.circle-top {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.4);
+    display: none;
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.camera-icon {
+    transform: translate(0%, 80px);
+}
+
+.circle:hover .circle-top {
+    display: block;
+    visibility: visible;
+}
+
+.info-control-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.control-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.info-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #eaeaea;
+    padding: 10px;
+}

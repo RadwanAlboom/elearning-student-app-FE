@@ -1,0 +1,102 @@
+.cont {
+    width: 100%;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.contain {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: sans-serif;
+    height: 100vh;
+    background: url(../assets//bg.jpg) no-repeat center;
+    background-size: cover;
+    width: 100%;
+}
+
+.form-container {
+    width: 60%;
+    min-height: 70%;
+    border-radius: 10px;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    background: radial-gradient(#553f23, rgb(11, 16, 3, 1));
+    display: flex;
+}
+
+.form-section,
+.card-section {
+    width: 50%;
+}
+
+.card-section {
+    padding: 20px;
+    background: radial-gradient(#553f23, rgb(11, 16, 3, 1));
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.form-section {
+    padding: 40px 20px 20px 20px;
+    background-color: white;
+}
+
+.register-btn {
+    background-color: #007bff !important ;
+    color: white !important;
+}
+
+.register-btn:hover {
+    background-color: #066ede !important;
+}
+
+.MuiCheckbox-colorPrimary.Mui-checked {
+    color: #007bff !important;
+}
+
+@media screen and (max-width: 1024px) {
+    .form-container {
+        width: 95%;
+        min-height: 50%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .contain {
+        justify-content: unset;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        height: 140vh;
+    }
+    .form-container {
+        flex-direction: column;
+    }
+
+    .form-section,
+    .card-section {
+        width: 100%;
+    }
+
+    .space {
+        width: 100%;
+        height: 80px;
+    }
+    .contain-register {
+        height: 180vh;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .contain {
+        height: 200vh;
+    }
+
+    .contain-register {
+        height: 250vh;
+    }
+}
