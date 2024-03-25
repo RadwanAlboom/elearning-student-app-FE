@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
+import { useHistory } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -19,6 +20,9 @@ const store = configureStore();
 let persistor = persistStore(store);
 
 const App = () => {
+    const history = useHistory();
+    const [fraud, setFraud] = useState(false);
+
     useEffect(() => {
         document.addEventListener('keydown', keydownHandler);
 
@@ -26,6 +30,24 @@ const App = () => {
             document.removeEventListener('keydown', keydownHandler);
         };
     }, []);
+
+    setInterval(function() {
+        console.log(Object.defineProperties(new Error, {
+            toString: {value() {(new Error).stack.includes('toString@') && alert('devtools')}},
+            message: {get() {
+                const user = auth.getCurrentUser();
+                if (user && !user.isAdmin) {
+                    setFraud(true);
+                    auth.logout();
+                    history.goBack();
+                }
+            }},
+          }));
+    }, 1000);  
+
+    if (fraud) {
+        alert("hello");
+    }
 
     const keydownHandler = (e) => {
         if (e.keyCode === 123) e.preventDefault();
