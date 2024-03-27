@@ -60,14 +60,18 @@ class LoginForm extends Form {
                 this.state.major
             );
 
-            //login success => dispatch a notification
-            const payload = {
-                id: auth.getCurrentUser().id,
-                name: auth.getCurrentUser().name,
-                role: this.state.teacherChecked ? 'moderator' : 'user',
-                type: 'login',
-            };
-            this.state.currentSocket.emit('loginNotifications', { payload });
+            //login success => dispatch a notification for non admin users
+            const user = auth.getCurrentUser();
+
+            if (!user.isAdmin) {
+                const payload = {
+                    id: user.id,
+                    name: user.name,
+                    role: this.state.teacherChecked ? 'moderator' : 'user',
+                    type: 'login',
+                };
+                this.state.currentSocket.emit('loginNotifications', { payload });
+            }
 
             const { state } = this.props.location;
             window.location = state ? state.from.pathname : '/';
