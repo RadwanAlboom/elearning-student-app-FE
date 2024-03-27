@@ -9,9 +9,9 @@ class CourseForm extends Form {
     };
 
     schema = {
-        coursename: Joi.string().required().label('Course name'),
-        description: Joi.string().required().label('Description'),
-        url: Joi.string().required().label('Image URL'),
+        coursename: Joi.string().required().label('اسم المساق'),
+        description: Joi.string().required().label('الوصف'),
+        url: Joi.string().required().label('رابط الصورة'),
     };
 
     doSubmit = async () => {
@@ -29,9 +29,9 @@ class CourseForm extends Form {
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
-                    {this.renderInput('coursename', 'Course name')}
-                    {this.renderTextArea('description', 'Description')}
-                    {this.renderInput('url', 'Image URL')}
+                    {this.renderInput('coursename', 'اسم المساق')}
+                    {this.renderTextArea('description', 'الوصف')}
+                    {this.renderInput('url', 'رابط الصورة')}
                     {this.renderButton(`${this.props.btnName}`, false)}
                 </form>
             </div>

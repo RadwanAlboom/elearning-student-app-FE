@@ -98,7 +98,7 @@ export default function SimplePopover({ handleClose, anchorEl }) {
                                 marginBottom: '5px',
                             }}
                         />
-                        Notifications
+                        الاشعارات
                     </div>
                     {notfications.map((notification) => (
                         <Accordion
@@ -156,12 +156,12 @@ export default function SimplePopover({ handleClose, anchorEl }) {
                             </AccordionSummary>
                             <AccordionDetails>
                                 <Typography>
-                                    {notification.description}
                                     {notification.type === 'login'
                                         ? ' 👋'
                                         : notification.type === 'request'
                                         ? ' 🙋‍♂️'
                                         : ' 😎'}
+                                    {notification.description}
                                 </Typography>
                             </AccordionDetails>
                         </Accordion>

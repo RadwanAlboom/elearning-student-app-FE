@@ -35,7 +35,7 @@ const TeahersComponent = () => {
     }, [dispatch]);
 
     const deleteClicked = (id) => {
-        setFormTitle('Delete Teacher');
+        setFormTitle('حذف معلم');
         setModalShow(true);
         setDeleteFormShow(true);
         setUpdateFormShow(false);
@@ -43,7 +43,7 @@ const TeahersComponent = () => {
     };
 
     const updateClicked = (id) => {
-        setFormTitle('Update Teacher Info');
+        setFormTitle('تحديث معلومات المعلم');
         setModalShow(true);
         setUpdateFormShow(true);
         setDeleteFormShow(false);
@@ -54,7 +54,7 @@ const TeahersComponent = () => {
         setModalShow(false);
         try {
             dispatch(deleteTeacher(requestId));
-            toast.success('Teacher deleted successfully');
+            toast.success('تم حذف المعلم بنجاح');
 
             socket = socketIOClient(backendURL);
             socket.emit('teachers', { id: requestId }, (error) => {});
@@ -66,7 +66,7 @@ const TeahersComponent = () => {
         setModalShow(false);
         try {
             dispatch(updateTeacher(requestId, updatedStudent));
-            toast.success('Teacher Info updated successfully');
+            toast.success('تم تحديث معلومات المعلم بنجاح');
             socket = socketIOClient(backendURL);
             socket.emit('teachers', { id: requestId }, (error) => {});
         } catch (error) {
@@ -105,7 +105,7 @@ const TeahersComponent = () => {
                             marginBottom: '5px',
                         }}
                     />
-                    Teachers
+                    المعلمين
                 </h3>
             </div>
             <Table

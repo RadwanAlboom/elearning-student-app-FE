@@ -6,16 +6,16 @@ import { fade, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import { FaFacebookMessenger } from 'react-icons/fa';
+import Upload from '../components/upload';
+import circle from "../assets/admin/circle.json"
 
 import { loadNotifications } from '../store/userNotifications';
 import { loadRequests } from '../store/requests';
@@ -268,7 +268,7 @@ export default function PrimarySearchAppBar({ user }) {
                         style={{ textDecoration: 'none', color: 'black' }}
                     >
                         <MenuItem onClick={handleMenuClose}>
-                            Edit Profile
+                            الملف الشخصي
                         </MenuItem>
                     </NavLink>
                     <NavLink
@@ -307,7 +307,7 @@ export default function PrimarySearchAppBar({ user }) {
                             <MailIcon />
                         </Badge>
                     </IconButton>
-                    <p>Messages</p>
+                    <p>المحادثات</p>
                 </MenuItem>
             </div>
             <div onClick={handleClick}>
@@ -324,7 +324,7 @@ export default function PrimarySearchAppBar({ user }) {
                         </Badge>
                     </IconButton>
 
-                    <p>Notifications</p>
+                    <p>الاشعارات</p>
                 </MenuItem>
             </div>
 
@@ -337,7 +337,7 @@ export default function PrimarySearchAppBar({ user }) {
                 >
                     <AccountCircle />
                 </IconButton>
-                <p>Profile</p>
+                <p>الملف الشخصي</p>
             </MenuItem>
         </Menu>
     );
@@ -352,21 +352,15 @@ export default function PrimarySearchAppBar({ user }) {
 
             <AppBar position="static" style={{ backgroundColor: '#0f0f15' }}>
                 <Toolbar>
-                    <Typography className={classes.title} variant="h6" noWrap>
-                        <LogoName />
-                    </Typography>
+                    <Upload
+                        lotti={circle}
+                        height={60}
+                        width={200}
+                    />
                     <div className={classes.search}>
                         <div className={classes.searchIcon}>
-                            <SearchIcon />
+                            
                         </div>
-                        <InputBase
-                            placeholder="Search…"
-                            classes={{
-                                root: classes.inputRoot,
-                                input: classes.inputInput,
-                            }}
-                            inputProps={{ 'aria-label': 'search' }}
-                        />
                     </div>
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
@@ -381,7 +375,10 @@ export default function PrimarySearchAppBar({ user }) {
                                 }
                                 color="secondary"
                             >
-                                <MailIcon />
+                                <FaFacebookMessenger
+                                    color="white"
+                                    style={{ marginRight: '5px', marginBottom: '5px' }}
+                                />
                             </Badge>
                         </IconButton>
                         <IconButton

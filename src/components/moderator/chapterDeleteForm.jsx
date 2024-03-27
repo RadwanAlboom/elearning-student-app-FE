@@ -11,7 +11,7 @@ class ChapterDeleteForm extends Form {
     };
 
     schema = {
-        id: Joi.string().required().label('Chapter id'),
+        id: Joi.string().required().label('المعرف'),
     };
 
     doSubmit = () => {
@@ -22,11 +22,11 @@ class ChapterDeleteForm extends Form {
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
-                    {this.renderInput('id', 'Chapter id', 'text', '', true)}
+                    {this.renderInput('id', 'المعرف', 'text', '', true)}
                     <div style={{ fontSize: '1.5rem' }}>
-                        Are you sure you want to delete this chapter?
+                        هل انت متاكد انك تريد حذف هذا الفصل؟
                     </div>
-                    {this.renderButton(`Delete Chapter`, false)}
+                    {this.renderButton(`حذف الفصل`, false)}
                 </form>
             </div>
         );

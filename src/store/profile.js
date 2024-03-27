@@ -13,8 +13,9 @@ const slice = createSlice({
             profile.list = action.payload;
         },
         profileImageUpdated: (profile, action) => {
-            const { newImg } = action.payload;
+            const { newImg, newImgId } = action.payload;
             profile.list.image = newImg;
+            profile.list.imageId = newImgId;
         },
 
         profileRecevierReceived: (profile, action) => {
@@ -63,12 +64,12 @@ export const loadTeacherProfile = (userId) => (dispatch, getState) => {
     );
 };
 
-export const updateImageProfile = (id, newImg) =>
+export const updateImageProfile = (id, newImage) =>
     apiCallBegan({
         url: `/profile/${id}`,
         method: 'put',
         name: 'imageUpdated',
-        data: newImg,
+        data: newImage,
         onSuccess: profileImageUpdated.type,
     });
 

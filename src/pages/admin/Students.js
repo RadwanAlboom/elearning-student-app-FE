@@ -35,7 +35,7 @@ const RequestsComponent = () => {
     }, [dispatch]);
 
     const deleteClicked = (id) => {
-        setFormTitle('Delete Student');
+        setFormTitle('حذف طالب');
         setModalShow(true);
         setDeleteFormShow(true);
         setUpdateFormShow(false);
@@ -43,7 +43,7 @@ const RequestsComponent = () => {
     };
 
     const updateClicked = (id) => {
-        setFormTitle('Update Student Info');
+        setFormTitle('تحديث معلومات الطالب');
         setModalShow(true);
         setUpdateFormShow(true);
         setDeleteFormShow(false);
@@ -105,7 +105,7 @@ const RequestsComponent = () => {
                             marginBottom: '5px',
                         }}
                     />
-                    Students
+                    الطلاب
                 </h3>
             </div>
             <Table

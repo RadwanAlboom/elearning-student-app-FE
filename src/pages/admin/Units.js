@@ -15,6 +15,7 @@ import ChapterDeleteForm from '../../components/admin/chapterDeleteForm';
 import ChapterUpdateForm from '../../components/admin/chapterUpdateForm';
 import Unit from '../../components/admin/unit.jsx';
 import DropDownLevel from '../../components/dropDownLevel';
+import { BsFillGrid3X3GapFill } from 'react-icons/bs';
 
 import { loadUnits, addUnit, updateUnit, deleteUnit } from '../../store/units';
 
@@ -81,7 +82,7 @@ const Units = ({ match }) => {
     }, [dispatch]);
 
     const updateClicked = (id, chapter) => {
-        setFormTitle('Update Chapter');
+        setFormTitle('تحديث فصل');
         setModalShow(true);
         setUpdateFormShow(true);
         setDeleteFormShow(false);
@@ -90,7 +91,7 @@ const Units = ({ match }) => {
     };
 
     const deleteClicked = (id, chapter) => {
-        setFormTitle('Delete Chapter');
+        setFormTitle('حذف فصل');
         setModalShow(true);
         setDeleteFormShow(true);
         setUpdateFormShow(false);
@@ -99,7 +100,7 @@ const Units = ({ match }) => {
     };
 
     const addClicked = () => {
-        setFormTitle('New Chapter');
+        setFormTitle('فصل جديد');
         setModalShow(true);
         setAddFormShow(true);
         setUpdateFormShow(false);
@@ -109,19 +110,19 @@ const Units = ({ match }) => {
     const handleAddSubmitted = async (newChapter) => {
         setModalShow(false);
         dispatch(addUnit(newChapter, classCourseId));
-        toast.success('Chapter added successfully');
+        toast.success('تم اضافة الفصل بنجاح');
     };
 
     const handleUpdatedSubmitted = async (updatedUnit) => {
         setModalShow(false);
         dispatch(updateUnit(chapterId, updatedUnit));
-        toast.success('Chapter updated successfully');
+        toast.success('تم تحديث الفصل بنجاح');
     };
 
     const handleDeleteSubmitted = async () => {
         setModalShow(false);
         dispatch(deleteUnit(chapterId));
-        toast.success('Chapter deleted successfully');
+        toast.success('تم حذف الفصل بنجاح');
     };
 
     const displayChapters = chapters.map((chapter) => {
@@ -195,7 +196,17 @@ const Units = ({ match }) => {
                 )}
             </VerticalModal>
             <div className="courses-header">
-                <h3>Chapters</h3>
+                <h3>
+                    <BsFillGrid3X3GapFill
+                        size={'1.7rem'}
+                        color="#803bec"
+                        style={{
+                            marginRight: '10px',
+                            marginBottom: '5px',
+                        }}
+                    />
+                    الفصول
+                </h3>
                 <div>
                     <Button
                         variant="contained"
@@ -204,7 +215,7 @@ const Units = ({ match }) => {
                         startIcon={<AddCircleSharpIcon />}
                         onClick={addClicked}
                     >
-                        Add chapter
+                        اضافة فصل
                     </Button>
                     <Button
                         variant="contained"
@@ -213,7 +224,7 @@ const Units = ({ match }) => {
                         startIcon={<AddCircleSharpIcon />}
                         onClick={handleZoomClick}
                     >
-                        Add Zoom Link
+                        اضافة رابط زوم
                     </Button>
                 </div>
             </div>

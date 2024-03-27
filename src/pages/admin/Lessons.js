@@ -2,13 +2,10 @@ import React, { useState, useEffect } from 'react';
 import socketIOClient from 'socket.io-client';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import tus from 'tus-js-client';
-import axios from 'axios';
 
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import AddCircleSharpIcon from '@material-ui/icons/AddCircleSharp';
-import ClearIcon from '@material-ui/icons/Clear';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
@@ -27,7 +24,6 @@ import { FaFilePdf } from 'react-icons/fa';
 import CreateIcon from '@material-ui/icons/Create';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import { toast } from 'react-toastify';
-import ReactPlayer from 'react-player';
 
 import VerticalModal from '../../components/admin/verticalModel';
 import LessonAddForm from '../../components/admin/lessonAddForm';
@@ -38,7 +34,6 @@ import PDFAddForm from '../../components/admin/pdfAddForm';
 import PDFDeleteForm from './../../components/admin/pdfDeleteForm';
 import PDFUpdateForm from '../../components/admin/pdfUpdateForm';
 import PDFReader from './../../components/PDFReader';
-import ProgressBar from '../../components/progressBar';
 
 import {
     loadLessons,
@@ -49,35 +44,12 @@ import {
 
 import { loadExams, deleteExam } from '../../store/exams';
 import { loadFiles, addFile, deleteFile, updateFile } from '../../store/files';
-import Upload from '../../components/upload';
-import uploadAnim from '../../assets/Animation/7877-uploading-to-cloud.json';
+import {uploadPdfFile, handleDeleteFile} from "../../services/uploadService";
 
 const drawerWidth = 400;
 let socket;
 let backendURL = process.env.REACT_APP_API_URL;
 
-// ------- some variables for vimeo auth --------
-
-const accessToken = '5413a481a0fc03d369817687d9760f6f';
-
-const headerDelete = {
-    Accept: 'application/vnd.vimeo.*+json;version=3.4',
-    Authorization: `bearer ${accessToken}`,
-    'Content-Type': 'application/x-www-form-urlencode',
-};
-
-const headerPatch = {
-    'Tus-Resumable': '1.0.0',
-    'Upload-Offset': 0,
-    'Content-Type': 'application/offset+octet-stream',
-    Accept: 'application/vnd.vimeo.*+json;version=3.4',
-};
-
-const headerPost = {
-    Accept: 'application/vnd.vimeo.*+json;version=3.4',
-    Authorization: `bearer ${accessToken}`,
-    'Content-Type': 'application/json',
-};
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -133,20 +105,16 @@ function ResponsiveDrawer({ match, ...other }) {
     const [lessonId, setLessonId] = useState('');
     const [examId, setExamId] = useState('');
     const [fileId, setFileId] = useState('');
+    const [linkId, setLinkId] = useState('');
     const [activeLink, setActiveLink] = useState(null);
-    const [link, setLink] = useState(
-        'https://fast.wistia.com/embed/medias/buprlexl63.jsonp'
-    );
+    const [link, setLink] = useState('');
     const [pdf, setPdf] = useState('');
     const [counter, setCounter] = useState(0);
     const [isPdf, setIsPdf] = useState(false);
+    const[progress, setProgress] = useState(0)
+    const[clicked, setClicked] = useState(false);
 
-    const [progressVal, setProgressVal] = useState(0);
     const [isButtonShow, setIsButtonShow] = useState(true);
-    const [uploadInstance, setUploadInstance] = useState(null);
-    const [isCancelBtnShow, setIsCancelBtnShow] = useState(false);
-    const [videoName, setVideoName] = useState('');
-    const [videoId, setVideoId] = useState('');
 
     const lessons = useSelector((state) =>
         state.entities.lessons.list.filter(
@@ -217,7 +185,7 @@ function ResponsiveDrawer({ match, ...other }) {
 
     const updateClicked = (id, lesson) => {
         setLessonId(id);
-        setFormTitle('Update Lesson');
+        setFormTitle('تحديث محاضرة');
         setModalShow(true);
         setUpdateFormShow(true);
         setDeleteFormShow(false);
@@ -230,7 +198,7 @@ function ResponsiveDrawer({ match, ...other }) {
 
     const deleteClicked = (id, lesson) => {
         setLessonId(id);
-        setFormTitle('Delete Lesson');
+        setFormTitle('حذف محاضرة');
         setModalShow(true);
         setDeleteFormShow(true);
         setAddFormShow(false);
@@ -242,7 +210,8 @@ function ResponsiveDrawer({ match, ...other }) {
     };
 
     const deleteExamClicked = (id) => {
-        setFormTitle('Delete Exam');
+        setMobileOpen(false);
+        setFormTitle('حذف امتحان');
         setExamId(id);
         setModalShow(true);
         setDeleteExamFormShow(true);
@@ -255,6 +224,7 @@ function ResponsiveDrawer({ match, ...other }) {
     };
 
     const addClicked = (id) => {
+        setMobileOpen(false);
         setLessonId(id);
         setFormTitle('اضافة محاضرة جديدة');
         setModalShow(true);
@@ -268,7 +238,8 @@ function ResponsiveDrawer({ match, ...other }) {
     };
 
     const addFileClicked = () => {
-        setFormTitle('New PDF File');
+        setMobileOpen(false);
+        setFormTitle('جديد PDF ملف');
         setModalShow(true);
         setAddPDFFormShow(true);
         setAddFormShow(false);
@@ -279,9 +250,9 @@ function ResponsiveDrawer({ match, ...other }) {
         setUpdatePDFFormShow(false);
     };
 
-    const updatePDFClicked = (id) => {
+    const updatePDFClicked = (id, linkId) => {
         setFileId(id);
-        setFormTitle('Update PDF File');
+        setFormTitle('PDF تحديث ملف');
         setUpdatePDFFormShow(true);
         setModalShow(true);
         setDeletePDFFormShow(false);
@@ -290,11 +261,12 @@ function ResponsiveDrawer({ match, ...other }) {
         setDeleteFormShow(false);
         setUpdateFormShow(false);
         setDeleteExamFormShow(false);
+        setLinkId(linkId);
     };
 
-    const deletePDFClicked = (id) => {
+    const deletePDFClicked = (id, linkId) => {
         setFileId(id);
-        setFormTitle('Delete PDF File');
+        setFormTitle('PDF حذف ملف');
         setModalShow(true);
         setDeletePDFFormShow(true);
         setAddPDFFormShow(false);
@@ -303,101 +275,30 @@ function ResponsiveDrawer({ match, ...other }) {
         setUpdateFormShow(false);
         setDeleteExamFormShow(false);
         setUpdatePDFFormShow(false);
+        setLinkId(linkId);
     };
 
     const handleAddSubmitted = async (newLesson) => {
-        setIsButtonShow(false);
-        const { file, name } = newLesson;
-        const fileSize = file.size.toString();
-        setVideoName(`${name} ( ${file.name} )`);
-        const data = {
-            upload: {
-                approach: 'tus',
-                size: fileSize,
-            },
-            name: name,
-        };
-        const uninterceptedAxiosInstance = axios.create();
-        const response = await uninterceptedAxiosInstance.post(
-            `https://api.vimeo.com/me/videos`,
-            data,
-            { headers: headerPost }
-        );
-        console.log(response);
-
-        //Create a new tus upload
-        setVideoId(response.data.uri);
-
-        const upload = new tus.Upload(file, {
-            endPoint: 'https://api.vimeo.com/me/videos',
-            uploadUrl: response.data.upload.upload_link,
-            retryDelays: [0, 3000, 5000, 10000, 20000],
-            metadata: {
-                filename: file.name,
-                filetype: file.type,
-            },
-            headers: {},
-            onError: function (error) {
-                cancelUploading();
-                console.log('Failed because: ' + error);
-            },
-            onProgress: function (bytesUploaded, bytesTotal) {
-                let percentage = ((bytesUploaded / bytesTotal) * 100).toFixed(
-                    2
-                );
-                setProgressVal(percentage);
-                console.log(bytesUploaded, bytesTotal, percentage + '%');
-            },
-            onSuccess: function () {
-                setUploadInstance(null);
-                setModalShow(false);
-                setProgressVal(0);
-                setIsButtonShow(true);
-                setIsCancelBtnShow(false);
-                toast.success('❣️ المحاضرة تمت اضافتها بنجاح');
-            },
-        });
-
-        setUploadInstance(upload);
-        setIsCancelBtnShow(true);
-        upload.start();
-        // dispatch(addLesson(newLesson, chapterId));
+        setModalShow(false);
+        dispatch(addLesson(newLesson, chapterId));
+        toast.success('تم اضافة المحاضرة بنجاح');
     };
 
     const cancelUploading = () => {
-        if (uploadInstance != null) {
-            uploadInstance.abort();
-            setProgressVal(0);
-            setIsButtonShow(true);
-            setIsCancelBtnShow(false);
-            setModalShow(false);
-            deleteVideo();
-            toast.warn('⚠️ المحاضرة تم الغاء تحميلها');
-            setUploadInstance(null);
-        }
-
+        setProgress(0);
         if (isButtonShow) setModalShow(false);
-    };
-
-    const deleteVideo = async () => {
-        const uninterceptedAxiosInstance = axios.create();
-        const response = await uninterceptedAxiosInstance.delete(
-            `https://api.vimeo.com/${videoId}`,
-            { headers: headerDelete }
-        );
-        console.log(response);
     };
 
     const handleUpdatedSubmitted = async (updatedLesson) => {
         setModalShow(false);
         dispatch(updateLesson(lessonId, updatedLesson));
-        toast.success('Lesson updated successfully');
+        toast.success('تم تحديث المحاضرة بنجاح');
     };
 
     const handleDeleteSubmitted = async () => {
         setModalShow(false);
         dispatch(deleteLesson(lessonId));
-        toast.success('Lesson deleted successfully');
+        toast.success('تم حذف المحاضرة بنجاح');
     };
 
     const handleClick = (link) => {
@@ -405,30 +306,59 @@ function ResponsiveDrawer({ match, ...other }) {
         setIsPdf(false);
     };
 
-    const handlePDFClick = (link) => {
+    const handlePDFClick = (link, linkId) => {
         setPdf(link);
         setIsPdf(true);
+        setLinkId(linkId);
     };
 
-    const addPDFSubmitted = (newFile) => {
+
+    const addPDFSubmitted = async ({name, pdfFile}) => {
+        setClicked(true);
+
+        try {
+            const {data} = await uploadPdfFile(pdfFile, setProgress);
+            dispatch(addFile({name, url: data.secure_url, publicId: data.public_id}, chapterId));
+            toast.success('تم اضافة الملف بنجاح');
+        } catch(ex) {
+            console.log(ex);
+        }
+
         setModalShow(false);
-        dispatch(addFile(newFile, chapterId));
-        toast.success('File added successfully');
+        setProgress(0);
+        setClicked(false);
     };
 
-    const handleDeletePDFSubmitted = () => {
+    const UpdatePDFSubmitted = async ({name, linkId, pdfFile}) => {
+        setClicked(true);
+        
+        try {
+            if (pdfFile) {
+                const {data} = await uploadPdfFile(pdfFile, setProgress);
+                dispatch(updateFile(fileId, {name, url: data.secure_url, publicId: data.public_id}));
+                handleDeleteFile(linkId);
+            } else {
+                dispatch(updateFile(fileId, {name, url: '', publicId: ''}));
+            }
+            toast.success('تم تحديث الملف بنجاح');
+        } catch(ex) {
+            console.log(ex);
+        }
+
         setModalShow(false);
+        setProgress(0);
+        setClicked(false);
+    };
+
+    const handleDeletePDFSubmitted = (linkId) => {
+        setModalShow(false);
+        handleDeleteFile(linkId);
         dispatch(deleteFile(fileId));
-        toast.success('Exam deleted successfully');
-    };
-
-    const UpdatePDFSubmitted = (updatedFile) => {
-        setModalShow(false);
-        dispatch(updateFile(fileId, updatedFile));
-        toast.success('Exam updated successfully');
+        toast.success('تم حذف الملف بنجاح');
     };
 
     const addExamClicked = () => {
+        setMobileOpen(false);
         const add_URI = `/admin/courses/teachers/classCourses/chapters/exams`;
         history.push({
             pathname: add_URI,
@@ -440,6 +370,7 @@ function ResponsiveDrawer({ match, ...other }) {
     };
 
     const updateExamClicked = (id) => {
+        setMobileOpen(false);
         const add_URI = `/admin/courses/teachers/classCourses/chapters/exams`;
         history.push({
             pathname: add_URI,
@@ -455,11 +386,12 @@ function ResponsiveDrawer({ match, ...other }) {
         setModalShow(false);
         dispatch(deleteExam(examId));
 
-        toast.success('Exam deleted successfully');
+        toast.success('تم حذف الامتحان بنجاح');
     };
 
-    const handleActiveClick = (id) => {
-        setActiveLink(id);
+    const handleActiveClick = (type, id) => {
+        setMobileOpen(false);
+        setActiveLink(type + id);
     };
     const drawer = (
         <div>
@@ -493,42 +425,46 @@ function ResponsiveDrawer({ match, ...other }) {
                         chapterId + '' === lesson.chapter_id + ''
                     ) {
                         setLink(lesson.link);
-                        setActiveLink(lesson.id);
+                        setActiveLink('lesson' + lesson.id);
                         setCounter(index + 1);
                     }
                     return chapterId + '' === lesson.chapter_id + '' ? (
                         <div
                             key={lesson.id}
-                            style={{ display: 'flex', alignItems: 'center' }}
-                            onClick={() => handleActiveClick(lesson.id)}
+                            style={{ display: 'flex', alignItems: 'center', wordWrap: 'break-word' }}
+                            onClick={() => handleActiveClick('lesson', lesson.id)}
                             className={
-                                lesson.id === activeLink ? ' active-link' : ''
+                                'lesson' + lesson.id === activeLink ? ' active-link' : ''
                             }
                         >
-                            <ListItem
-                                button
-                                key={lesson.name}
-                                onClick={() => handleClick(lesson.link)}
-                            >
-                                <ListItemIcon>
-                                    <MdOndemandVideo
-                                        size={'1.5rem'}
-                                        color="#803bec"
-                                    />
-                                </ListItemIcon>
-                                <ListItemText primary={lesson.name} />
-                            </ListItem>
-                            <div
-                                onClick={() => updateClicked(lesson.id, lesson)}
-                                className="on-hover updateBtn"
-                            >
-                                <CreateIcon />
-                            </div>
-                            <div
-                                onClick={() => deleteClicked(lesson.id, lesson)}
-                                className="on-hover deleteBtn"
-                            >
-                                <HighlightOffIcon color="inherit" />
+                            <div style={{display: 'flex', alignItems: 'center', wordBreak: 'break-word',width: '100%'}}>
+                                <ListItem
+                                    button
+                                    key={lesson.name}
+                                    onClick={() => handleClick(lesson.link)}
+                                >
+                                    <ListItemIcon>
+                                        <MdOndemandVideo
+                                            size={'1.5rem'}
+                                            color="#803bec"
+                                        />
+                                    </ListItemIcon>
+                                    <ListItemText primary={lesson.name} />
+                                </ListItem>
+                                <div style={{display: 'flex'}}>
+                                    <div
+                                        onClick={() => updateClicked(lesson.id, lesson)}
+                                        className="on-hover updateBtn"
+                                    >
+                                        <CreateIcon />
+                                    </div>
+                                    <div
+                                        onClick={() => deleteClicked(lesson.id, lesson)}
+                                        className="on-hover deleteBtn"
+                                    >
+                                        <HighlightOffIcon color="inherit" />
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     ) : (
@@ -564,38 +500,41 @@ function ResponsiveDrawer({ match, ...other }) {
                     return (
                         <div
                             key={file.id}
-                            style={{ display: 'flex', alignItems: 'center' }}
-                            onClick={() => handleActiveClick(file.id)}
+                            style={{ display: 'flex', alignItems: 'center', overflowWrap: 'break-word'}}
+                            onClick={() => handleActiveClick('pdf', file.id)}
                             className={
-                                file.id === activeLink ? ' active-link' : ''
+                                'pdf' + file.id === activeLink ? ' active-link' : ''
                             }
                         >
-                            <ListItem
-                                button
-                                key={file.name}
-                                onClick={() => handlePDFClick(file.link)}
-                            >
-                                <ListItemIcon>
-                                    <FaFilePdf
-                                        size={'1.5rem'}
-                                        color="#803bec"
-                                    />
-                                </ListItemIcon>
-                                <ListItemText primary={file.name} />
-                            </ListItem>
-
-                            <div
-                                onClick={() => updatePDFClicked(file.id)}
-                                className="on-hover updateBtn"
-                            >
-                                <CreateIcon />
-                            </div>
-
-                            <div
-                                onClick={() => deletePDFClicked(file.id)}
-                                className="on-hover deleteBtn"
-                            >
-                                <HighlightOffIcon color="inherit" />
+                           
+                            <div style={{display: 'flex', alignItems: 'center', wordBreak: 'break-word',width: '100%'}}>
+                                <ListItem
+                                    button
+                                    key={file.name}
+                                    onClick={() => handlePDFClick(file.link, file.linkId)} 
+                                >
+                                    <ListItemIcon>
+                                        <FaFilePdf
+                                            size={'1.5rem'}
+                                            color="#803bec"
+                                        />
+                                    </ListItemIcon>
+                                    <ListItemText primary={file.name} />
+                                </ListItem>
+                                <div style={{display: 'flex'}}>
+                                    <div
+                                        onClick={() => updatePDFClicked(file.id, file.linkId)}
+                                        className="on-hover updateBtn"
+                                    >
+                                        <CreateIcon />
+                                    </div>
+                                    <div
+                                        onClick={() => deletePDFClicked(file.id, file.linkId)}
+                                        className="on-hover deleteBtn"
+                                    >
+                                        <HighlightOffIcon color="inherit" />
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     );
@@ -631,7 +570,7 @@ function ResponsiveDrawer({ match, ...other }) {
                     return (
                         <div
                             key={exam.id}
-                            style={{ display: 'flex', alignItems: 'center' }}
+                            style={{ display: 'flex', alignItems: 'center', wordBreak: 'break-word' }}
                         >
                             <ListItem
                                 button
@@ -661,6 +600,7 @@ function ResponsiveDrawer({ match, ...other }) {
                         </div>
                     );
                 })}
+                <div style={{width: '100%', height:'100px'}}></div>
             </List>
             <Divider />
         </div>
@@ -673,52 +613,17 @@ function ResponsiveDrawer({ match, ...other }) {
         <div className={classes.root}>
             <VerticalModal
                 formTitle={formTitle}
+                progress={progress}
                 show={modalShow}
                 onHide={() => {
                     cancelUploading();
                 }}
             >
                 {addFormShow && (
-                    <>
                         <LessonAddForm
                             submitted={handleAddSubmitted}
                             isButtonShow={isButtonShow}
                         />
-                        <div
-                            style={{
-                                padding: '15px 0px 12px 15px',
-                                backgroundColor: '#f7ff76',
-                                marginTop: '30px',
-                                borderRadius: '5px',
-                                border: '1px solid #c9c9c9',
-                            }}
-                        >
-                            <ProgressBar progress={progressVal} />
-                            {isCancelBtnShow && (
-                                <>
-                                    <Button
-                                        variant="contained"
-                                        color="secondary"
-                                        className={`${classes.button} cancel-btn`}
-                                        startIcon={<ClearIcon />}
-                                        onClick={cancelUploading}
-                                    >
-                                        الغاء التحميل
-                                    </Button>
-                                    <span style={{ marginLeft: '10px' }}>
-                                        {videoName}
-                                    </span>
-                                </>
-                            )}
-                        </div>
-                        {!isButtonShow && (
-                            <Upload
-                                lotti={uploadAnim}
-                                height={100}
-                                width={100}
-                            />
-                        )}
-                    </>
                 )}
                 {updateFormShow && (
                     <LessonUpdateForm
@@ -743,22 +648,26 @@ function ResponsiveDrawer({ match, ...other }) {
 
                 {addPDFFormShow && (
                     <PDFAddForm
-                        btnName="Add PDF File"
+                        btnName="PDF اضافة ملف"
                         submitted={addPDFSubmitted}
+                        clicked={clicked}
                     />
                 )}
 
                 {updatePDFFormShow && (
                     <PDFUpdateForm
-                        btnName="Update PDF File"
+                        btnName="PDF تحديث ملف"
                         id={fileId + ''}
+                        linkId={linkId}
                         submitted={UpdatePDFSubmitted}
+                        clicked={clicked}
                     />
                 )}
 
                 {deletePDFFormShow && (
                     <PDFDeleteForm
                         id={fileId + ''}
+                        linkId={linkId}
                         submitted={handleDeletePDFSubmitted}
                     />
                 )}
@@ -806,13 +715,7 @@ function ResponsiveDrawer({ match, ...other }) {
                                 padding: '0 0 0 0',
                             }}
                         >
-                            <ReactPlayer
-                                url="https://radwanalboom.wistia.com/medias/buprlexl63"
-                                playing={true}
-                                width="100%"
-                                height="100%"
-                                controls
-                            />
+                            <iframe frameborder="0" width="100%" height="100%" src={"https://geo.dailymotion.com/player/xry4k.html?video=" + link} allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe>
                         </div>
                     </div>
                 )}

@@ -98,7 +98,7 @@ class LoginForm extends Form {
                         }}
                     >
                         <GoSignIn style={{ marginRight: '10px' }} />
-                        Sign in
+                        تسجيل الدخول
                     </h2>
                     <ErrorMessage error={this.state.loginErrors.error} />
                     {this.renderInput('loginEmail', 'Email', 'email', email)}
@@ -113,7 +113,7 @@ class LoginForm extends Form {
                                 color="primary"
                             />
                         }
-                        label="Login as a teacher"
+                        label="تسجيل الدخول كمعلم"
                     />
                     {this.state.teacherChecked && (
                         <DropDown
@@ -123,7 +123,7 @@ class LoginForm extends Form {
                             majors={this.props.majors}
                         />
                     )}
-                    {this.renderButton('Login', false)}
+                    {this.renderButton('تسجيل الدخول', false)}
                 </form>
             </div>
         );

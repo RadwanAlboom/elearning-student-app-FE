@@ -316,7 +316,7 @@ const Sidebar = () => {
                                 to="/admin/profile"
                                 onClick={() => handleProfileClick()}
                             >
-                                view profile
+                                الملف الشخصي
                             </Link>
                         </Name>
                     </Details>

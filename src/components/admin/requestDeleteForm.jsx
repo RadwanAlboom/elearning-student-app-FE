@@ -11,7 +11,7 @@ class RequestDeleteForm extends Form {
     };
 
     schema = {
-        id: Joi.number().integer().required().label('Request id'),
+        id: Joi.number().integer().required().label('المعرف'),
     };
 
     doSubmit = () => {
@@ -22,11 +22,11 @@ class RequestDeleteForm extends Form {
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
-                    {this.renderInput('id', 'Request id', 'text', '', true)}
+                    {this.renderInput('id', 'المعرف', 'text', '', true)}
                     <div style={{ fontSize: '1.5rem' }}>
-                        Are you sure you want to delete this request?
+                        هل انت متأكد من انك تريد حذف هذا الطلب؟
                     </div>
-                    {this.renderButton(`Delete Request`, false)}
+                    {this.renderButton(`حذف طلب`, false)}
                 </form>
             </div>
         );

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import socketIOClient from 'socket.io-client';
 import { useLocation, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { BsFillGrid3X3GapFill } from 'react-icons/bs';
 
 import TeacherCard from '../../components/moderator/teacherCard';
 import auth from '../../services/authService';
@@ -67,7 +68,17 @@ const Teacher = () => {
     return (
         <div className="admin-courses">
             <div className="courses-header">
-                <h3>Teachers</h3>
+                <h3>
+                    <BsFillGrid3X3GapFill
+                        size={'1.7rem'}
+                        color="#803bec"
+                        style={{
+                            marginRight: '10px',
+                            marginBottom: '5px',
+                        }}
+                    />
+                    المعلمين
+                </h3>
             </div>
             <div
                 style={{

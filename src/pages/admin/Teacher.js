@@ -4,6 +4,7 @@ import { useLocation, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
+import { BsFillGrid3X3GapFill } from 'react-icons/bs';
 import AddCircleSharpIcon from '@material-ui/icons/AddCircleSharp';
 
 import VerticalModal from '../../components/admin/verticalModel';
@@ -53,7 +54,7 @@ const Teacher = () => {
     }, [dispatch]);
 
     const addClicked = () => {
-        setFormTitle('New Teacher');
+        setFormTitle('معلم جديد');
         setModalShow(true);
         setAddFormShow(true);
     };
@@ -97,7 +98,17 @@ const Teacher = () => {
                 )}
             </VerticalModal>
             <div className="courses-header">
-                <h3>Teachers</h3>
+                <h3>
+                    <BsFillGrid3X3GapFill
+                        size={'1.7rem'}
+                        color="#803bec"
+                        style={{
+                            marginRight: '10px',
+                            marginBottom: '5px',
+                        }}
+                    />
+                    المعلمين
+                </h3>
                 <Button
                     variant="contained"
                     color="secondary"
@@ -105,7 +116,7 @@ const Teacher = () => {
                     startIcon={<AddCircleSharpIcon />}
                     onClick={addClicked}
                 >
-                    Add Teacher
+                    اضافة معلم
                 </Button>
             </div>
             <div

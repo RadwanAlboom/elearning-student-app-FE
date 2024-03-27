@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import AddCircleSharpIcon from '@material-ui/icons/AddCircleSharp';
+import { BsFillGrid3X3GapFill } from 'react-icons/bs';
 import { toast } from 'react-toastify';
 
 import Card from '../../components/admin/Card';
@@ -68,7 +69,7 @@ const ClassCourses = () => {
     }, [dispatch]);
 
     const updateClicked = (id, course) => {
-        setFormTitle('Update Class Course');
+        setFormTitle('تحديث مساق مخصص');
         setModalShow(true);
         setUpdateFormShow(true);
         setDeleteFormShow(false);
@@ -77,7 +78,7 @@ const ClassCourses = () => {
     };
 
     const deleteClicked = (id, course) => {
-        setFormTitle('Delete Class Course');
+        setFormTitle('حذف مساق مخصص');
         setModalShow(true);
         setDeleteFormShow(true);
         setUpdateFormShow(false);
@@ -86,7 +87,7 @@ const ClassCourses = () => {
     };
 
     const addClicked = () => {
-        setFormTitle('New Class Course');
+        setFormTitle('مساق مخصص جديد');
         setModalShow(true);
         setCourseFormShow(true);
         setDeleteFormShow(false);
@@ -97,19 +98,19 @@ const ClassCourses = () => {
         setModalShow(false);
         dispatch(addClassCourse(newclassCourse, courseId, teacherId));
 
-        toast.success('Class course added successfully');
+        toast.success('تم اضافة المساق المخصص بنجاح');
     };
 
     const handleUpdateSubmitted = async (updatedClassCourse) => {
         setModalShow(false);
         dispatch(updateClassCourse(classCourseId, updatedClassCourse));
-        toast.success('Class course updated successfully');
+        toast.success('تم تحديث المساق المخصص بنجاح');
     };
 
     const handleDeleteSubmitted = async () => {
         setModalShow(false);
         dispatch(deleteClassCourse(classCourseId));
-        toast.success('Class course deleted successfully');
+        toast.success('تم حذف المساق المخصص بنجاح');
     };
     const displayClassCourses = classCourses.map((classCourse) => {
         return teacherId + '' === classCourse.teacher_id + '' ? (
@@ -147,26 +148,36 @@ const ClassCourses = () => {
                 {courseFormShow && (
                     <CourseForm
                         submitted={handleAddSubmitted}
-                        btnName={'Add Class Course'}
+                        btnName={'اضافة مساق مخصص'}
                     />
                 )}
                 {updateFormShow && (
                     <UpdateForm
                         id={classCourseId}
-                        btnName={'Update Class Course'}
+                        btnName={'تحديث مساق مخصص'}
                         submitted={handleUpdateSubmitted}
                     />
                 )}
                 {deleteFormShow && (
                     <DeleteForm
                         id={classCourseId}
-                        btnName={'Delete Class Course'}
+                        btnName={'حذف مساق مخصص'}
                         submitted={handleDeleteSubmitted}
                     />
                 )}
             </VerticalModal>
             <div className="courses-header">
-                <h3>Class Courses</h3>
+                <h3>
+                    <BsFillGrid3X3GapFill
+                        size={'1.7rem'}
+                        color="#803bec"
+                        style={{
+                            marginRight: '10px',
+                            marginBottom: '5px',
+                        }}
+                    />
+                    المساقات المخصصة
+                </h3>
                 <Button
                     variant="contained"
                     color="secondary"
@@ -174,7 +185,7 @@ const ClassCourses = () => {
                     startIcon={<AddCircleSharpIcon />}
                     onClick={addClicked}
                 >
-                    Add class course
+                   اضافة مساق مخصص
                 </Button>
             </div>
             <div

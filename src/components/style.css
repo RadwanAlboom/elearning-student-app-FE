@@ -145,6 +145,7 @@
 .updateBtn {
     margin-right: 10px;
     height: 40px;
+    z-index: 1000;
 }
 .deleteBtn {
     color: red;
@@ -248,14 +249,16 @@
 .user-friendly {
     width: 100%;
     display: flex;
+    align-items: center;
     justify-content: space-evenly;
     padding: 15px;
     flex-wrap: wrap;
 }
 
 .simple-text {
-    width: 40%;
+    width: 35%;
     margin-top: 15px;
+    text-align: center;
 }
 
 .home-card {

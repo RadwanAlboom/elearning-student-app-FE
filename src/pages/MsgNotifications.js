@@ -105,7 +105,7 @@ export default function SimplePopover({ handleClose, anchorEl }) {
                             color="white"
                             style={{ marginRight: '5px', marginBottom: '5px' }}
                         />
-                        Chats
+                        المحادثات
                     </div>
                     <List>
                         {msgNotifications.map((msgNotify, index) => (

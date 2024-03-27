@@ -9,7 +9,7 @@ class LessonDeleteForm extends Form {
     };
 
     schema = {
-        id: Joi.number().integer().required().label('Lesson id'),
+        id: Joi.number().integer().required().label('معرف المحاضرة'),
     };
 
     doSubmit = () => {
@@ -20,11 +20,11 @@ class LessonDeleteForm extends Form {
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
-                    {this.renderInput('id', 'Lesson id', 'text', '', true)}
+                    {this.renderInput('id', 'معرف المحاضرة', 'text', '', true)}
                     <div style={{ fontSize: '1.5rem' }}>
-                        Are you sure you want to delete this Lesson?
+                    هل انت متاكد انك تريد حذف المحاضرة ؟
                     </div>
-                    {this.renderButton('Delete Lesson', false)}
+                    {this.renderButton('حذف المحاضرة', false)}
                 </form>
             </div>
         );

@@ -64,7 +64,7 @@ const Courses = () => {
                             marginBottom: '5px',
                         }}
                     />
-                    Courses
+                    المساقات
                 </h3>
             </div>
             <div

@@ -110,7 +110,7 @@ class RegisterForm extends Form {
                         }}
                     >
                         <GoSignIn style={{ marginRight: '10px' }} />
-                        Create Account
+                        انشاء حساب جديد
                     </h2>
                     <ErrorMessage error={this.state.registerErrors.error} />
                     {this.renderInput(
@@ -132,7 +132,7 @@ class RegisterForm extends Form {
                                 color="primary"
                             />
                         }
-                        label="Register as a teacher"
+                        label="انشاء حساب كمعلم"
                     />
                     {this.state.teacherChecked && (
                         <DropDown
@@ -143,7 +143,7 @@ class RegisterForm extends Form {
                         />
                     )}
 
-                    {this.renderButton('Request a registration', false)}
+                    {this.renderButton('ارسل طلب انضمام', false)}
                 </form>
             </div>
         );

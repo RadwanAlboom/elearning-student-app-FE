@@ -30,6 +30,7 @@ body {
     overflow: auto;
 }
 
+
 /* --------------------  admin courses page styling ---------------------
 ------------------------------------------------------------------------ */
 
@@ -124,6 +125,15 @@ body {
     max-width: calc(40% - 100px) !important;
     min-width: unset;
     width: 50%;
+}
+
+h3 {
+    font-size: calc(1rem + 1vw);
+    background: linear-gradient(to right, #803bec 30%, #1b1b1b 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 0;
+    font-weight: bold;
 }
 
 .notify {
@@ -271,11 +281,13 @@ body {
     .bottom-right-triangle {
         border-bottom: 50px solid !important;
         border-left: 50px solid transparent !important;
+        color: blueviolet;
     }
 
     .top-left-triangle {
         border-top: 50px solid !important;
         border-right: 50px solid transparent !important;
+        color: blueviolet;
     }
 
     .bottom-left-triangle {

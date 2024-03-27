@@ -9,14 +9,14 @@ class UserUpdateForm extends Form {
     };
 
     schema = {
-        id: Joi.string().required().label('ID'),
-        name: Joi.string().allow(null, '').min(5).max(255).label('Name'),
-        email: Joi.string().allow(null, '').email().label('Email'),
+        id: Joi.string().required().label('المعرف'),
+        name: Joi.string().allow(null, '').min(5).max(255).label('الاسم'),
+        email: Joi.string().allow(null, '').email().label('الايميل'),
         password: Joi.string()
             .allow(null, '')
             .min(5)
             .max(255)
-            .label('Password'),
+            .label('كلمة المرور'),
     };
 
     doSubmit = async () => {
@@ -33,12 +33,12 @@ class UserUpdateForm extends Form {
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
-                    {this.renderInput('id', 'ID', 'text', '', true)}
-                    {this.renderInput('name', 'New Name')}
-                    {this.renderInput('email', 'Email', 'email')}
-                    <div>Update Password</div>
+                    {this.renderInput('id', 'المعرف', 'text', '', true)}
+                    {this.renderInput('name', 'الاسم الجديد')}
+                    {this.renderInput('email', 'الايميل', 'email')}
+                    <div>تحديث كلمة المرور</div>
                     {this.renderPasswordInput('password')}
-                    {this.renderButton(`Update Info`, false)}
+                    {this.renderButton(`تحديث المعلومات`, false)}
                 </form>
             </div>
         );

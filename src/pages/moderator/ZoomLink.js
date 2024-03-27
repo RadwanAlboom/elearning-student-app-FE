@@ -63,7 +63,7 @@ function ZoomLinkComponent(props) {
     }, [dispatch]);
 
     const addLinkClicked = () => {
-        setFormTitle('New Zoom Link');
+        setFormTitle('رابط زوم جديد');
         setModalShow(true);
         setAddFormShow(true);
         setUpdateFormShow(false);
@@ -72,7 +72,7 @@ function ZoomLinkComponent(props) {
 
     const updateLinkClicked = (id) => {
         setLinkId(id);
-        setFormTitle('Update Zoom Link');
+        setFormTitle('تحديث رابط الزوم');
         setModalShow(true);
         setUpdateFormShow(true);
         setAddFormShow(false);
@@ -81,7 +81,7 @@ function ZoomLinkComponent(props) {
 
     const deleteLinkClicked = (id) => {
         setLinkId(id);
-        setFormTitle('Delete Zoom Link');
+        setFormTitle('حذف رابط الزوم');
         setModalShow(true);
         setDeleteFormShow(true);
         setUpdateFormShow(false);
@@ -91,19 +91,19 @@ function ZoomLinkComponent(props) {
     const handleAddSubmitted = async (newLink) => {
         setModalShow(false);
         dispatch(addLink(newLink, classCourseId));
-        toast.success('Link added successfully');
+        toast.success('تم اضافة الرابط بنجاح');
     };
 
     const handleUpdatedSubmitted = (updatedLink) => {
         setModalShow(false);
         dispatch(updateLink(linkId, updatedLink));
-        toast.success('Link updated successfully');
+        toast.success('تم تحديث الرابط بنجاح');
     };
 
     const handleDeleteSubmitted = () => {
         setModalShow(false);
         dispatch(deleteLink(linkId));
-        toast.success('Link deleted successfully');
+        toast.success('تم حذف الرابط بنجاح');
     };
 
     const displayLinks = links.map((link) => (
@@ -151,7 +151,7 @@ function ZoomLinkComponent(props) {
                             marginBottom: '5px',
                         }}
                     />
-                    Zoom Links
+                    روابط الزوم
                 </h3>
                 <div>
                     <Button
@@ -161,7 +161,7 @@ function ZoomLinkComponent(props) {
                         startIcon={<AddCircleSharpIcon />}
                         onClick={addLinkClicked}
                     >
-                        Add Zoom Link
+                        اضافة رابط زوم
                     </Button>
                 </div>
             </div>

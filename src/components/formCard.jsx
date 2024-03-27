@@ -12,10 +12,9 @@ const FormCard = ({ title, handleFormSwape }) => {
     return (
         <div className="card-section">
             <div className="space"></div>
-            <h1 style={{ marginBottom: '20px' }}>Hello, Students!</h1>
+            <h1 style={{ marginBottom: '20px' }}>مرحبا طلاب</h1>
             <p>
-                Enter the required account details and start your learning
-                journey with us
+            أدخل تفاصيل الحساب المطلوبة وابدأ رحلتك التعليمية معنا
             </p>
             <div className="div-btn">
                 <Button

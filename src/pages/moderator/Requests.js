@@ -36,7 +36,7 @@ const RequestsComponent = () => {
     };
 
     const acceptClicked = (id) => {
-        setFormTitle('Accept Request');
+        setFormTitle('قبول طلب');
         setModalShow(true);
         setUpdateFormShow(true);
         setDeleteFormShow(false);

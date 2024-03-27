@@ -93,6 +93,7 @@ const HomeComponent = (props) => {
                 style={{
                     marginRight: '100px',
                     marginBottom: '40px',
+                    marginLeft: '10px'
                 }}
                 className="home-card"
             >
@@ -138,10 +139,10 @@ const HomeComponent = (props) => {
                 }}
             >
                 <ListItem button>
-                    <ListItemText primary={'Home Page'} />
                     <ListItemIcon>
                         <IoHome size={'1.7rem'} color="#803bec" />
                     </ListItemIcon>
+                    <ListItemText primary={'الصفحة الرئيسية'} />
                 </ListItem>
             </List>
         </div>
@@ -185,35 +186,34 @@ const HomeComponent = (props) => {
                             <div className="logo-container">
                                 <img className="home-logo" alt="" src={logo} />
                                 <div>
-                                    <h2>Done-With-It</h2>
+                                    <h2>المبدع</h2>
                                     <div
                                         className="img-text"
                                         style={{
-                                            fontSize: '15px',
+                                            fontSize: '30px',
                                             letterSpacing: '1px',
                                         }}
                                     >
-                                        Clear, Concise, Comprehensive, and
-                                        Practical with No Fluff!
+                                        واضح وموجز وشامل، و
+                                         عملي بدون زغب
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div className="about-courses">
-                            <h4 style={{ fontWeight: 'bold' }}>
+                            <h3 style={{ fontWeight: 'bold' }}>
                                 <FaBrain
                                     size={'1.7rem'}
                                     color="black"
                                     style={{ marginRight: '10px' }}
                                 />
-                                Clear, Concise, Comprehensive, and Practical
-                                with No Fluff!
+                                واضح وموجز وشامل
                                 <FaBrain
                                     size={'1.7rem'}
                                     color="black"
                                     style={{ marginLeft: '10px' }}
                                 />
-                            </h4>
+                            </h3>
                         </div>
                         <div className="user-friendly">
                             <div className="simple-text">
@@ -221,18 +221,18 @@ const HomeComponent = (props) => {
                                     style={{
                                         color: '#dc43c6',
                                         marginBottom: '10px',
+                                        fontSize: '30px',
                                     }}
                                 >
-                                    STEP-BY-STEP LESSONS
+                                    دروس خطوة بخطوة
                                 </div>
                                 <h4 style={{ fontWeight: 'bold' }}>
-                                    Simple and Beginner friendly
+                                بسيط وصديق للمبتدئين
                                 </h4>
-                                <div>
-                                    Time and time again, Done-With-It students
-                                    praise his ability to break down complex
-                                    topics into simple, easily digestible
-                                    lessons that anyone can understand.
+                                <div style={{fontSize: '20px'}}>
+                                مرارًا وتكرارًا، يا طلاب "انتهى الأمر".
+                                    الثناء على قدرته على كسر المواضيع المعقدة إلى بسيطة وسهلة الهضم 
+                                    ودروس يمكن لأي شخص أن يفهمها
                                 </div>
                             </div>
                             <div className="simple-img">
@@ -248,20 +248,17 @@ const HomeComponent = (props) => {
                                     style={{
                                         color: '#dc43c6',
                                         marginBottom: '10px',
+                                        fontSize: '30px',
                                     }}
                                 >
-                                    FAST-TRACK YOUR LEARNING
+                                    تتبع تعلمك بسرعة
                                 </div>
                                 <h4 style={{ fontWeight: 'bold' }}>
-                                    Clear and Concise Lessons
+                                دروس واضحة وموجزة
                                 </h4>
-                                <div>
-                                    Don't waste any more time on long,
-                                    repetitive, and poorly-structured courses.
-                                    Done-With-It lessons are concise, right to
-                                    the point, and free of rambling and
-                                    unnecessary buzzwords. Everything explained
-                                    in plain English.
+                                <div style={{fontSize: '20px'}}>
+                                لا تضيعوا المزيد من الوقت على المدى الطويل،
+                                    دروس المبدع موجزة، مناسبة وبسيطة
                                 </div>
                             </div>
                         </div>
@@ -272,19 +269,19 @@ const HomeComponent = (props) => {
                                     style={{
                                         color: '#dc43c6',
                                         marginBottom: '10px',
+                                        fontSize: '30px',
                                     }}
                                 >
-                                    WORLD-CLASS QUALITY VIDEOS
+                                    مقاطع فيديو ذات جودة عالمية
                                 </div>
                                 <h4 style={{ fontWeight: 'bold' }}>
-                                    Fun and Engaging Lessons
+                                دروس ممتعة وجذابة
                                 </h4>
-                                <div>
-                                    Donw-With-It is a perfectionist and is fully
-                                    obsessed with the quality of his videos.
-                                    Beautiful graphics, slides, and animations
-                                    help you stay focused, remember, and better
-                                    understand the materials.
+                                <div style={{fontSize: '20px'}}>
+                                المبدع هو منشد الكمال وهو كامل
+                                    مهووس بجودة مقاطع الفيديو الخاصة به.
+                                    رسومات جميلة، والشرائح، والرسوم المتحركة
+                                    تساعدك على الاستمرار في التركيز، والتذكر، وأفضل في فهم المواد
                                 </div>
                             </div>
                             <div className="simple-img">
@@ -292,26 +289,26 @@ const HomeComponent = (props) => {
                             </div>
                         </div>
                         <div className="about-courses">
-                            <h4 style={{ fontWeight: 'bold' }}>
+                            <h3 style={{ fontWeight: 'bold' }}>
                                 <FaBrain
                                     size={'1.7rem'}
                                     color="black"
                                     style={{ marginRight: '10px' }}
                                 />
-                                Included Courses
+                                المساقات المقترحة
                                 <FaBrain
                                     size={'1.7rem'}
                                     color="black"
                                     style={{ marginLeft: '10px' }}
                                 />
-                            </h4>
+                            </h3>
                         </div>
 
-                        <div style={{ display: 'flex' }}>
+                        <div style={{ display: 'flex', justifyContent: 'center'}}>
                             <div
                                 className="right-space"
                                 style={{
-                                    width: 'calc(27% - 10%)',
+                                    width: 'calc(27% - 15%)',
                                     height: '10px',
                                 }}
                             ></div>
@@ -340,7 +337,7 @@ const HomeComponent = (props) => {
                                 </div>
                             </div>
                             <div className="social-icons">
-                                <a href="https://www.facebook.com/profile.php?id=100004004016123">
+                                <a href="https://www.facebook.com/abdallah.alboom">
                                     <img alt="" src={facebook} height="50" />
                                 </a>
                                 <a href="https://twitter.com/AlboomRadwan">
@@ -351,8 +348,7 @@ const HomeComponent = (props) => {
                                 </a>
                             </div>
                             <div className="copyright_right">
-                                © Done-With-It, Copyright 2021 All Right
-                                Reserved
+                               المبدع ©, حقوق النشر محفوظة
                             </div>
                         </div>
                     </div>

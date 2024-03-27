@@ -164,6 +164,7 @@ function Lessons({ match, ...other }) {
     }, [userId, fetchUserExams]);
 
     const handleClick = (link) => {
+        setMobileOpen(false);
         setLink(link);
         setIsPdf(false);
     };
@@ -185,8 +186,9 @@ function Lessons({ match, ...other }) {
         });
     };
 
-    const handleActiveClick = (id) => {
-        setActiveLink(id);
+    const handleActiveClick = (type, id) => {
+        setMobileOpen(false);
+        setActiveLink(type + id);
     };
 
     const drawer = (
@@ -195,13 +197,13 @@ function Lessons({ match, ...other }) {
                 className={classes.toolbar}
                 style={{
                     display: 'flex',
-                    justifyContent: 'space-between',
+                    justifyContent: 'center',
                     alignItems: 'center',
                     paddingLeft: '10px',
                     paddingRight: '10px',
                 }}
             >
-                <h3 style={{ margin: 0, fontWeight: 'bold' }}>Lectures</h3>
+                <h3 style={{ margin: 0, fontWeight: 'bold'}}>المحاضرات</h3>
             </div>
             <Divider />
             <List>
@@ -212,16 +214,16 @@ function Lessons({ match, ...other }) {
                         chapterId + '' === lesson.chapter_id + ''
                     ) {
                         setLink(lesson.link);
-                        setActiveLink(lesson.id);
+                        setActiveLink('lesson' + lesson.id);
                         setCounter(index + 1);
                     }
                     return chapterId + '' === lesson.chapter_id + '' ? (
                         <div
                             key={lesson.id}
-                            style={{ display: 'flex', alignItems: 'center' }}
-                            onClick={() => handleActiveClick(lesson.id)}
+                            style={{ display: 'flex', alignItems: 'center', wordBreak: 'break-word'}}
+                            onClick={() => handleActiveClick('lesson', lesson.id)}
                             className={
-                                lesson.id === activeLink ? ' active-link' : ''
+                                'lesson' + lesson.id === activeLink ? ' active-link' : ''
                             }
                         >
                             <ListItem
@@ -248,13 +250,13 @@ function Lessons({ match, ...other }) {
                 className={classes.toolbar}
                 style={{
                     display: 'flex',
-                    justifyContent: 'space-between',
+                    justifyContent: 'center',
                     alignItems: 'center',
                     paddingLeft: '10px',
                     paddingRight: '10px',
                 }}
             >
-                <h3 style={{ margin: 0, fontWeight: 'bold' }}>Files</h3>
+                <h3 style={{ margin: 0, fontWeight: 'bold' }}>الملفات</h3>
             </div>
             <Divider />
             <List>
@@ -262,10 +264,10 @@ function Lessons({ match, ...other }) {
                     return (
                         <div
                             key={file.id}
-                            style={{ display: 'flex', alignItems: 'center' }}
-                            onClick={() => handleActiveClick(file.id)}
+                            style={{ display: 'flex', alignItems: 'center', wordWrap: 'break-word' }}
+                            onClick={() => handleActiveClick('pdf', file.id)}
                             className={
-                                file.id === activeLink ? ' active-link' : ''
+                                'pdf' + file.id === activeLink ? ' active-link' : ''
                             }
                         >
                             <ListItem
@@ -290,20 +292,20 @@ function Lessons({ match, ...other }) {
                 className={classes.toolbar}
                 style={{
                     display: 'flex',
-                    justifyContent: 'space-between',
+                    justifyContent: 'center',
                     alignItems: 'center',
                     paddingLeft: '10px',
                     paddingRight: '10px',
                 }}
             >
-                <h3 style={{ margin: 0, fontWeight: 'bold' }}>Exams</h3>
+                <h3 style={{ margin: 0, fontWeight: 'bold' }}>الامتحانات</h3>
             </div>
             <Divider />
             <List>
                 {exams.map((exam) => (
                     <div
                         key={exam.id}
-                        style={{ display: 'flex', alignItems: 'center' }}
+                        style={{ display: 'flex', alignItems: 'center', wordWrap: 'break-word' }}
                     >
                         <ListItem
                             button
@@ -334,6 +336,7 @@ function Lessons({ match, ...other }) {
                         )}
                     </div>
                 ))}
+                <div style={{width: '100%', height:'100px'}}></div>
             </List>
             <Divider />
         </div>
@@ -388,14 +391,7 @@ function Lessons({ match, ...other }) {
                             }}
                             onContextMenu={(e) => e.preventDefault()}
                         >
-                            <ReactPlayer
-                                url={link}
-                                playing={true}
-                                width="100%"
-                                height="100%"
-                                controls
-                                onContextMenu={(e) => e.preventDefault()}
-                            />
+                            <iframe frameborder="0" width="100%" height="100%" src={"https://geo.dailymotion.com/player/xry4k.html?video=" + link} allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe>
                         </div>
                     </div>
                 )}

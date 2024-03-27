@@ -4,11 +4,10 @@ import Input from './input';
 import TextArea from './textArea';
 import FileBrowser from './fileBrowser';
 import PasswordInput from './passwordInput';
-// import Select from './select';
 
 class Form extends Component {
     state = {
-        fileName: '...اختار المحاضرة من هنا',
+        fileName: '...اختار الملف من هنا',
         file: '',
         data: {},
         errors: {},
@@ -33,12 +32,12 @@ class Form extends Component {
             const file = files[0];
             this.setState({ fileName, file });
         } else if (name === 'file' && error !== null) {
-            const fileName = '...اختار المحاضرة من هنا';
+            const fileName = '...اختار الملف من هنا';
             const file = '';
             this.setState({ fileName, file });
             return error ? error.details[0].message : null;
         } else if (name === 'file' && error === null) {
-            const fileName = '...اختار المحاضرة من هنا';
+            const fileName = '...اختار الملف من هنا';
             const file = '';
             this.setState({ fileName, file });
         } else return error ? error.details[0].message : null;

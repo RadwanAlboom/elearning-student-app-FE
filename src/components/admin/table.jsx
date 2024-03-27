@@ -119,7 +119,7 @@ export default function StickyHeadTable({
                                                     )
                                                 }
                                             >
-                                                {btnName ? 'Update' : 'Accept'}
+                                                {btnName ? 'تحديث' : 'قبول'}
                                             </Button>
                                         </TableCell>
                                         <TableCell>
@@ -135,7 +135,7 @@ export default function StickyHeadTable({
                                                     )
                                                 }
                                             >
-                                                Delete
+                                                حذف
                                             </Button>
                                         </TableCell>
                                     </TableRow>

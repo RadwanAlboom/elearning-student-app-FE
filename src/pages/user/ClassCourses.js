@@ -151,10 +151,10 @@ const ClassCourses = ({ match, ...other }) => {
                 }}
             >
                 <ListItem button>
-                    <ListItemText primary={'Included Class Courses'} />
                     <ListItemIcon>
                         <FiGrid size={'1.7rem'} color="#803bec" />
                     </ListItemIcon>
+                    <ListItemText primary={'المساقات المخصصة المقترحة'} />
                 </ListItem>
             </List>
         </div>
@@ -197,7 +197,7 @@ const ClassCourses = ({ match, ...other }) => {
                                     marginBottom: '5px',
                                 }}
                             />
-                            Class Courses
+                            المساقات المخصصة
                         </h3>
                     </div>
                     <div

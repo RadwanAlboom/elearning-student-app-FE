@@ -234,7 +234,7 @@ function QuestionFormComponent() {
                     successRate,
                     `${API_URL}/${editExamId}`
                 );
-                toast.success('Exam updated successfully');
+                toast.success('تم تحديث الامتحان بنجاح');
 
                 socket = socketIOClient(backendURL);
                 socket.emit('exams', { payload: 'updated' }, (error) => {});
@@ -257,7 +257,7 @@ function QuestionFormComponent() {
                     successRate,
                     API_URL
                 );
-                toast.success('Exam added successfully');
+                toast.success('تم اضافة الامتحان بنجاح');
 
                 socket = socketIOClient(backendURL);
                 socket.emit('exams', { payload: 'saved' }, (error) => {

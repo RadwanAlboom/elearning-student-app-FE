@@ -11,8 +11,8 @@ class PassUpdateForm extends Form {
     };
 
     schema = {
-        id: Joi.string().required().label('ID'),
-        password: Joi.string().required().min(5).max(255).label('Password'),
+        id: Joi.string().required().label('المعرف'),
+        password: Joi.string().required().min(5).max(255).label('كلمة المرور'),
     };
 
     doSubmit = async () => {
@@ -27,8 +27,8 @@ class PassUpdateForm extends Form {
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
-                    {this.renderInput('id', 'ID', 'text', '', true)}
-                    <div>Update Password</div>
+                    {this.renderInput('id', 'المعرف', 'text', '', true)}
+                    <div>تحديث كلمة المرور</div>
                     {this.renderPasswordInput('password')}
                     {this.renderButton(`${this.props.btnName}`, false)}
                 </form>

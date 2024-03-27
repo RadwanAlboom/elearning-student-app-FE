@@ -11,22 +11,22 @@ class PDFDeleteForm extends Form {
     };
 
     schema = {
-        id: Joi.string().required().label('File id'),
+        id: Joi.string().required().label('المعرف'),
     };
 
     doSubmit = () => {
-        this.props.submitted();
+        this.props.submitted(this.props.linkId);
     };
 
     render() {
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
-                    {this.renderInput('id', 'File id', 'text', '', true)}
+                    {this.renderInput('id', 'المعرف', 'text', '', true)}
                     <div style={{ fontSize: '1.5rem' }}>
-                        Are you sure you want to delete this File?
+                        هل انت متأكد انك تريد حذف هذا الملف؟
                     </div>
-                    {this.renderButton(`Delete PDF File`, false)}
+                    {this.renderButton(`PDF حذف ملف`, false)}
                 </form>
             </div>
         );

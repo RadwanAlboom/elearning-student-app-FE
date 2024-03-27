@@ -135,10 +135,10 @@ const Courses = (props) => {
                 }}
             >
                 <ListItem button>
-                    <ListItemText primary={'Included Courses'} />
                     <ListItemIcon>
                         <FiGrid size={'1.7rem'} color="#803bec" />
                     </ListItemIcon>
+                    <ListItemText primary={'المساقات'} />
                 </ListItem>
             </List>
         </div>
@@ -181,7 +181,7 @@ const Courses = (props) => {
                                     marginBottom: '5px',
                                 }}
                             />
-                            Courses
+                            المساقات
                         </h3>
                     </div>
                     <div

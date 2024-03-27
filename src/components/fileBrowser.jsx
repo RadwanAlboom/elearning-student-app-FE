@@ -2,7 +2,7 @@ import React from 'react';
 
 const FileBrowser = ({ name, label, error, ...rest }) => {
     return (
-        <div className="custom-file">
+        <div className="custom-file" style={{textAlign: 'left'}}>
             <input
                 {...rest}
                 name={name}
@@ -14,9 +14,11 @@ const FileBrowser = ({ name, label, error, ...rest }) => {
                 htmlFor={name}
                 className="custom-file-label"
                 style={{
-                    backgroundColor: '#f7ff76',
+                    backgroundColor: '#5baaff',
                     height: '45px',
                     paddingTop: '12px',
+                    color: 'white',
+                    fontWeight: 'bold'
                 }}
             >
                 {label}

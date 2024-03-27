@@ -22,7 +22,7 @@ class LessonDeleteForm extends Form {
                 <form onSubmit={this.handleSubmit}>
                     {this.renderInput('id', 'Lesson id', 'text', '', true)}
                     <div style={{ fontSize: '1.5rem' }}>
-                        Are you sure you want to delete this Lesson?
+                        هل انت متاكد انك تريد حذف المحاضرة ؟
                     </div>
                     {this.renderButton('Delete Lesson', false)}
                 </form>

@@ -9,8 +9,8 @@ class LessonAddForm extends Form {
     };
 
     schema = {
-        name: Joi.string().required().label('Chapter name'),
-        link: Joi.string().required().label('Embeded-link'),
+        name: Joi.string().required().label('اسم المحاضرة'),
+        link: Joi.string().required().label('رابط المحاضرة'),
     };
 
     doSubmit = () => {
@@ -25,9 +25,9 @@ class LessonAddForm extends Form {
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
-                    {this.renderInput('name', 'Lesson name')}
-                    {this.renderInput('link', 'Embeded-link')}
-                    {this.renderButton('Add Lesson', false)}
+                    {this.renderInput('name', 'اسم المحاضرة')}
+                    {this.renderInput('link', 'رابط المحاضرة')}
+                    {this.renderButton('اضافة محاضرة جديدة', false)}
                 </form>
             </div>
         );

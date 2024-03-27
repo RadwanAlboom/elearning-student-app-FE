@@ -43,7 +43,7 @@ class Unit extends Component {
                                 startIcon={<UpdateSharpIcon />}
                                 onClick={() => updateClicked(id, chapter)}
                             >
-                                Update
+                                تحديث
                             </Button>
                         </div>
                         <div className="delete-btn">
@@ -53,7 +53,7 @@ class Unit extends Component {
                                 startIcon={<DeleteIcon />}
                                 onClick={() => deleteClicked(id, chapter)}
                             >
-                                Delete
+                                حذف
                             </Button>
                         </div>
                     </div>

@@ -29,7 +29,7 @@ const DropDownLevel = ({ handleChange, val }) => {
     return (
         <div>
             <FormControl className={classes.formControl}>
-                <InputLabel id="level">Exam Feature</InputLabel>
+                <InputLabel id="level">خاصية الامتحان</InputLabel>
                 <Select
                     labelId="level"
                     id="level"
@@ -41,10 +41,10 @@ const DropDownLevel = ({ handleChange, val }) => {
                     name="level"
                 >
                     <MenuItem value={0 + ''}>
-                        <em>Deactivate</em>
+                        <em>الغاء</em>
                     </MenuItem>
                     <MenuItem value={1 + ''}>
-                        <em>Activate</em>
+                        <em>تفعيل</em>
                     </MenuItem>
                 </Select>
             </FormControl>

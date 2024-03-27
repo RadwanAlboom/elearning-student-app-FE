@@ -5,25 +5,34 @@ import Form from '../form';
 
 class PDFUpdateForm extends Form {
     state = {
+        fileName: '...' + 'اختر الملف من هنا',
+        file: '',
         data: {
             name: '',
-            url: '',
             id: this.props.id + '',
         },
         errors: {},
     };
 
     schema = {
-        id: Joi.string().required().label('File id'),
-        name: Joi.string().allow(null, '').min(5).label('File name'),
-        url: Joi.string().allow(null, '').min(5).label('File URL'),
+        id: Joi.string().required().label('المعرف'),
+        name: Joi.string().allow(null, '').min(5).label('اسم الملف'),
+        file: Joi.string().allow(null, ''),
     };
 
     doSubmit = () => {
         // Call the server
+        let pdfFile = null;
+
+        if ( this.state.file != null &&  this.state.file != '') {
+            pdfFile = new FormData();
+            pdfFile.append('file', this.state.file);
+        }
+
         const updateFile = {
             name: this.state.data.name,
-            url: this.state.data.url,
+            linkId: this.props.linkId,
+            pdfFile
         };
         this.props.submitted(updateFile);
     };
@@ -32,10 +41,11 @@ class PDFUpdateForm extends Form {
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
-                    {this.renderInput('id', 'File id', 'text', '', true)}
-                    {this.renderInput('name', 'New File name')}
-                    {this.renderInput('url', 'New File URL')}
-                    {this.renderButton(`${this.props.btnName}`)}
+                    {this.renderInput('id', 'المعرف', 'text', '', true)}
+                    {this.renderInput('name', 'اسم الملف الجديد')}
+                    <div style={{ marginBottom: '10px' }}>الملف الجديد</div>
+                    {this.renderFileBrowser('file', `${this.state.fileName}`, 'file', '.pdf')}
+                    {!this.props.clicked && this.renderButton(`${this.props.btnName}`)}
                 </form>
             </div>
         );

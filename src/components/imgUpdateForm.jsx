@@ -4,14 +4,14 @@ import Form from './form';
 
 class ImgUpdateForm extends Form {
     state = {
-        fileName: 'Choose File...',
+        fileName: '...' + 'اختر الملف من هنا',
         file: '',
-        data: { file: '', id: this.props.id + '' },
+        data: { id: this.props.id + '' },
         errors: {},
     };
 
     schema = {
-        id: Joi.string().required().label('ID'),
+        id: Joi.string().required().label('المعرف'),
         file: Joi.string().required(),
     };
 
@@ -19,17 +19,22 @@ class ImgUpdateForm extends Form {
         // Call the server
         const newImg = new FormData();
         newImg.append('file', this.state.file);
-        this.props.submitted(newImg);
+
+        const image = {
+            imageId: this.props.imageId,
+            newImg
+        }
+        this.props.submitted(image);
     };
 
     render() {
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
-                    {this.renderInput('id', 'ID', 'text', '', true)}
-                    <div style={{ marginBottom: '10px' }}>Profile Image</div>
+                    {this.renderInput('id', 'المعرف', 'text', '', true)}
+                    <div style={{ marginBottom: '10px' }}>صورة الملف الشخصي</div>
                     {this.renderFileBrowser('file', `${this.state.fileName}`)}
-                    {this.renderButton(`${this.props.btnName}`, false)}
+                    {!this.props.clicked && this.renderButton(`${this.props.btnName}`, false)}
                 </form>
             </div>
         );

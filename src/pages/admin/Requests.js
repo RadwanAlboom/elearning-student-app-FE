@@ -45,7 +45,7 @@ const RequestsComponent = () => {
     }, [dispatch]);
 
     const deleteClicked = (id) => {
-        setFormTitle('Delete Request');
+        setFormTitle('حذف طلب');
         setModalShow(true);
         setDeleteFormShow(true);
         setUpdateFormShow(false);
@@ -53,7 +53,7 @@ const RequestsComponent = () => {
     };
 
     const acceptClicked = (id) => {
-        setFormTitle('Accept Request');
+        setFormTitle('قبول طلب');
         setModalShow(true);
         setUpdateFormShow(true);
         setDeleteFormShow(false);
@@ -64,7 +64,7 @@ const RequestsComponent = () => {
         setModalShow(false);
         try {
             dispatch(deleteRequest(requestId));
-            toast.success('Request deleted successfully');
+            toast.success('تم حذف الطلب بنجاح');
         } catch (err) {
             console.log(err.response);
         }
@@ -74,7 +74,7 @@ const RequestsComponent = () => {
         try {
             dispatch(acceptRequest(requestId));
 
-            toast.success('Request accepted successfully');
+            toast.success('تم قبول الطلب بنجاح');
             socket = socketIOClient(backendURL);
             socket.emit(
                 'acceptTeacher',
@@ -117,7 +117,7 @@ const RequestsComponent = () => {
                             marginBottom: '5px',
                         }}
                     />
-                    Requests
+                    الطلبات
                 </h3>
             </div>
             <Table

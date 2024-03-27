@@ -15,10 +15,10 @@ class UpdateForm extends Form {
     };
 
     schema = {
-        id: Joi.string().required().label('Course id'),
-        coursename: Joi.string().allow(null, '').min(5).label('Course name'),
-        description: Joi.string().allow(null, '').min(5).label('Description'),
-        url: Joi.string().allow(null, '').min(5).label('Image URL'),
+        id: Joi.string().required().label('المعرف'),
+        coursename: Joi.string().allow(null, '').min(5).label('اسم المساق'),
+        description: Joi.string().allow(null, '').min(5).label('الوصف'),
+        url: Joi.string().allow(null, '').min(5).label('رابط الصورة'),
     };
 
     doSubmit = () => {
@@ -35,10 +35,10 @@ class UpdateForm extends Form {
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
-                    {this.renderInput('id', 'Course id', 'text', '', true)}
-                    {this.renderInput('coursename', 'New course name')}
-                    {this.renderTextArea('description', 'New description')}
-                    {this.renderInput('url', 'New Image URL')}
+                    {this.renderInput('id', 'المعرف', 'text', '', true)}
+                    {this.renderInput('coursename', 'اسم المساق الجديد')}
+                    {this.renderTextArea('description', 'الوصف الجديد')}
+                    {this.renderInput('url', 'رابط الصورة الجديد')}
                     {this.renderButton(`${this.props.btnName}`)}
                 </form>
             </div>

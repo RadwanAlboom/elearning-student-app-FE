@@ -167,7 +167,7 @@ const Units = ({ match, ...other }) => {
                     }}
                 >
                     <ListItem button>
-                        <ListItemText primary={'Course Curriculum'} />
+                        <ListItemText primary={'خطة المساق'} />
                         <ListItemIcon>
                             <FiGrid size={'1.7rem'} color="#803bec" />
                         </ListItemIcon>
@@ -189,7 +189,7 @@ const Units = ({ match, ...other }) => {
                     }}
                 >
                     <ListItem button>
-                        <ListItemText primary={'Your Instructor'} />
+                        <ListItemText primary={'معلمك الخاص'} />
                         <ListItemIcon>
                             <BsPersonFill size={'1.7rem'} color="#803bec" />
                         </ListItemIcon>
@@ -212,7 +212,7 @@ const Units = ({ match, ...other }) => {
                     }}
                 >
                     <ListItem button>
-                        <ListItemText primary={'Chat Room'} />
+                        <ListItemText primary={'غرفة المحادثة'} />
                         <ListItemIcon>
                             <IoChatbubblesSharp
                                 size={'1.7rem'}
@@ -238,7 +238,7 @@ const Units = ({ match, ...other }) => {
                     }}
                 >
                     <ListItem button>
-                        <ListItemText primary={'Zoom Links'} />
+                        <ListItemText primary={'روابط الزوم'} />
                         <ListItemIcon>
                             <GoDeviceCameraVideo
                                 size={'1.7rem'}
@@ -288,7 +288,7 @@ const Units = ({ match, ...other }) => {
                                     marginBottom: '5px',
                                 }}
                             />
-                            Chapters
+                            الفصول
                         </h3>
                     </div>
                     <div

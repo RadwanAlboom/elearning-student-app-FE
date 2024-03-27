@@ -9,7 +9,7 @@ class ChapterAddForm extends Form {
     };
 
     schema = {
-        name: Joi.string().required().label('Chapter name'),
+        name: Joi.string().required().label('اسم الفصل'),
     };
 
     doSubmit = () => {
@@ -23,8 +23,8 @@ class ChapterAddForm extends Form {
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
-                    {this.renderInput('name', 'Chapter name')}
-                    {this.renderButton('Add Chapter', false)}
+                    {this.renderInput('name', 'اسم الفصل')}
+                    {this.renderButton('اضافة فصل', false)}
                 </form>
             </div>
         );

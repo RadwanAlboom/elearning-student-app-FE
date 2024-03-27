@@ -11,6 +11,7 @@ import VerticalModal from '../../components/admin/verticalModel';
 import CourseForm from '../../components/admin/courseForm';
 import UpdateForm from '../../components/admin/updateForm';
 import DeleteForm from '../../components/admin/deleteForm.jsx';
+import { BsFillGrid3X3GapFill } from 'react-icons/bs';
 
 import {
     loadAdminCourses,
@@ -55,7 +56,7 @@ const Courses = () => {
     }, [dispatch]);
 
     const updateClicked = (id, course) => {
-        setFormTitle('Update Course');
+        setFormTitle('تحديث المساق');
         setModalShow(true);
         setUpdateFormShow(true);
         setDeleteFormShow(false);
@@ -64,7 +65,7 @@ const Courses = () => {
     };
 
     const deleteClicked = (id, course) => {
-        setFormTitle('Delete Course');
+        setFormTitle('حذف المساق');
         setModalShow(true);
         setDeleteFormShow(true);
         setUpdateFormShow(false);
@@ -73,7 +74,7 @@ const Courses = () => {
     };
 
     const addClicked = () => {
-        setFormTitle('New Course');
+        setFormTitle('مساق جديد');
         setModalShow(true);
         setCourseFormShow(true);
         setDeleteFormShow(false);
@@ -83,20 +84,20 @@ const Courses = () => {
     const handleAddSubmitted = async (newCourse) => {
         setModalShow(false);
         dispatch(addAdminCourse(newCourse));
-        toast.success('Course added successfully');
+        toast.success('تم اضافة المساق بنجاح');
     };
 
     const handleUpdateSubmitted = async (updateCourse) => {
         setModalShow(false);
         dispatch(updateAdminCourse(courseId, updateCourse));
 
-        toast.success('Course updated successfully');
+        toast.success('تم تحديث المساق بنجاح');
     };
 
     const handleDeleteSubmitted = async () => {
         setModalShow(false);
         dispatch(deleteAdminCourse(courseId));
-        toast.success('Course deleted successfully');
+        toast.success('تم حذف المساق بنجاح');
     };
     const displayCourses = courses.map((course) => {
         return (
@@ -132,26 +133,36 @@ const Courses = () => {
                 {courseFormShow && (
                     <CourseForm
                         submitted={handleAddSubmitted}
-                        btnName={'Add Course'}
+                        btnName={'اضافة مساق'}
                     />
                 )}
                 {updateFormShow && (
                     <UpdateForm
                         id={courseId}
-                        btnName={'Update Course'}
+                        btnName={'تحديث المساق'}
                         submitted={handleUpdateSubmitted}
                     />
                 )}
                 {deleteFormShow && (
                     <DeleteForm
                         id={courseId}
-                        btnName={'Delete Course'}
+                        btnName={'حذف المساق'}
                         submitted={handleDeleteSubmitted}
                     />
                 )}
             </VerticalModal>
             <div className="courses-header">
-                <h3>Courses</h3>
+                <h3>
+                    <BsFillGrid3X3GapFill
+                        size={'1.7rem'}
+                        color="#803bec"
+                        style={{
+                            marginRight: '10px',
+                            marginBottom: '5px',
+                        }}
+                    />
+                    المساقات
+                </h3>
                 <Button
                     variant="contained"
                     color="secondary"
@@ -159,7 +170,7 @@ const Courses = () => {
                     startIcon={<AddCircleSharpIcon />}
                     onClick={addClicked}
                 >
-                    Add course
+                    اضافة مساق
                 </Button>
             </div>
             <div

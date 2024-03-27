@@ -13,6 +13,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import { MdOndemandVideo } from 'react-icons/md';
 import { AiOutlineMenuFold } from 'react-icons/ai';
+import { BsFillGrid3X3GapFill } from 'react-icons/bs';
 
 import http from '../../services/httpService';
 
@@ -87,7 +88,17 @@ const CourseCurriculumComponent = () => {
                     className="courses-header"
                     style={{ width: '95%', marginBottom: '25px' }}
                 >
-                    <h3>Course Curriculum</h3>
+                    <h3>
+                        <BsFillGrid3X3GapFill
+                            size={'1.7rem'}
+                            color="#803bec"
+                            style={{
+                                marginRight: '10px',
+                                marginBottom: '5px',
+                            }}
+                        />
+                        خطة المساق
+                    </h3>
                 </div>
                 <div className={classes.root} style={{ marginBottom: '30px' }}>
                     {chapters.map((chapter, index) => (

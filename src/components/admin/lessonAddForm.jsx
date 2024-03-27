@@ -4,21 +4,19 @@ import Form from '../form';
 
 class LessonAddForm extends Form {
     state = {
-        fileName: '...اختار المحاضرة من هنا',
-        file: '',
-        data: { name: '', file: '' },
+        data: { name: '', link: '' },
         errors: {},
     };
 
     schema = {
         name: Joi.string().required().label('عنوان المحاضرة'),
-        file: Joi.string().required().label('ملف المحاضرة'),
+        link: Joi.string().required().label('رابط المحاضرة'),
     };
 
     doSubmit = () => {
         const newLesson = {
             name: this.state.data.name,
-            file: this.state.file,
+            link: this.state.data.link,
         };
         this.props.submitted(newLesson);
     };
@@ -28,14 +26,10 @@ class LessonAddForm extends Form {
             <div>
                 <form onSubmit={this.handleSubmit}>
                     {this.renderInput('name', 'عنوان المحاضرة')}
-                    {this.renderFileBrowser(
-                        'file',
-                        `${this.state.fileName}`,
-                        'file',
-                        '.mp4, .wmv, .mov'
-                    )}
-                    {this.props.isButtonShow &&
-                        this.renderButton('اضافة المحاضرة', false)}
+                    {this.renderInput('link', 'رابط المحاضرة')}
+                    <div style={{textAlign: 'right'}}>
+                        {this.renderButton('اضافة محاضرة', false)}
+                    </div>
                 </form>
             </div>
         );

@@ -30,6 +30,7 @@
     position: absolute;
     top: 0;
     left: 0;
+    color: blueviolet;
 }
 
 .bottom-left-triangle {
@@ -60,6 +61,7 @@
     position: absolute;
     bottom: 0;
     right: 0;
+    color: blueviolet;
 }
 
 .circle {

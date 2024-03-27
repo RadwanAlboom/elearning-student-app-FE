@@ -31,7 +31,7 @@ const DropDown = ({ handleChange, val, error, majors }) => {
     return (
         <div>
             <FormControl className={classes.formControl}>
-                <InputLabel id="major">Your major</InputLabel>
+                <InputLabel id="major">التخصص</InputLabel>
                 <Select
                     labelId="major"
                     id="major"

@@ -41,7 +41,7 @@ const Registration = (props) => {
                         <>
                             <LoginForm {...props} majors={majors} />
                             <FormCard
-                                title="Create Account"
+                                title="انشاء حساب جديد"
                                 handleFormSwape={handleLoginSwape}
                             />
                         </>
@@ -49,7 +49,7 @@ const Registration = (props) => {
                     {isRegisterForm && (
                         <>
                             <FormCard
-                                title="Sign in"
+                                title="تسجيل الدخول"
                                 handleFormSwape={handleRegisterSwape}
                             />
                             <RegisterForm majors={majors} />

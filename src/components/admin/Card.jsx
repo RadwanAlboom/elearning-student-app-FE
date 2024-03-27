@@ -73,7 +73,7 @@ export default function MediaCard({
                     startIcon={<UpdateSharpIcon />}
                     onClick={() => updateClicked(id, course)}
                 >
-                    Update
+                    تحديث
                 </Button>
                 <Button
                     variant="contained"
@@ -82,7 +82,7 @@ export default function MediaCard({
                     startIcon={<DeleteIcon />}
                     onClick={() => deleteClicked(id, course)}
                 >
-                    Delete
+                    حذف
                 </Button>
             </CardActions>
         </Card>

@@ -32,7 +32,7 @@ const ExamsComponent = () => {
                             marginBottom: '5px',
                         }}
                     />
-                    Exams
+                    الامتحانات
                 </h3>
             </div>
             <div style={{ marginTop: '25px' }}>

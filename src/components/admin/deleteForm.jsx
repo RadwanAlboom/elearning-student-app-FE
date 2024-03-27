@@ -11,7 +11,7 @@ class DeleteForm extends Form {
     };
 
     schema = {
-        id: Joi.string().required().label('Course id'),
+        id: Joi.string().required().label('المعرف'),
     };
 
     doSubmit = () => {
@@ -22,9 +22,9 @@ class DeleteForm extends Form {
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
-                    {this.renderInput('id', 'Course id', 'text', '', true)}
+                    {this.renderInput('id', 'المعرف', 'text', '', true)}
                     <div style={{ fontSize: '1.5rem' }}>
-                        Are you sure you want to delete this course?
+                        هل انت متاكد انك تريد حذف هذا المساق؟
                     </div>
                     {this.renderButton(`${this.props.btnName}`, false)}
                 </form>

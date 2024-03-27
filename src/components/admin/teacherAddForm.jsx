@@ -25,13 +25,13 @@ class TeacherAddForm extends Form {
     };
 
     schema = {
-        registerName: Joi.string().required().min(6).max(255).label('Username'),
-        registerEmail: Joi.string().required().email().label('Email'),
+        registerName: Joi.string().required().min(6).max(255).label('اسم المستخدم'),
+        registerEmail: Joi.string().required().email().label('الايميل'),
         registerPassword: Joi.string()
             .required()
             .min(5)
             .max(255)
-            .label('Password'),
+            .label('كلمة المرور'),
     };
 
     doSubmit = async () => {
@@ -55,7 +55,7 @@ class TeacherAddForm extends Form {
             };
             this.props.addTeacher(teacher);
             this.props.submitted();
-            toast.success('Teacher request added successfully');
+            toast.success('تم اضافة طلب انشاء حساب معلم بنجاح');
             const registerErrors = {};
             this.setState({ registerErrors });
         } catch (ex) {
@@ -82,17 +82,17 @@ class TeacherAddForm extends Form {
                         }}
                     >
                         <GoSignIn style={{ marginRight: '10px' }} />
-                        Teacher Account
+                        انشاء حساب معلم
                     </h2>
                     <ErrorMessage error={this.state.registerErrors.error} />
                     {this.renderInput(
                         'registerName',
-                        'Username',
+                        'اسم المستخدم',
                         'username',
                         email
                     )}
-                    {this.renderInput('registerEmail', 'Email', 'email', email)}
-                    <div>{lock} Password</div>
+                    {this.renderInput('registerEmail', 'الايميل', 'email', email)}
+                    <div>{lock} كلمة المرور</div>
                     {this.renderPasswordInput('registerPassword')}
 
                     <DropDown
@@ -102,7 +102,7 @@ class TeacherAddForm extends Form {
                         majors={this.props.majors}
                     />
 
-                    {this.renderButton('Request Add Teacher', false)}
+                    {this.renderButton('طلب انشاء حساب معلم', false)}
                 </form>
             </div>
         );

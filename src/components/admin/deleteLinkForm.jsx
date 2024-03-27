@@ -9,7 +9,7 @@ class DeleteLinkForm extends Form {
     };
 
     schema = {
-        id: Joi.number().integer().required().label('Link id'),
+        id: Joi.number().integer().required().label('المعرف'),
     };
 
     doSubmit = () => {
@@ -20,11 +20,11 @@ class DeleteLinkForm extends Form {
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
-                    {this.renderInput('id', 'Link id', 'text', '', true)}
+                    {this.renderInput('id', 'المعرف', 'text', '', true)}
                     <div style={{ fontSize: '1.5rem' }}>
-                        Are you sure you want to delete this Link?
+                        هل انت متأكد انك تريد حذف هذا الرابط؟
                     </div>
-                    {this.renderButton('Delete Link', false)}
+                    {this.renderButton('حذف الرابط', false)}
                 </form>
             </div>
         );

@@ -11,7 +11,7 @@ class RequestAcceptForm extends Form {
     };
 
     schema = {
-        id: Joi.number().integer().required().label('Request id'),
+        id: Joi.number().integer().required().label('المعرف'),
     };
 
     doSubmit = () => {
@@ -22,11 +22,11 @@ class RequestAcceptForm extends Form {
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
-                    {this.renderInput('id', 'Request id', 'text', '', true)}
+                    {this.renderInput('id', 'المعرف', 'text', '', true)}
                     <div style={{ fontSize: '1.5rem' }}>
-                        Are you sure you want to accept this request?
+                        هل انت متأكد انك تريد قبول هذا الطلب؟
                     </div>
-                    {this.renderButton(`Accept Request`, false)}
+                    {this.renderButton(`قبول طلب`, false)}
                 </form>
             </div>
         );

@@ -9,9 +9,9 @@ class updateLinkForm extends Form {
     };
 
     schema = {
-        id: Joi.number().integer().required().label('Link id'),
-        subject: Joi.string().allow(null, '').min(5).label('Subject'),
-        link: Joi.string().allow(null, '').min(5).label('Embeded-link'),
+        id: Joi.number().integer().required().label('المعرف'),
+        subject: Joi.string().allow(null, '').min(5).label('الموضوع'),
+        link: Joi.string().allow(null, '').min(5).label('الرابط'),
     };
 
     doSubmit = () => {
@@ -26,10 +26,10 @@ class updateLinkForm extends Form {
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
-                    {this.renderInput('id', 'Link id', 'text', '', true)}
-                    {this.renderInput('subject', 'Subject')}
-                    {this.renderInput('link', 'Embeded-link')}
-                    {this.renderButton('Update Link', false)}
+                    {this.renderInput('id', 'المعرف', 'text', '', true)}
+                    {this.renderInput('subject', 'الموضوع')}
+                    {this.renderInput('link', 'الرابط')}
+                    {this.renderButton('تحديث الرابط', false)}
                 </form>
             </div>
         );

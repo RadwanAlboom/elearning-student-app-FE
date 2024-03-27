@@ -4,20 +4,25 @@ import Form from '../form';
 
 class PDFAddForm extends Form {
     state = {
-        data: { name: '', url: '' },
+        fileName: '...' + 'اختر الملف من هنا',
+        file: '',
+        data: { name: ''},
         errors: {},
     };
 
     schema = {
-        name: Joi.string().required().label('File name'),
-        url: Joi.string().required().label('File URL'),
+        name: Joi.string().required().label('اسم الملف'),
+        file: Joi.string().required(),
     };
 
     doSubmit = async () => {
         // Call the server
+        const pdfFile = new FormData();
+        pdfFile.append('file', this.state.file);
+
         const newFile = {
             name: this.state.data.name,
-            url: this.state.data.url,
+            pdfFile
         };
         this.props.submitted(newFile);
     };
@@ -26,9 +31,10 @@ class PDFAddForm extends Form {
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
-                    {this.renderInput('name', 'File name')}
-                    {this.renderInput('url', 'File URL')}
-                    {this.renderButton(`${this.props.btnName}`, false)}
+                    {this.renderInput('name', 'اسم الملف')}
+                    <div style={{ marginBottom: '10px' }}>الملف</div>
+                    {this.renderFileBrowser('file', `${this.state.fileName}`, 'file', '.pdf')}
+                    {!this.props.clicked && this.renderButton(`${this.props.btnName}`, false)}
                 </form>
             </div>
         );

@@ -9,8 +9,8 @@ class ChapterUpdateForm extends Form {
     };
 
     schema = {
-        id: Joi.string().required().label('Chapter id'),
-        name: Joi.string().required().min(5).label('Chapter name'),
+        id: Joi.string().required().label('المعرف'),
+        name: Joi.string().required().min(5).label('اسم الفصل'),
     };
 
     doSubmit = () => {
@@ -24,9 +24,9 @@ class ChapterUpdateForm extends Form {
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
-                    {this.renderInput('id', 'Chapter id', 'text', '', true)}
-                    {this.renderInput('name', 'Chapter name')}
-                    {this.renderButton('Update Chapter', false)}
+                    {this.renderInput('id', 'المعرف', 'text', '', true)}
+                    {this.renderInput('name', 'اسم الفصل')}
+                    {this.renderButton('تحديث الفصل', false)}
                 </form>
             </div>
         );

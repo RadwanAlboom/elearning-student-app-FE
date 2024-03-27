@@ -292,7 +292,7 @@ const Sidebar = () => {
                                 onClick={() => handleProfileClick()}
                             >
                                 <div style={{ fontSize: '18px' }}>
-                                    view profile
+                                    الملف الشخصي
                                 </div>
                             </Link>
                         </Name>

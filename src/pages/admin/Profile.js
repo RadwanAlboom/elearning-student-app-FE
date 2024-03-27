@@ -9,6 +9,7 @@ import { FaUserTie } from 'react-icons/fa';
 import { IoMail } from 'react-icons/io5';
 import { AiOutlineCamera } from 'react-icons/ai';
 import { toast } from 'react-toastify';
+import Upload from '../../components/upload';
 
 import {
     loadProfile,
@@ -22,6 +23,7 @@ import '../moderator/profile.css';
 
 import userImg from '../../assets/user.jpg';
 import PassUpdateForm from '../../components/passUpdateForm';
+import {uploadProfileImage, handleDeleteFile} from "../../services/uploadService";
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -34,8 +36,11 @@ const ProfileComponent = () => {
     const [modalShow, setModalShow] = useState(false);
     const [formTitle, setFormTitle] = useState('');
     const [id, setId] = useState('');
+    const [imageId, setImageId] = useState('');
     const [updateFormShow, setUpdateFormShow] = useState(false);
     const [updatePassFormShow, setPassUpdateFormShow] = useState(false);
+    const[progress, setProgress] = useState(0)
+    const[clicked, setClicked] = useState(false);
     const profile = useSelector((state) => state.profile.list);
 
     const dispatch = useDispatch();
@@ -45,53 +50,68 @@ const ProfileComponent = () => {
         }
     }, [dispatch]);
 
-    const updateClicked = (id) => {
-        setFormTitle('Update Profile Image');
+    const updateClicked = (id, imageId) => {
+        setFormTitle('تحديث صورة الملف الشخصي');
         setModalShow(true);
         setUpdateFormShow(true);
         setPassUpdateFormShow(false);
         setId(id);
+        setImageId(imageId);
     };
 
     const updatePassClicked = (id) => {
-        setFormTitle('Change Password');
+        setFormTitle('تحديث كلمة المرور');
         setModalShow(true);
         setPassUpdateFormShow(true);
         setUpdateFormShow(false);
         setId(id);
     };
 
-    const handleUpdateSubmitted = (newImg) => {
-        setModalShow(false);
-        dispatch(updateImageProfile(id, newImg));
+    const handleUpdateSubmitted = async ({imageId, newImg}) => {
+        setClicked(true);
 
-        toast.success('Course updated successfully');
+        try {
+            const {data} = await uploadProfileImage(newImg, setProgress);
+            dispatch(updateImageProfile(id, {url: data.secure_url, publicId: data.public_id}));
+            handleDeleteFile(imageId);
+            toast.success('تم تحديث صورة الملف الشخصي بنجاح');
+        } catch(ex) {
+            console.log(ex);
+        }
+
+        setModalShow(false);
+        setProgress(0);
+        setClicked(false);
     };
 
     const handlePassUpdateSubmitted = (updatedPass) => {
         setModalShow(false);
         dispatch(updatePassProfile(id, updatedPass));
-        toast.success('Password updated successfully');
+        toast.success('تم تغيير كلمة المرور بنجاح');
     };
     return (
         <div style={{ height: '95vh', width: '100%', overflowY: 'auto' }}>
             <div className="profile-container">
                 <VerticalModal
                     formTitle={formTitle}
+                    progress={progress}
                     show={modalShow}
                     onHide={() => setModalShow(false)}
                 >
                     {updateFormShow && (
                         <ImgUpdateForm
                             id={id}
-                            btnName={'Update Profile Image'}
+                            imageId={imageId}
+                            btnName={'تحديث صورة الملف الشخصي'}
                             submitted={handleUpdateSubmitted}
+                            clicked={clicked}
                         />
                     )}
+
                     {updatePassFormShow && (
                         <PassUpdateForm
                             id={id}
-                            btnName={'Update Password'}
+                            btnName={'تحديث كلمة المرور'}
                             submitted={handlePassUpdateSubmitted}
                         />
                     )}
@@ -101,11 +121,11 @@ const ProfileComponent = () => {
                     <div className="bottom-left-triangle"></div>
                     <div className="top-right-triangle"></div>
                     <div className="bottom-right-triangle"></div>
-                    <IconButton onClick={() => updateClicked(profile.id)}>
+                    <IconButton onClick={() => updateClicked(profile.id, profile.imageId)}>
                         <div className="circle">
                             <img
                                 src={profile.image ? profile.image : userImg}
-                                alt="user"
+                                alt="صورة"
                                 style={{
                                     width: '100%',
                                     height: '100%',
@@ -133,7 +153,7 @@ const ProfileComponent = () => {
                                         updatePassClicked(profile.id)
                                     }
                                 >
-                                    Change Password
+                                    تحديث كلمة المرور
                                 </Button>
                             </div>
                         </div>

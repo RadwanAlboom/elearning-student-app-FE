@@ -66,7 +66,7 @@ const ExamsComponent = () => {
                             marginBottom: '5px',
                         }}
                     />
-                    Exams
+                    الامتحانات
                 </h3>
             </div>
             <div className="exam-drop">

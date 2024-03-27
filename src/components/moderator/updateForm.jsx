@@ -17,9 +17,9 @@ class UpdateForm extends Form {
     };
 
     schema = {
-        id: Joi.string().required().label('Course id'),
-        coursename: Joi.string().allow(null, '').min(5).label('Course name'),
-        description: Joi.string().allow(null, '').min(5).label('Description'),
+        id: Joi.string().required().label('المعرف'),
+        coursename: Joi.string().allow(null, '').min(5).label('اسم المساق'),
+        description: Joi.string().allow(null, '').min(5).label('الوصف'),
         file: Joi.string().allow(null, ''),
     };
 
@@ -36,10 +36,10 @@ class UpdateForm extends Form {
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
-                    {this.renderInput('id', 'Course id', 'text', '', true)}
-                    {this.renderInput('coursename', 'New course name')}
-                    {this.renderTextArea('description', 'New description')}
-                    <div style={{ marginBottom: '10px' }}>New course image</div>
+                    {this.renderInput('id', 'المعرف', 'text', '', true)}
+                    {this.renderInput('coursename', 'اسم المساق الجديد')}
+                    {this.renderTextArea('description', 'الوصف الجديد')}
+                    <div style={{ marginBottom: '10px' }}>صورة المساق الجديدة</div>
                     {this.renderFileBrowser('file', `${this.state.fileName}`)}
                     {this.renderButton(`${this.props.btnName}`)}
                 </form>

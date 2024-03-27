@@ -70,7 +70,7 @@ function ZoomLinkComponent(props) {
                             marginBottom: '5px',
                         }}
                     />
-                    Zoom Links
+                    روابط الزوم
                 </h3>
             </div>
             <div className="zoom-section">{displayLinks}</div>

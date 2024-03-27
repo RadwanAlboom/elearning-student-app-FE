@@ -64,7 +64,7 @@ const MyDocument = ({ exams, name, description }) => (
                 <View style={styles.section}>
                     <View style={styles.center}>
                         <Image style={styles.image} src={logo} />
-                        <Text>Done-With-It</Text>
+                        <Text>المبدع</Text>
                     </View>
                 </View>
                 <View style={styles.section}>

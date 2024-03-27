@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loadTeachers, getTeachers } from '../../store/teachers';
 import { getMajor } from '../../store/adminCourses';
 import TeacherCard from '../../components/admin/teacherCard';
+import { BsFillGrid3X3GapFill } from 'react-icons/bs';
 
 let socket;
 let backendURL = process.env.REACT_APP_API_URL;
@@ -64,7 +65,17 @@ const Teacher = () => {
     return (
         <div className="admin-courses">
             <div className="courses-header">
-                <h3>Teachers</h3>
+                <h3>
+                    <BsFillGrid3X3GapFill
+                        size={'1.7rem'}
+                        color="#803bec"
+                        style={{
+                            marginRight: '10px',
+                            marginBottom: '5px',
+                        }}
+                    />
+                    المعلمين
+                </h3>
             </div>
             <div
                 style={{

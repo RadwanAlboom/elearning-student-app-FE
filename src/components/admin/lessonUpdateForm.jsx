@@ -9,9 +9,9 @@ class LessonUpdateForm extends Form {
     };
 
     schema = {
-        id: Joi.number().integer().required().label('Lesson id'),
-        name: Joi.string().allow(null, '').min(5).label('Lesson name'),
-        link: Joi.string().allow(null, '').min(5).label('Embeded-link'),
+        id: Joi.number().integer().required().label('معرف المحاضرة'),
+        name: Joi.string().allow(null, '').min(5).label('اسم المحاضرة الجديد'),
+        link: Joi.string().allow(null, '').min(5).label('رابط المحاضرة الجديد'),
     };
 
     doSubmit = () => {
@@ -26,10 +26,10 @@ class LessonUpdateForm extends Form {
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
-                    {this.renderInput('id', 'Lesson id', 'text', '', true)}
-                    {this.renderInput('name', 'Lesson name')}
-                    {this.renderInput('link', 'Embeded-link')}
-                    {this.renderButton('Update Lesson', false)}
+                    {this.renderInput('id', '', 'text', 'معرف المحاضرة', true)}
+                    {this.renderInput('name', 'اسم المحاضرة الجديد')}
+                    {this.renderInput('link', 'رابط المحاضرة الجديد')}
+                    {this.renderButton('تحديث المحاضرة', false)}
                 </form>
             </div>
         );
