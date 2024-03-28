@@ -13,6 +13,7 @@ import VerticalModal from '../../components/admin/verticalModel';
 import CourseForm from '../../components/admin/courseForm';
 import UpdateForm from '../../components/admin/updateForm';
 import DeleteForm from '../../components/admin/deleteForm.jsx';
+import {uploadImage, handleDeleteFile} from "../../services/uploadService";
 
 import {
     loadClassCourses,
@@ -44,6 +45,9 @@ const ClassCourses = () => {
     const [classCourseId, setClassCourseId] = useState('');
     const [teacherId, setTeacherId] = useState('');
     const [courseId, setCourseId] = useState('');
+    const[progress, setProgress] = useState(0)
+    const[clicked, setClicked] = useState(false);
+    const [imageId, setImageId] = useState('');
 
     const classCourses = useSelector(
         (state) => state.entities.classCourses.list
@@ -75,6 +79,7 @@ const ClassCourses = () => {
         setDeleteFormShow(false);
         setCourseFormShow(false);
         setClassCourseId(id);
+        setImageId(course.imageId)
     };
 
     const deleteClicked = (id, course) => {
@@ -84,6 +89,7 @@ const ClassCourses = () => {
         setUpdateFormShow(false);
         setCourseFormShow(false);
         setClassCourseId(id);
+        setImageId(course.imageId)
     };
 
     const addClicked = () => {
@@ -94,21 +100,46 @@ const ClassCourses = () => {
         setUpdateFormShow(false);
     };
 
-    const handleAddSubmitted = async (newclassCourse) => {
-        setModalShow(false);
-        dispatch(addClassCourse(newclassCourse, courseId, teacherId));
+    const handleAddSubmitted = async ({coursename, description, img}) => {
+        setClicked(true);
 
-        toast.success('تم اضافة المساق المخصص بنجاح');
+        try {
+            const {data} = await uploadImage(img, setProgress);
+            dispatch(addClassCourse({coursename, description, url: data.secure_url, publicId: data.public_id}, courseId, teacherId));
+            toast.success('تم اضافة المساق المخصص بنجاح');
+        } catch(ex) {
+            console.log(ex);
+        }
+
+        setModalShow(false);
+        setProgress(0);
+        setClicked(false);
     };
 
-    const handleUpdateSubmitted = async (updatedClassCourse) => {
+    const handleUpdateSubmitted = async ({coursename, description, img}) => {
+        setClicked(true);
+        
+        try {
+            if (img) {
+                const {data} = await uploadImage(img, setProgress);
+                dispatch(updateClassCourse(classCourseId, {coursename, description, url: data.secure_url, publicId: data.public_id}));
+                handleDeleteFile(imageId);
+            } else {
+                dispatch(updateClassCourse(classCourseId, {coursename, description, url: '', publicId: ''}));
+            }
+            toast.success('تم تحديث المساق المخصص بنجاح');
+        } catch(ex) {
+            console.log(ex);
+        }
+
         setModalShow(false);
-        dispatch(updateClassCourse(classCourseId, updatedClassCourse));
-        toast.success('تم تحديث المساق المخصص بنجاح');
+        setProgress(0);
+        setClicked(false);
     };
 
     const handleDeleteSubmitted = async () => {
         setModalShow(false);
+        handleDeleteFile(imageId);
         dispatch(deleteClassCourse(classCourseId));
         toast.success('تم حذف المساق المخصص بنجاح');
     };
@@ -142,6 +173,7 @@ const ClassCourses = () => {
         <div className="admin-courses">
             <VerticalModal
                 formTitle={formTitle}
+                progress={progress}
                 show={modalShow}
                 onHide={() => setModalShow(false)}
             >
@@ -149,6 +181,7 @@ const ClassCourses = () => {
                     <CourseForm
                         submitted={handleAddSubmitted}
                         btnName={'اضافة مساق مخصص'}
+                        clicked={clicked}
                     />
                 )}
                 {updateFormShow && (
@@ -156,6 +189,7 @@ const ClassCourses = () => {
                         id={classCourseId}
                         btnName={'تحديث مساق مخصص'}
                         submitted={handleUpdateSubmitted}
+                        clicked={clicked}
                     />
                 )}
                 {deleteFormShow && (

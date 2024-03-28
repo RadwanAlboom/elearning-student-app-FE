@@ -12,6 +12,7 @@ import CourseForm from '../../components/admin/courseForm';
 import UpdateForm from '../../components/admin/updateForm';
 import DeleteForm from '../../components/admin/deleteForm.jsx';
 import { BsFillGrid3X3GapFill } from 'react-icons/bs';
+import {uploadImage, handleDeleteFile} from "../../services/uploadService";
 
 import {
     loadAdminCourses,
@@ -39,6 +40,9 @@ const Courses = () => {
     const [deleteFormShow, setDeleteFormShow] = useState(false);
     const [formTitle, setFormTitle] = useState('');
     const [courseId, setCourseId] = useState('');
+    const[progress, setProgress] = useState(0)
+    const[clicked, setClicked] = useState(false);
+    const [imageId, setImageId] = useState('');
 
     const courses = useSelector((state) => state.entities.adminCourses.list);
 
@@ -62,15 +66,18 @@ const Courses = () => {
         setDeleteFormShow(false);
         setCourseFormShow(false);
         setCourseId(id);
+        setImageId(course.imageId);
     };
 
     const deleteClicked = (id, course) => {
+        alert(course.imageId)
         setFormTitle('حذف المساق');
         setModalShow(true);
         setDeleteFormShow(true);
         setUpdateFormShow(false);
         setCourseFormShow(false);
         setCourseId(id);
+        setImageId(course.imageId)
     };
 
     const addClicked = () => {
@@ -81,21 +88,46 @@ const Courses = () => {
         setUpdateFormShow(false);
     };
 
-    const handleAddSubmitted = async (newCourse) => {
+    const handleAddSubmitted = async ({coursename, description, img}) => {
+        setClicked(true);
+
+        try {
+            const {data} = await uploadImage(img, setProgress);
+            dispatch(addAdminCourse({coursename, description, url: data.secure_url, publicId: data.public_id}));
+            toast.success('تم اضافة المساق بنجاح');
+        } catch(ex) {
+            console.log(ex);
+        }
+
         setModalShow(false);
-        dispatch(addAdminCourse(newCourse));
-        toast.success('تم اضافة المساق بنجاح');
+        setProgress(0);
+        setClicked(false);
     };
 
-    const handleUpdateSubmitted = async (updateCourse) => {
-        setModalShow(false);
-        dispatch(updateAdminCourse(courseId, updateCourse));
+    const handleUpdateSubmitted = async ({coursename, description, img}) => {
+        setClicked(true);
+        
+        try {
+            if (img) {
+                const {data} = await uploadImage(img, setProgress);
+                dispatch(updateAdminCourse(courseId, {coursename, description, url: data.secure_url, publicId: data.public_id}));
+                handleDeleteFile(imageId);
+            } else {
+                dispatch(updateAdminCourse(courseId, {coursename, description, url: '', publicId: ''}));
+            }
+            toast.success('تم تحديث المساق بنجاح');
+        } catch(ex) {
+            console.log(ex);
+        }
 
-        toast.success('تم تحديث المساق بنجاح');
+        setModalShow(false);
+        setProgress(0);
+        setClicked(false);
     };
 
     const handleDeleteSubmitted = async () => {
         setModalShow(false);
+        handleDeleteFile(imageId);
         dispatch(deleteAdminCourse(courseId));
         toast.success('تم حذف المساق بنجاح');
     };
@@ -127,6 +159,7 @@ const Courses = () => {
         <div className="admin-courses">
             <VerticalModal
                 formTitle={formTitle}
+                progress={progress}
                 show={modalShow}
                 onHide={() => setModalShow(false)}
             >
@@ -134,6 +167,8 @@ const Courses = () => {
                     <CourseForm
                         submitted={handleAddSubmitted}
                         btnName={'اضافة مساق'}
+                        clicked={clicked}
+                        imageId={imageId}
                     />
                 )}
                 {updateFormShow && (

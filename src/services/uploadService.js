@@ -13,7 +13,7 @@ export const handleDeleteFile = (publicId) => {
         console.log(result, error) });
   };
 
-export function uploadProfileImage(image, setProgress) {
+export function uploadImage(image, setProgress) {
     const config = {
         onUploadProgress: (e) => {
             const {loaded, total} = e;
@@ -41,7 +41,7 @@ export function uploadPdfFile(pdf, setProgress) {
 }
 
 const exportedObject = {
-    uploadProfileImage,
+    uploadImage,
     handleDeleteFile,
     uploadPdfFile
 };

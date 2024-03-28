@@ -28,7 +28,6 @@ import {
     addPersonOnChat,
     loadMsgNotifications,
 } from '../store/msgNotifications';
-import LogoName from './logoName';
 
 let socket;
 let backendURL = process.env.REACT_APP_API_URL;

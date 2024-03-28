@@ -4,7 +4,7 @@ import Form from './form';
 
 class ImgUpdateForm extends Form {
     state = {
-        fileName: '...' + 'اختر الملف من هنا',
+        fileName: '... اختر الملف من هنا',
         file: '',
         data: { id: this.props.id + '' },
         errors: {},

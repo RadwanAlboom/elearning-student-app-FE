@@ -9,7 +9,6 @@ import { FaUserTie } from 'react-icons/fa';
 import { IoMail } from 'react-icons/io5';
 import { AiOutlineCamera } from 'react-icons/ai';
 import { toast } from 'react-toastify';
-import Upload from '../../components/upload';
 
 import {
     loadProfile,
@@ -23,7 +22,7 @@ import '../moderator/profile.css';
 
 import userImg from '../../assets/user.jpg';
 import PassUpdateForm from '../../components/passUpdateForm';
-import {uploadProfileImage, handleDeleteFile} from "../../services/uploadService";
+import {uploadImage, handleDeleteFile} from "../../services/uploadService";
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -71,7 +70,7 @@ const ProfileComponent = () => {
         setClicked(true);
 
         try {
-            const {data} = await uploadProfileImage(newImg, setProgress);
+            const {data} = await uploadImage(newImg, setProgress);
             dispatch(updateImageProfile(id, {url: data.secure_url, publicId: data.public_id}));
             handleDeleteFile(imageId);
             toast.success('تم تحديث صورة الملف الشخصي بنجاح');

@@ -4,7 +4,7 @@ import Form from '../form';
 
 class PDFAddForm extends Form {
     state = {
-        fileName: '...' + 'اختر الملف من هنا',
+        fileName: '... اختر الملف من هنا',
         file: '',
         data: { name: ''},
         errors: {},

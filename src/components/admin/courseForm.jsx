@@ -4,22 +4,28 @@ import Form from '../form';
 
 class CourseForm extends Form {
     state = {
-        data: { coursename: '', description: '', url: '' },
+        fileName: '... اختر الملف من هنا',
+        file: '',
+        data: { coursename: '', description: ''},
         errors: {},
     };
 
     schema = {
         coursename: Joi.string().required().label('اسم المساق'),
         description: Joi.string().required().label('الوصف'),
-        url: Joi.string().required().label('رابط الصورة'),
+        file: Joi.string().required(),
     };
 
     doSubmit = async () => {
         // Call the server
+        const img = new FormData();
+        img.append('file', this.state.file);
+
         const newCourse = {
             coursename: this.state.data.coursename,
             description: this.state.data.description,
-            url: this.state.data.url,
+            imageId: this.props.imageId,
+            img
         };
 
         this.props.submitted(newCourse);
@@ -31,8 +37,9 @@ class CourseForm extends Form {
                 <form onSubmit={this.handleSubmit}>
                     {this.renderInput('coursename', 'اسم المساق')}
                     {this.renderTextArea('description', 'الوصف')}
-                    {this.renderInput('url', 'رابط الصورة')}
-                    {this.renderButton(`${this.props.btnName}`, false)}
+                    <div style={{ marginBottom: '10px' }}>صورة المساق</div>
+                    {this.renderFileBrowser('file', `${this.state.fileName}`)}
+                    {!this.props.clicked && this.renderButton(`${this.props.btnName}`, false)}
                 </form>
             </div>
         );

@@ -114,8 +114,6 @@ function ResponsiveDrawer({ match, ...other }) {
     const[progress, setProgress] = useState(0)
     const[clicked, setClicked] = useState(false);
 
-    const [isButtonShow, setIsButtonShow] = useState(true);
-
     const lessons = useSelector((state) =>
         state.entities.lessons.list.filter(
             (lesson) => lesson.chapter_id + '' === chapterId + ''
@@ -286,7 +284,7 @@ function ResponsiveDrawer({ match, ...other }) {
 
     const cancelUploading = () => {
         setProgress(0);
-        if (isButtonShow) setModalShow(false);
+        setModalShow(false);
     };
 
     const handleUpdatedSubmitted = async (updatedLesson) => {
@@ -622,7 +620,6 @@ function ResponsiveDrawer({ match, ...other }) {
                 {addFormShow && (
                         <LessonAddForm
                             submitted={handleAddSubmitted}
-                            isButtonShow={isButtonShow}
                         />
                 )}
                 {updateFormShow && (
@@ -715,7 +712,7 @@ function ResponsiveDrawer({ match, ...other }) {
                                 padding: '0 0 0 0',
                             }}
                         >
-                            <iframe frameborder="0" width="100%" height="100%" src={"https://geo.dailymotion.com/player/xry4k.html?video=" + link} allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe>
+                            <iframe title='moderator-frame' width="100%" height="100%" src={"https://geo.dailymotion.com/player/xry4k.html?video=" + link} allow="autoplay; fullscreen; picture-in-picture"></iframe>
                         </div>
                     </div>
                 )}

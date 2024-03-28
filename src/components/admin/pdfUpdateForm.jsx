@@ -5,7 +5,7 @@ import Form from '../form';
 
 class PDFUpdateForm extends Form {
     state = {
-        fileName: '...' + 'اختر الملف من هنا',
+        fileName: '... اختر الملف من هنا',
         file: '',
         data: {
             name: '',
@@ -24,7 +24,7 @@ class PDFUpdateForm extends Form {
         // Call the server
         let pdfFile = null;
 
-        if ( this.state.file != null &&  this.state.file != '') {
+        if ( this.state.file !== null &&  this.state.file !== '') {
             pdfFile = new FormData();
             pdfFile.append('file', this.state.file);
         }
