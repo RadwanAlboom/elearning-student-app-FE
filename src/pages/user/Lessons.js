@@ -413,7 +413,7 @@ function Lessons({ match, ...other }) {
                             }}
                             onContextMenu={(e) => e.preventDefault()}
                         >
-                            <iframe title='user-frame' width="100%" height="100%" src={"https://geo.dailymotion.com/player/xry4k.html?video=" + link} allow="autoplay; fullscreen; picture-in-picture"></iframe>
+                            <iframe title='user-frame' frameborder="0" width="100%" height="100%" src={"https://geo.dailymotion.com/player/xry4k.html?video=" + link} allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe>
                         </div>
                     </div>
                 )}

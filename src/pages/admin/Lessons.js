@@ -712,7 +712,7 @@ function ResponsiveDrawer({ match, ...other }) {
                                 padding: '0 0 0 0',
                             }}
                         >
-                            <iframe title='admin-frame' width="100%" height="100%" src={"https://geo.dailymotion.com/player/xry4k.html?video=" + link} allow="autoplay; fullscreen; picture-in-picture"></iframe>
+                            <iframe title='admin-frame' frameborder="0" width="100%" height="100%" src={"https://geo.dailymotion.com/player/xry4k.html?video=" + link} allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe>
                         </div>
                     </div>
                 )}
