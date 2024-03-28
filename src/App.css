@@ -118,6 +118,7 @@ body {
 
 .MuiCardContent-root {
     min-height: 150px !important;
+    text-align: center;
 }
 
 /* -------------popover notfications------------ */
