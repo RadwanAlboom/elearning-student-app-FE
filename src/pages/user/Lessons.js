@@ -18,7 +18,7 @@ import { MdOndemandVideo } from 'react-icons/md';
 import { RiNewspaperFill } from 'react-icons/ri';
 import { FcOk } from 'react-icons/fc';
 import { FaFilePdf } from 'react-icons/fa';
-import ReactPlayer from 'react-player';
+import GetAppIcon from '@material-ui/icons/GetApp';
 
 import auth from '../../services/authService';
 import http from '../../services/httpService';
@@ -68,7 +68,6 @@ function Lessons({ match, ...other }) {
     let location = useLocation();
     let history = useHistory();
     let dispatch = useDispatch();
-    const { window } = { ...other };
     const classes = useStyles();
     const [examsUser, setExamsUser] = useState([]);
     const [userId, setUserId] = useState(0);
@@ -163,6 +162,11 @@ function Lessons({ match, ...other }) {
         fetchUserExams();
     }, [userId, fetchUserExams]);
 
+    useEffect(() => {
+        console.log();
+    }, []);
+
+
     const handleClick = (link) => {
         setMobileOpen(false);
         setLink(link);
@@ -185,6 +189,17 @@ function Lessons({ match, ...other }) {
             },
         });
     };
+
+    const downloadClicked = (pdfLink) => {
+    
+        const aLink = document.createElement("a");
+        aLink.href = pdfLink;
+        aLink.target = "https://www.google.com/";
+        aLink.download = "document.pdf"; // specify the filename
+        document.body.appendChild(aLink);
+        aLink.click();
+        document.body.removeChild(aLink);
+    }
 
     const handleActiveClick = (type, id) => {
         setMobileOpen(false);
@@ -270,19 +285,27 @@ function Lessons({ match, ...other }) {
                                 'pdf' + file.id === activeLink ? ' active-link' : ''
                             }
                         >
-                            <ListItem
-                                button
-                                key={file.name}
-                                onClick={() => handlePDFClick(file.link)}
-                            >
-                                <ListItemIcon>
-                                    <FaFilePdf
-                                        size={'1.5rem'}
-                                        color="#803bec"
-                                    />
-                                </ListItemIcon>
-                                <ListItemText primary={file.name} />
-                            </ListItem>
+                            <div style={{display: 'flex', alignItems: 'center', wordBreak: 'break-word',width: '100%'}}>
+                                <ListItem
+                                    button
+                                    key={file.name}
+                                    onClick={() => handlePDFClick(file.link)}
+                                >
+                                    <ListItemIcon>
+                                        <FaFilePdf
+                                            size={'1.5rem'}
+                                            color="#803bec"
+                                        />
+                                    </ListItemIcon>
+                                    <ListItemText primary={file.name} />
+                                </ListItem>
+                                <div
+                                    onClick={() => downloadClicked(file.link)}
+                                    className="on-hover updateBtn"
+                                >
+                                    <GetAppIcon />
+                                </div>
+                            </div>
                         </div>
                     );
                 })}
@@ -342,8 +365,7 @@ function Lessons({ match, ...other }) {
         </div>
     );
 
-    const container =
-        window !== undefined ? () => window().document.body : undefined;
+
 
     return (
         <div className={classes.root}>
@@ -391,7 +413,7 @@ function Lessons({ match, ...other }) {
                             }}
                             onContextMenu={(e) => e.preventDefault()}
                         >
-                            <iframe frameborder="0" width="100%" height="100%" src={"https://geo.dailymotion.com/player/xry4k.html?video=" + link} allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe>
+                            <iframe id='my_frame' frameborder="0" width="100%" height="100%" src={"https://geo.dailymotion.com/player/xry4k.html?video=" + link} allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe>
                         </div>
                     </div>
                 )}
@@ -400,7 +422,6 @@ function Lessons({ match, ...other }) {
                 {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
                 <Hidden mdUp implementation="css">
                     <Drawer
-                        container={container}
                         variant="temporary"
                         anchor={'right'}
                         open={mobileOpen}
