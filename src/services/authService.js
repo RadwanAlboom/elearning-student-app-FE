@@ -1,5 +1,6 @@
 import jwtDecode from 'jwt-decode';
 import http from './httpService';
+import getBrowserFingerprint from 'get-browser-fingerprint';
 
 let backendURL = process.env.REACT_APP_API_URL;
 
@@ -7,11 +8,13 @@ const tokenKey = 'token';
 const reduxToken = 'persist:root';
 
 export async function login(email, password, teacherChecked, major) {
+    const fingerprint = getBrowserFingerprint();
     const { data } = await http.post(backendURL + '/api/auth', {
         email,
         password,
         isModerator: teacherChecked,
         majorId: major,
+        fingerprint
     });
 
     localStorage.setItem(tokenKey, data.jwt);
