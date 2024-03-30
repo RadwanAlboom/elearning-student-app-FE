@@ -70,7 +70,6 @@ const Courses = () => {
     };
 
     const deleteClicked = (id, course) => {
-        alert(course.imageId)
         setFormTitle('حذف المساق');
         setModalShow(true);
         setDeleteFormShow(true);
