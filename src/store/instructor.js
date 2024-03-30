@@ -47,14 +47,14 @@ export const {
 } = slice.actions;
 export default slice.reducer;
 
-export const loadTeachers = () => (dispatch, getState) => {
+export const loadTeachers = (emailFilter) => (dispatch, getState) => {
     const { lastFetch } = getState().teachers;
     const diffInMinutes = moment().diff(moment(lastFetch), 'minutes');
     if (diffInMinutes < 0) return;
 
     return dispatch(
         apiCallBegan({
-            url: '/teachers',
+            url: `/teachers?email=${emailFilter}`,
             onStart: teachersRequested.type,
             onSuccess: teachersReceived.type,
             onError: teachersRequestFailed.type,

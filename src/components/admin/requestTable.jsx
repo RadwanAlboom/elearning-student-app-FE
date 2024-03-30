@@ -23,7 +23,7 @@ const columns = [
         minWidth: 170,
         align: 'left',
         format: (value) => value.toLocaleString('en-US'),
-    },
+    }
 ];
 
 const useStyles = makeStyles({

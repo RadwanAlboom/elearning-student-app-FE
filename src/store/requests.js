@@ -51,14 +51,14 @@ export const {
 } = slice.actions;
 export default slice.reducer;
 
-export const loadRequests = () => (dispatch, getState) => {
+export const loadRequests = (emailFilter) => (dispatch, getState) => {
     const { lastFetch } = getState().requests;
     const diffInMinutes = moment().diff(moment(lastFetch), 'minutes');
     if (diffInMinutes < 0) return;
 
     return dispatch(
         apiCallBegan({
-            url: '/userRequest',
+            url: `/userRequest?email=${emailFilter}`,
             onStart: requestsRequested.type,
             onSuccess: requestsReceived.type,
             onError: requestsRequestFailed.type,

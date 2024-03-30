@@ -4,8 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import MotionHoc from './MotionHoc';
 import { BsFillGrid3X3GapFill } from 'react-icons/bs';
 import { toast } from 'react-toastify';
+import SearchDropDown from '../../components/seacrhDropDown.jsx';
+import Input from '../../components/input.jsx';
 
-import Table from '../../components/admin/table';
+import TeacherTable from '../../components/admin/teacherTable.jsx';
 import VerticalModal from '../../components/admin/verticalModel.jsx';
 import RequestDeleteForm from '../../components/admin/requestDeleteForm';
 
@@ -27,11 +29,13 @@ const TeahersComponent = () => {
     const [requestId, setRequestId] = useState('');
     const [deleteFormShow, setDeleteFormShow] = useState(false);
     const [updateFormShow, setUpdateFormShow] = useState(false);
+    const [emailChecked, setEmailChecked] = useState(false);
+    const [emailFilter, setEmailFilter] = useState('');
 
     const teachers = useSelector((state) => state.teachers.list);
 
     useEffect(() => {
-        dispatch(loadTeachers());
+        dispatch(loadTeachers(emailFilter));
     }, [dispatch]);
 
     const deleteClicked = (id) => {
@@ -74,6 +78,12 @@ const TeahersComponent = () => {
         }
     };
 
+    const handleChangeDropDown = (event) => {
+        if (event.target.name === 'email') {
+            setEmailChecked(event.target.checked);
+        }
+    };
+
     return (
         <div className="requests-page">
             <VerticalModal
@@ -108,7 +118,40 @@ const TeahersComponent = () => {
                     المعلمين
                 </h3>
             </div>
-            <Table
+            <SearchDropDown 
+                filters={['email']}
+                handleChange={handleChangeDropDown}
+                checked={emailChecked}
+            />
+            {emailChecked && <div style={{width: '50%'}}>
+                    <Input
+                        name='email'
+                        label='email:'
+                        onChange={(e) => {setEmailFilter(e.target.value)}}
+                        value={emailFilter}
+                    />
+                    <div>
+                        <button
+                            style={{marginBottom: '10px'}}
+                            className="btn btn-primary"
+                            onClick={() => dispatch(loadTeachers(emailFilter))}
+                        >
+                            Search
+                        </button>
+                        <button
+                            style={{marginBottom: '10px', marginLeft: '10px'}}
+                            className="btn btn-primary"
+                            onClick={() => {
+                                setEmailFilter('');
+                                dispatch(loadTeachers(''));
+                            }}
+                        >
+                            Reset
+                        </button>
+                    </div>
+                </div>
+            }
+            <TeacherTable
                 userRequests={teachers}
                 deleteClicked={deleteClicked}
                 acceptClicked={updateClicked}

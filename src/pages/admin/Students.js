@@ -5,9 +5,11 @@ import MotionHoc from './MotionHoc';
 import { BsFillGrid3X3GapFill } from 'react-icons/bs';
 import { toast } from 'react-toastify';
 
-import Table from '../../components/admin/table';
+import UserTable from '../../components/admin/userTable.jsx';
 import VerticalModal from '../../components/admin/verticalModel.jsx';
 import RequestDeleteForm from '../../components/admin/requestDeleteForm';
+import SearchDropDown from '../../components/seacrhDropDown.jsx';
+import Input from '../../components/input.jsx';
 
 import {
     loadStudents,
@@ -27,11 +29,13 @@ const RequestsComponent = () => {
     const [requestId, setRequestId] = useState('');
     const [deleteFormShow, setDeleteFormShow] = useState(false);
     const [updateFormShow, setUpdateFormShow] = useState(false);
+    const [emailChecked, setEmailChecked] = useState(false);
+    const [emailFilter, setEmailFilter] = useState('');
 
     const students = useSelector((state) => state.students.list);
 
     useEffect(() => {
-        dispatch(loadStudents());
+        dispatch(loadStudents(emailFilter));
     }, [dispatch]);
 
     const deleteClicked = (id) => {
@@ -54,7 +58,7 @@ const RequestsComponent = () => {
         setModalShow(false);
         try {
             dispatch(deleteStudent(requestId));
-            toast.success('Student deleted successfully');
+            toast.success('تم حذف الطالب بنجاح');
 
             socket = socketIOClient(backendURL);
             socket.emit('students', { id: requestId }, (error) => {});
@@ -66,11 +70,17 @@ const RequestsComponent = () => {
         setModalShow(false);
         try {
             dispatch(updateStudent(requestId, updatedStudent));
-            toast.success('Student Info updated successfully');
+            toast.success('تم تحديث معلومات الطالب بنجاح');
             socket = socketIOClient(backendURL);
             socket.emit('students', { id: requestId }, (error) => {});
         } catch (error) {
             console.log(error.response);
+        }
+    };
+
+    const handleChangeDropDown = (event) => {
+        if (event.target.name === 'email') {
+            setEmailChecked(event.target.checked);
         }
     };
 
@@ -108,7 +118,40 @@ const RequestsComponent = () => {
                     الطلاب
                 </h3>
             </div>
-            <Table
+            <SearchDropDown 
+                filters={['email']}
+                handleChange={handleChangeDropDown}
+                checked={emailChecked}
+            />
+            {emailChecked && <div style={{width: '50%'}}>
+                    <Input
+                        name='email'
+                        label='email:'
+                        onChange={(e) => {setEmailFilter(e.target.value)}}
+                        value={emailFilter}
+                    />
+                    <div>
+                        <button
+                            style={{marginBottom: '10px'}}
+                            className="btn btn-primary"
+                            onClick={() => dispatch(loadStudents(emailFilter))}
+                        >
+                            Search
+                        </button>
+                        <button
+                            style={{marginBottom: '10px', marginLeft: '10px'}}
+                            className="btn btn-primary"
+                            onClick={() => {
+                                setEmailFilter('');
+                                dispatch(loadStudents(''));
+                            }}
+                        >
+                            Reset
+                        </button>
+                    </div>
+                </div>
+            }
+            <UserTable
                 userRequests={students}
                 deleteClicked={deleteClicked}
                 acceptClicked={updateClicked}

@@ -4,8 +4,10 @@ import socketIOClient from 'socket.io-client';
 import MotionHoc from './MotionHoc';
 import { BsFillGrid3X3GapFill } from 'react-icons/bs';
 import { toast } from 'react-toastify';
+import SearchDropDown from '../../components/seacrhDropDown.jsx';
+import Input from '../../components/input.jsx';
 
-import Table from '../../components/admin/table';
+import RequestTable from '../../components/admin/requestTable.jsx';
 import VerticalModal from '../../components/admin/verticalModel.jsx';
 import RequestDeleteForm from '../../components/admin/requestDeleteForm';
 import RequestAcceptForm from '../../components/admin/requestAcceptForm';
@@ -27,18 +29,20 @@ const RequestsComponent = () => {
     const [requestId, setRequestId] = useState('');
     const [deleteFormShow, setDeleteFormShow] = useState(false);
     const [updateFormShow, setUpdateFormShow] = useState(false);
+    const [emailChecked, setEmailChecked] = useState(false);
+    const [emailFilter, setEmailFilter] = useState('');
 
     const userRequests = useSelector((state) => state.requests.list);
 
     useEffect(() => {
-        dispatch(loadRequests());
+        dispatch(loadRequests(emailFilter));
         //eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch]);
 
     useEffect(() => {
         socket = socketIOClient(backendURL);
         socket.on('requests', (payload) => {
-            dispatch(loadRequests());
+            dispatch(loadRequests(''));
         });
 
         return () => socket.disconnect();
@@ -86,6 +90,12 @@ const RequestsComponent = () => {
         }
     };
 
+    const handleChangeDropDown = (event) => {
+        if (event.target.name === 'email') {
+            setEmailChecked(event.target.checked);
+        }
+    };
+
     return (
         <div className="requests-page">
             <VerticalModal
@@ -120,7 +130,40 @@ const RequestsComponent = () => {
                     الطلبات
                 </h3>
             </div>
-            <Table
+            <SearchDropDown 
+                filters={['email']}
+                handleChange={handleChangeDropDown}
+                checked={emailChecked}
+            />
+            {emailChecked && <div style={{width: '50%'}}>
+                    <Input
+                        name='email'
+                        label='email:'
+                        onChange={(e) => {setEmailFilter(e.target.value)}}
+                        value={emailFilter}
+                    />
+                    <div>
+                        <button
+                            style={{marginBottom: '10px'}}
+                            className="btn btn-primary"
+                            onClick={() => dispatch(loadRequests(emailFilter))}
+                        >
+                            Search
+                        </button>
+                        <button
+                            style={{marginBottom: '10px', marginLeft: '10px'}}
+                            className="btn btn-primary"
+                            onClick={() => {
+                                setEmailFilter('');
+                                dispatch(loadRequests(''));
+                            }}
+                        >
+                            Reset
+                        </button>
+                    </div>
+                </div>
+            }
+            <RequestTable
                 userRequests={userRequests}
                 deleteClicked={deleteClicked}
                 acceptClicked={acceptClicked}
