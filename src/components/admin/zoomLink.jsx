@@ -3,6 +3,7 @@ import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import UpdateSharpIcon from '@material-ui/icons/UpdateSharp';
 import { makeStyles } from '@material-ui/core/styles';
+import { Link } from '@material-ui/core';
 
 const useStyles = makeStyles({
     root: {
@@ -18,6 +19,16 @@ const useStyles = makeStyles({
         marginLeft: '5px',
     },
 });
+
+const zoomLinkClicked = (zoomLink) => {
+    
+    const aLink = document.createElement("a");
+    aLink.href = zoomLink;
+    aLink.target = "https://www.google.com/";
+    document.body.appendChild(aLink);
+    aLink.click();
+    document.body.removeChild(aLink);
+}
 
 const ZoomLink = ({
     id,
@@ -45,8 +56,8 @@ const ZoomLink = ({
             </div>
             <div>
                 <span className="link-info">Link: </span>{' '}
-                <div className="break-info">
-                    <a href={link}>Join Zoom Meeting</a>
+                <div className="break-info" onClick={() => zoomLinkClicked(link)}>
+                    <Link style={{color: '#4d90f5'}}>Join Zoom Meeting</Link>
                 </div>
             </div>
             <div>
@@ -57,7 +68,7 @@ const ZoomLink = ({
                     startIcon={<UpdateSharpIcon />}
                     onClick={() => updateClicked(id)}
                 >
-                    Update
+                    تحديث
                 </Button>
                 <Button
                     variant="contained"
@@ -66,7 +77,7 @@ const ZoomLink = ({
                     startIcon={<DeleteIcon />}
                     onClick={() => deleteClicked(id)}
                 >
-                    Delete
+                    حذف
                 </Button>
             </div>
         </div>

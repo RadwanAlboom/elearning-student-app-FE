@@ -1,4 +1,16 @@
+import { Link } from '@material-ui/core';
 import React from 'react';
+
+const zoomLinkClicked = (zoomLink) => {
+    
+    const aLink = document.createElement("a");
+    aLink.href = zoomLink;
+    aLink.target = "https://www.google.com/";
+    document.body.appendChild(aLink);
+    aLink.click();
+    document.body.removeChild(aLink);
+}
+
 const ZoomLink = ({ classCourseName, subject, date, link }) => {
     return (
         <div className="zoom-card-component">
@@ -16,8 +28,8 @@ const ZoomLink = ({ classCourseName, subject, date, link }) => {
             </div>
             <div>
                 <span className="link-info">Link: </span>{' '}
-                <div className="break-info">
-                    <a href={link}>Join Zoom Meeting</a>
+                <div className="break-info" onClick={() => zoomLinkClicked(link)}>
+                    <Link style={{color: '#4d90f5'}}>Join Zoom Meeting</Link>
                 </div>
             </div>
         </div>

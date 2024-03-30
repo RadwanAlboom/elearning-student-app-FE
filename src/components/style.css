@@ -348,6 +348,7 @@
 .break-info {
     word-break: break-word;
     margin-left: 4px;
+    cursor: pointer;
 }
 
 /* ----------file browser------------ */
