@@ -274,7 +274,7 @@ export default function PrimarySearchAppBar({ user }) {
                         to="/logout"
                         style={{ textDecoration: 'none', color: 'black' }}
                     >
-                        <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+                        <MenuItem onClick={handleMenuClose}>تسجيل الخروج</MenuItem>
                     </NavLink>
                 </div>
             )}

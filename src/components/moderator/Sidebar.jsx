@@ -237,7 +237,7 @@ const Sidebar = () => {
                         to="/"
                     >
                         <img src={Home} alt="Home" />
-                        <Text clicked={click}>Home</Text>
+                        <Text clicked={click}>الرئيسية</Text>
                     </Item>
                     <Item
                         onClick={() => setClick(false)}
@@ -245,7 +245,7 @@ const Sidebar = () => {
                         to="/moderator/profile"
                     >
                         <img src={adminProfile} alt="Home" />
-                        <Text clicked={click}>Profile</Text>
+                        <Text clicked={click}>الشخصي</Text>
                     </Item>
                     <Item
                         onClick={() => setClick(false)}
@@ -253,7 +253,7 @@ const Sidebar = () => {
                         to="/moderator/courses"
                     >
                         <img src={Courses} alt="Courses" />
-                        <Text clicked={click}>Courses</Text>
+                        <Text clicked={click}>المساقات</Text>
                     </Item>
 
                     <Item
@@ -262,7 +262,7 @@ const Sidebar = () => {
                         to="/moderator/exams"
                     >
                         <img src={Exams} alt="Exams" />
-                        <Text clicked={click}>Exams</Text>
+                        <Text clicked={click}>الامتحانات</Text>
                     </Item>
 
                     <Item
@@ -271,7 +271,7 @@ const Sidebar = () => {
                         to="/moderator/projects"
                     >
                         <img src={Projects} alt="Projects" />
-                        <Text clicked={click}>Projects</Text>
+                        <Text clicked={click}>المشاريع</Text>
                     </Item>
                 </SlickBar>
 

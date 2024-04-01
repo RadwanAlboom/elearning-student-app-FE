@@ -82,6 +82,7 @@ const CourseCurriculumComponent = () => {
                     flexDirection: 'column',
                     alignItems: 'center',
                     marginTop: '65px',
+                    wordWrap: 'break-word'
                 }}
             >
                 <div
@@ -115,10 +116,12 @@ const CourseCurriculumComponent = () => {
                                 aria-controls={`panel${chapter.id}bh-content`}
                                 id={chapter.id}
                             >
-                                <AiOutlineMenuFold
-                                    size="2rem"
-                                    color="#803bec"
-                                />
+                                <div>
+                                    <AiOutlineMenuFold
+                                        size="2rem"
+                                        color="#803bec"
+                                    />
+                                </div>
                                 <Typography
                                     className={classes.heading}
                                     style={{
@@ -137,6 +140,7 @@ const CourseCurriculumComponent = () => {
                                             style={{
                                                 display: 'flex',
                                                 alignItems: 'center',
+                                                wordWrap: 'break-word'
                                             }}
                                         >
                                             <ListItem button key={lesson.name}>
