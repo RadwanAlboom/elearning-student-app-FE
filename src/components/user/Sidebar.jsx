@@ -271,7 +271,7 @@ const Sidebar = () => {
                             to="/user/exams"
                         >
                             <img src={Exams} alt="Exams" />
-                            <Text clicked={click}>Exams</Text>
+                            <Text clicked={click}>الامتحانات</Text>
                         </Item>
                     )}
                     <Item
