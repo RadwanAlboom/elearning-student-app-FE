@@ -16,6 +16,7 @@ import userImg from '../../assets/user.jpg';
 const useStyles = makeStyles({
     root: {
         maxWidth: 345,
+        display: 'table-caption'
     },
     media: {
         height: 140,

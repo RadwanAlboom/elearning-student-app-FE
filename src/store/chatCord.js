@@ -24,7 +24,7 @@ const slice = createSlice({
 
         chatAdded: (chats, action) => {
             !chats.list.some((chat) => chat.id === action.payload.id) &&
-                chats.list.push(action.payload);
+                chats.list.unshift(action.payload);
         },
     },
 });

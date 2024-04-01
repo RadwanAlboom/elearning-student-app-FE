@@ -119,6 +119,7 @@ body {
 .MuiCardContent-root {
     min-height: 150px !important;
     text-align: center;
+    word-wrap: break-word;
 }
 
 /* -------------popover notfications------------ */
@@ -412,6 +413,7 @@ h3 {
     }
     .company-info {
         font-size: 12px !important;
+        text-align: center;
     }
 
     /* exam review redesign */

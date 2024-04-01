@@ -31,19 +31,19 @@ const App = () => {
         };
     }, []);
 
-    // setInterval(function() {
-    //     console.log(Object.defineProperties(new Error, {
-    //         toString: {value() {(new Error).stack.includes('toString@') && alert('devtools')}},
-    //         message: {get() {
-    //             const user = auth.getCurrentUser();
-    //             if (user && !user.isAdmin) {
-    //                 setFraud(true);
-    //                 auth.logout();
-    //                 history.goBack();
-    //             }
-    //         }},
-    //       }));
-    // }, 1000);  
+    setInterval(function() {
+        console.log(Object.defineProperties(new Error, {
+            toString: {value() {(new Error).stack.includes('toString@') && alert('devtools')}},
+            message: {get() {
+                const user = auth.getCurrentUser();
+                if (user && !user.isAdmin) {
+                    setFraud(true);
+                    auth.logout();
+                    history.goBack();
+                }
+            }},
+          }));
+    }, 1000);  
 
     // if (fraud) {
     //     alert("hello");

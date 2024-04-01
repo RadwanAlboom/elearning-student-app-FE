@@ -26,7 +26,7 @@ class ContactForm extends Form {
             <div className="container-contact">
                 <div className="wrapper animated bounceInLeft">
                     <div className="company-info">
-                        <h2>Done With It</h2>
+                        <h2 style={{marginBottom: '50px'}}>المبدع للتعليم الإلكتروني</h2>
                         <ul>
                             <li>
                                 <i className="fa fa-road"></i> Al-Mammon Street,
@@ -42,16 +42,16 @@ class ContactForm extends Form {
                         </ul>
                     </div>
                     <div className="contact">
-                        <h3 style={{ marginBottom: '50px' }}>Email Us</h3>
+                        <h3 style={{ marginBottom: '50px' }}>ارسل لنا عبر البريد الإلكتروني</h3>
                         <form onSubmit={this.handleSubmit}>
-                            {this.renderInput('name', 'Name')}
-                            {this.renderInput('city', 'City')}
-                            {this.renderInput('email', 'Email Address')}
-                            {this.renderInput('phone', 'Phone Number')}
-                            {this.renderTextArea('message', 'Message')}
+                            {this.renderInput('name', 'الاسم')}
+                            {this.renderInput('city', 'المدينة')}
+                            {this.renderInput('email', 'البريد الالكتروني')}
+                            {this.renderInput('phone', 'رقم الهاتف')}
+                            {this.renderTextArea('message', 'الرسالة')}
 
                             {!this.props.isLoading &&
-                                this.renderButton(`Submit`, true)}
+                                this.renderButton(`ارسل`, true)}
 
                             {this.props.isSuccess === 'hidden' ? (
                                 ''
@@ -63,11 +63,11 @@ class ContactForm extends Form {
                                         borderColor: '#bcffb6',
                                     }}
                                 >
-                                    Message sent successfully
+                                    تم ارسال الرسالة بنجاح
                                 </div>
                             ) : (
                                 <div className="alert alert-danger">
-                                    Message send failed
+                                    فشل في ارسال الرسالة
                                 </div>
                             )}
                         </form>

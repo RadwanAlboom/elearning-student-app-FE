@@ -18,7 +18,6 @@ const ContactUsComponent = () => {
         } catch (error) {
             setIsSuccess(false);
         }
-        setIsLoading(false);
     };
     return (
         <div className="contact-us">

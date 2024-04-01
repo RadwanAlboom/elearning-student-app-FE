@@ -8,10 +8,10 @@ import logger from './services/logService';
 
 import TimeAgo from 'javascript-time-ago';
 
-import en from 'javascript-time-ago/locale/en';
+import ar from 'javascript-time-ago/locale/ar';
 import ru from 'javascript-time-ago/locale/ru';
 
-TimeAgo.addDefaultLocale(en);
+TimeAgo.addDefaultLocale(ar);
 TimeAgo.addLocale(ru);
 
 logger.init();

@@ -83,6 +83,14 @@ const Massenger = ({ handleCloseClick, teacherId: receiverId }) => {
             console.log(error);
         }
     };
+
+    const onEnterPress = (e) => {
+        if(e.keyCode === 13 && e.shiftKey === false) {
+          e.preventDefault();
+          handleSubmit(e);
+        }
+    }
+    
     return (
         <div className="chat-container" onClick={handleChatClick}>
             <div className="chat-header">
@@ -130,6 +138,7 @@ const Massenger = ({ handleCloseClick, teacherId: receiverId }) => {
                                 placeholder="write something..."
                                 onChange={(e) => setNewMessage(e.target.value)}
                                 value={newMessage}
+                                onKeyDown={onEnterPress}
                             ></textarea>
                             <button
                                 className="chatSubmitButton"

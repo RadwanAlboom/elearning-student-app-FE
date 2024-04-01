@@ -70,6 +70,13 @@ function ChatRoomComponent(props) {
         setNewMessage('');
     };
 
+    const onEnterPress = (e) => {
+        if(e.keyCode === 13 && e.shiftKey === false) {
+          e.preventDefault();
+          handleSubmit(e);
+        }
+    }
+
     const handleLeave = () => {
         socketMsg.emit('leaveChat', {
             id: auth.getCurrentUser().id,
@@ -139,15 +146,18 @@ function ChatRoomComponent(props) {
                 </main>
                 <div className="chat-form-container">
                     <div className="content" id="chat-form">
-                        <input
-                            id="msg"
-                            type="text"
-                            placeholder="Enter Message"
-                            required
-                            autoComplete="off"
-                            onChange={(e) => setNewMessage(e.target.value)}
+                         <textarea
+                            placeholder="...اكتب رسالة"
+                            className="form-control"
+                            id='text'
+                            rows="3"
+                            name='text'
                             value={newMessage}
-                        />
+                            onChange={(e) => setNewMessage(e.target.value)}
+                            onKeyDown={onEnterPress}
+                        ></textarea>
+                    </div>
+                    <div style={{textAlign: 'end', marginTop: '10px'}}>
                         <button className="chat-btn" onClick={handleSubmit}>
                             <i className="fas fa-paper-plane"></i> Send
                         </button>

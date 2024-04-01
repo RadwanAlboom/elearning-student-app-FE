@@ -33,6 +33,7 @@ ul {
 .company-info {
     background: #0f0f15;
     color: white;
+    text-align: center;
 }
 
 .company-info h3,
@@ -43,6 +44,7 @@ ul {
 
 .contact {
     background: #f9feff;
+    text-align: end;
 }
 
 /* FORM STYLES */
