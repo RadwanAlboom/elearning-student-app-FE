@@ -251,7 +251,7 @@ export default function PrimarySearchAppBar({ user }) {
                     to="/registration"
                     style={{ textDecoration: 'none', color: 'black' }}
                 >
-                    <MenuItem onClick={handleMenuClose}>Login</MenuItem>
+                    <MenuItem onClick={handleMenuClose}>تسجيل الدخول</MenuItem>
                 </NavLink>
             )}
             {user && (
