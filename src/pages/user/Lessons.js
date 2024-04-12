@@ -359,7 +359,6 @@ function Lessons({ match, ...other }) {
                         )}
                     </div>
                 ))}
-                <div style={{width: '100%', height:'100px'}}></div>
             </List>
             <Divider />
         </div>

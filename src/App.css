@@ -18,10 +18,12 @@ body {
 
 .particle-content {
     width: 100%;
-    height: 90vh;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    background: url(./assets/bg.jpg) no-repeat center;
+    background-size: cover;
 }
 
 .particle-form {
@@ -76,7 +78,7 @@ body {
     right: -2px !important;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
         rgba(60, 64, 67, 0.15) 0px 2px 6px 2px !important;
-    height: 100vh !important;
+    max-height: 91vh !important;
 }
 
 .drawer-style .MuiDrawer-paper {
@@ -249,7 +251,7 @@ h3 {
 
 .MuiTypography-colorTextSecondary {
     font-weight: bold !important;
-    color: black !important;
+    color: white !important;
 }
 
 .MuiCard-root {
@@ -358,7 +360,12 @@ h3 {
     }
     
     .container-contact {
-        margin-top: 100px;
+        height: 100%;
+    }
+
+    .wrapper {
+        height: 150vh;
+        background-color: white;
     }
 
     .MuiTypography-body1 {
@@ -404,6 +411,10 @@ h3 {
 
     .contact-us, .container-contact {
         padding: 0 0 0 0 !important;
+    }
+
+    .contact-us {
+        height: 100vh !important;
     }
 }
 
@@ -464,8 +475,7 @@ h3 {
 
     .MuiDrawer-paper {
         width: 100% !important;
-        height: 95vh;
-        padding-bottom: 100px;
+        padding-bottom: 10px;
     }
 
     .courses-header {

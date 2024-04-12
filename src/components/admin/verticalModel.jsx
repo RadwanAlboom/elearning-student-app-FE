@@ -36,7 +36,7 @@ const VerticalModal = ({ formTitle, progress = 0, ...other }) => {
             <div
                 style={{
                     padding: '15px 10px 12px 15px',
-                    backgroundColor: '#f7ff76',
+                    backgroundColor: '#a600ff',
                     margin: '30px 10px 0px 10px',
                     borderRadius: '5px',
                     border: '1px solid #c9c9c9',

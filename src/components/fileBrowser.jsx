@@ -14,7 +14,7 @@ const FileBrowser = ({ name, label, error, ...rest }) => {
                 htmlFor={name}
                 className="custom-file-label"
                 style={{
-                    backgroundColor: '#5baaff',
+                    backgroundColor: '#a600ff',
                     height: '45px',
                     paddingTop: '12px',
                     color: 'white',

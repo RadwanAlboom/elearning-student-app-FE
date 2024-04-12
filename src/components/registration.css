@@ -11,6 +11,7 @@
     flex-direction: column;
     font-family: sans-serif;
     height: 100vh;
+    background: url(../assets//bg.jpg) no-repeat center;
     background-size: cover;
     width: 100%;
 }
@@ -31,7 +32,7 @@
 
 .card-section {
     padding: 20px;
-    background: radial-gradient(#553f23, rgb(11, 16, 3, 0.6));
+    background: radial-gradient(#472355, rgb(11, 16, 3, 0.6));
     color: white;
     display: flex;
     flex-direction: column;
@@ -46,12 +47,23 @@
 }
 
 .register-btn {
-    background-color: #007bff !important ;
+    background-color: #a600ff !important ;
     color: white !important;
 }
 
+.btn-primary {
+    background-color: #a600ff !important ;
+    border-color: #a600ff !important ;
+}
+
+.btn-primary:hover {
+    background-color: #a432e2 !important ;
+    border-color: #a432e2 !important;
+    cursor: pointer;
+}
+
 .register-btn:hover {
-    background-color: #066ede !important;
+    background-color: #a432e2  !important;
 }
 
 .MuiCheckbox-colorPrimary.Mui-checked {
