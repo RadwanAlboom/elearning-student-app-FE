@@ -17,7 +17,10 @@ const slice = createSlice({
             profile.list.image = newImg;
             profile.list.imageId = newImgId;
         },
-
+        profileWhatsUpdated: (profile, action) => {
+            const { newLink } = action.payload;
+            profile.list.whatsapp = newLink;
+        },
         profileRecevierReceived: (profile, action) => {
             profile.recevier = action.payload;
         },
@@ -32,6 +35,7 @@ export const {
     profileImageUpdated,
     profileRecevierReceived,
     profileTeacherReceived,
+    profileWhatsUpdated
 } = slice.actions;
 export default slice.reducer;
 
@@ -78,4 +82,13 @@ export const updatePassProfile = (id, newPass) =>
         url: `/profile/password/${id}`,
         method: 'put',
         data: newPass,
+    });
+
+export const updateWhatsProfile = (id, newWhats) =>
+    apiCallBegan({
+        url: `/profile/whatsapp/${id}`,
+        method: 'put',
+        name: 'whatsUpdated',
+        data: newWhats,
+        onSuccess: profileWhatsUpdated.type,
     });

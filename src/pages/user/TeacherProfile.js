@@ -12,6 +12,7 @@ import Messanger from '../Massenger';
 import { loadTeacherProfile } from '../../store/profile';
 import '../moderator/profile.css';
 import userImg from '../../assets/user.jpg';
+import whatsapp from '../../assets/admin/whatsapp-purple.svg';
 
 const ProfileComponent = () => {
     const dispatch = useDispatch();
@@ -63,17 +64,13 @@ const ProfileComponent = () => {
                             />
                         </div>
                     </IconButton>
+                    <div style={{marginBottom: '10px', display: 'flex', justifyContent: 'center', alignItems: 'baseline'}} className='teacher-profile-whatsapp'>
+                        <a href={profile.whatsapp && profile.whatsapp !== '' ? profile.whatsapp : 'https://wa.me/970592078053' } target='_blank'>
+                            <img alt="" src={whatsapp} height="50" />
+                        </a>
+                        <h5 style={{marginLeft: '10px'}}>:واتساب للتواصل</h5>
+                    </div>
                     <div className="info-control-container">
-                        <div className="control-container">
-                            <div>
-                                <IconButton onClick={handleClick}>
-                                    <FaFacebookMessenger
-                                        size="40px"
-                                        color="#803bec"
-                                    />
-                                </IconButton>
-                            </div>
-                        </div>
                         <div className="info-container">
                             <div
                                 style={{ width: '100%', fontSize: '20px' }}

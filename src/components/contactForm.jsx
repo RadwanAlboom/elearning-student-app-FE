@@ -3,6 +3,7 @@ import Joi from 'joi-browser';
 
 import Form from './form';
 import './contactForm.css';
+import whatsapp from '../assets/admin/whatsapp-purple.svg';
 
 class ContactForm extends Form {
     state = {
@@ -43,6 +44,12 @@ class ContactForm extends Form {
                     </div>
                     <div className="contact">
                         <h3 style={{ marginBottom: '50px' }}>ارسل لنا عبر البريد الإلكتروني</h3>
+                        <div style={{display: 'flex', justifyContent: 'flex-end', alignItems: 'baseline'}}>
+                            <a href="https://wa.me/970592078053" target='_blank'>
+                                    <img alt="" src={whatsapp} height="50" />
+                            </a>
+                            <h5 style={{ marginBottom: '50px', marginLeft: '10px' }}>او تواصل معنا عبر الواتساب</h5>
+                        </div>
                         <form onSubmit={this.handleSubmit}>
                             {this.renderInput('name', 'الاسم')}
                             {this.renderInput('city', 'المدينة')}

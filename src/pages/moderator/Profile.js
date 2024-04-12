@@ -15,6 +15,7 @@ import {
     loadProfile,
     updateImageProfile,
     updatePassProfile,
+    updateWhatsProfile
 } from '../../store/profile';
 import auth from '../../services/authService';
 import VerticalModal from '../../components/admin/verticalModel';
@@ -24,6 +25,8 @@ import './profile.css';
 import userImg from '../../assets/user.jpg';
 import PassUpdateForm from '../../components/passUpdateForm';
 import {uploadImage, handleDeleteFile} from "../../services/uploadService";
+import WhatsUpdateForm from './../../components/whatsUpdateForm';
+import whatsapp from '../../assets/admin/whatsapp-purple.svg';
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -39,6 +42,7 @@ const ProfileComponent = () => {
     const [imageId, setImageId] = useState('');
     const [updateFormShow, setUpdateFormShow] = useState(false);
     const [updatePassFormShow, setPassUpdateFormShow] = useState(false);
+    const [updateWhatsFormShow, setWhatsUpdateFormShow] = useState(false);
     const[progress, setProgress] = useState(0)
     const[clicked, setClicked] = useState(false);
     const profile = useSelector((state) => state.profile.list);
@@ -67,6 +71,15 @@ const ProfileComponent = () => {
         setId(id);
     };
 
+    const updateWhatsClicked = (id) => {
+        setFormTitle('تحديث رابط الواتساب');
+        setModalShow(true);
+        setWhatsUpdateFormShow(true);
+        setPassUpdateFormShow(false);
+        setUpdateFormShow(false);
+        setId(id);
+    };
+
     const handleUpdateSubmitted = async ({imageId, newImg}) => {
         setClicked(true);
 
@@ -88,6 +101,12 @@ const ProfileComponent = () => {
         setModalShow(false);
         dispatch(updatePassProfile(id, updatedPass));
         toast.success('تم تحديث كلمة المرور بنجاح');
+    };
+
+    const handleWhatsUpdateSubmitted = (updatedWhats) => {
+        setModalShow(false);
+        dispatch(updateWhatsProfile(id, updatedWhats));
+        toast.success('تم تحديث رابط الواتساب بنجاح');
     };
     return (
         <div style={{ height: '95vh', width: '100%', overflowY: 'auto' }}>
@@ -112,6 +131,13 @@ const ProfileComponent = () => {
                             id={id}
                             btnName={'تحديث كلمة المرور'}
                             submitted={handlePassUpdateSubmitted}
+                        />
+                    )}
+                    {updateWhatsFormShow && (
+                        <WhatsUpdateForm
+                            id={id}
+                            btnName={'تحديث رابط الواتساب'}
+                            submitted={handleWhatsUpdateSubmitted}
                         />
                     )}
                 </VerticalModal>
@@ -140,9 +166,14 @@ const ProfileComponent = () => {
                             </div>
                         </div>
                     </IconButton>
+                    <div className='teacher-profile-whatsapp'>
+                        {profile.whatsapp && <a href={profile.whatsapp} target='_blank'>
+                            <img alt="" src={whatsapp} height="50" />
+                        </a>}
+                    </div>
                     <div className="info-control-container">
                         <div className="control-container">
-                            <div>
+                            <div style={{display: 'flex'}}>
                                 <Button
                                     variant="contained"
                                     color="secondary"
@@ -153,6 +184,17 @@ const ProfileComponent = () => {
                                     }
                                 >
                                     تحديث كلمة المرور
+                                </Button>
+                                <Button
+                                    variant="contained"
+                                    color="secondary"
+                                    className={`${classes.button} add-btn`}
+                                    startIcon={<CreateIcon />}
+                                    onClick={() =>
+                                        updateWhatsClicked(profile.id)
+                                    }
+                                >
+                                    تحديث الواتساب
                                 </Button>
                             </div>
                         </div>

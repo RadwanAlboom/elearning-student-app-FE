@@ -25,7 +25,7 @@ import time from '../../assets/time.png';
 import slides from '../../assets/slides.png';
 import logo from '../../assets/admin/logo.svg';
 import facebook from '../../assets/admin/facebook.svg';
-import twitter from '../../assets/admin/twittersvg.svg';
+import whatsapp from '../../assets/admin/whatsapp.svg';
 import youtube from '../../assets/admin/youtube.svg';
 
 import './wave.css';
@@ -335,13 +335,13 @@ const HomeComponent = (props) => {
                                 </div>
                             </div>
                             <div className="social-icons">
-                                <a href="https://www.facebook.com/abdallah.alboom">
+                                <a href="https://wa.me/970592078053" target='_blank'>
+                                    <img alt="" src={whatsapp} height="50" />
+                                </a>
+                                <a href="https://www.facebook.com/groups/760435298130078" target='_blank'>
                                     <img alt="" src={facebook} height="50" />
                                 </a>
-                                <a href="https://twitter.com/AlboomRadwan">
-                                    <img alt="" src={twitter} height="50" />
-                                </a>
-                                <a href="https://www.youtube.com/channel/UCJKNMtpU0ABIVqLyzjeSuHw">
+                                <a href="https://www.youtube.com/channel/UCJKNMtpU0ABIVqLyzjeSuHw" target='_blank'>
                                     <img alt="" src={youtube} height="50" />
                                 </a>
                             </div>
