@@ -171,7 +171,7 @@ const HomeComponent = (props) => {
                 </IconButton>
             </Toolbar>
             <main className={classes.content}>
-                <div className="admin-courses" style={{ paddingTop: '20px' }}>
+                <div className="home-wrraper" style={{ paddingTop: '20px' }}>
                     <div
                         className="home-container"
                         style={{
@@ -183,7 +183,7 @@ const HomeComponent = (props) => {
                             <img className="image" alt="" src={homeImg} />
                             <div className="logo-container">
                                 <img className="home-logo" alt="" src={logo} />
-                                <div>
+                                <div className='home-logo-text'>
                                     <h2>المبدع</h2>
                                     <div
                                         className="img-text"
@@ -350,7 +350,7 @@ const HomeComponent = (props) => {
                             </div>
                         </div>
                     </div>
-                    <div style={{ width: '100%', height: '80px' }}></div>
+                    <div className='home-empty-bottom'></div>
                 </div>
             </main>
             <nav className={classes.drawer} aria-label="mailbox folders">

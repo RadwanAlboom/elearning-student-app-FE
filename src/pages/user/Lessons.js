@@ -388,7 +388,7 @@ function Lessons({ match, ...other }) {
                     <MenuIcon />
                 </IconButton>
             </Toolbar>
-            <main className={classes.content}>
+            <main id='lesson-container' className={classes.content}>
                 {isPdf && (
                     <div className="Courses-container file-container">
                         <div

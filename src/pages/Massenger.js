@@ -135,7 +135,7 @@ const Massenger = ({ handleCloseClick, teacherId: receiverId }) => {
                         <div className="chatBoxBottom">
                             <textarea
                                 className="chatMessageInput"
-                                placeholder="write something..."
+                                placeholder="...اكتب رسالة"
                                 onChange={(e) => setNewMessage(e.target.value)}
                                 value={newMessage}
                                 onKeyDown={onEnterPress}

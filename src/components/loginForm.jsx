@@ -7,6 +7,7 @@ import { MdEmail } from 'react-icons/md';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { connect } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import ErrorMessage from './errorMessage';
 import DropDown from './dropDown';
@@ -24,6 +25,7 @@ class LoginForm extends Form {
         teacherChecked: false,
         major: 0,
         currentSocket: null,
+        loginBtnClicked : false
     };
 
     componentDidMount() {
@@ -45,6 +47,7 @@ class LoginForm extends Form {
     };
 
     doSubmit = async () => {
+        this.setState({loginBtnClicked: true})
         try {
             if (this.state.teacherChecked && !this.state.major) {
                 const loginErrors = { ...this.state.loginErrors };
@@ -52,29 +55,31 @@ class LoginForm extends Form {
                 this.setState({ loginErrors });
                 return;
             }
-            const { data } = this.state;
+            const { data, teacherChecked, major } = this.state;
+            const {loginEmail, password} = data;
             await auth.login(
-                data.loginEmail,
-                data.password,
-                this.state.teacherChecked,
-                this.state.major
+                loginEmail,
+                password,
+                teacherChecked,
+                major
             );
-
-            //login success => dispatch a notification for non admin users
-            const user = auth.getCurrentUser();
-
-            if (!user.isAdmin) {
-                const payload = {
-                    id: user.id,
-                    name: user.name,
-                    role: this.state.teacherChecked ? 'moderator' : 'user',
-                    type: 'login',
-                };
-                this.state.currentSocket.emit('loginNotifications', { payload });
-            }
-
+            
             const { state } = this.props.location;
-            window.location = state ? state.from.pathname : '/';
+            let redirectUrl = state ? state.from.pathname : '/';
+
+            const user = auth.getCurrentUser();
+            if (user && user.isAdmin) {
+                window.location = redirectUrl;
+            } else {
+                this.props.history.push("/verification", {
+                    from: redirectUrl, 
+                    email: loginEmail,
+                    password,
+                    isModerator: teacherChecked,
+                    major
+                });
+                toast.success('تم ارسال رمز التحقق الى بريدك الالكتروني');
+            }
             const loginErrors = {};
             this.setState({ loginErrors });
         } catch (ex) {
@@ -83,6 +88,7 @@ class LoginForm extends Form {
                 loginErrors.error = ex.response.data;
                 this.setState({ loginErrors });
             }
+            this.setState({loginBtnClicked: false})
         }
     };
 
@@ -127,7 +133,7 @@ class LoginForm extends Form {
                             majors={this.props.majors}
                         />
                     )}
-                    {this.renderButton('تسجيل الدخول', false)}
+                    {!this.state.loginBtnClicked && this.renderButton('تسجيل الدخول', false)}
                 </form>
             </div>
         );

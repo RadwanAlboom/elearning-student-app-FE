@@ -9,6 +9,42 @@ body {
     /* overflow-y: auto; */
 }
 
+#particle-background canvas {
+    z-index: -1;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+.particle-content {
+    width: 100%;
+    height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.particle-form {
+    width: 600px;
+    height: 400px;
+    background: rgba(255, 255,255, 0.3);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.verification-form-container {
+    color: white;
+    text-align: end;
+    margin-left: 40px;
+    width: 50%;
+}
+
+.verification-btn > div > button {
+    padding-bottom: 10px;
+}
+
 /* --------------------  React player stylling ---------------------
 ------------------------------------------------------------------------ */
 .Courses-container {
@@ -229,7 +265,7 @@ h3 {
     }
     .align-mid {
         align-items: center !important;
-        padding: 10px;
+        padding: 10px 10px 0 10px;
     }
 
     .simple-img img {
@@ -329,6 +365,45 @@ h3 {
         flex-basis: unset !important;
         flex-shrink: unset !important;
         word-break: break-all;   
+    }
+
+    .home-wrraper {
+        padding: 0 0 0 0 !important;
+    }
+
+    .home-empty-bottom {
+        height: 0px !important;
+    }
+
+    .align-mid > .home-card {
+        width: 100% !important;
+        margin-left: 0px !important;
+    }
+
+    .home-logo-text {
+        text-align: center !important;
+    }
+
+    .home-logo-text > h2 {
+        padding-right: 50px;
+    }
+
+    .bottom-container {
+        padding-bottom: 100px !important;
+    }
+
+    #lesson-container {
+        padding: 0 0 0 0;
+    }
+
+    .video-conatiner {
+        background-color: black;
+        padding-bottom: 250px;
+        padding-top: 0px;
+    }
+
+    .contact-us, .container-contact {
+        padding: 0 0 0 0 !important;
     }
 }
 

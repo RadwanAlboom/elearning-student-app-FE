@@ -20,6 +20,21 @@ export async function login(email, password, teacherChecked, major) {
     localStorage.setItem(tokenKey, data.jwt);
 }
 
+export async function verify(code, email, password, teacherChecked, major) {
+    const fingerprint = getBrowserFingerprint();
+    const result = await http.post(backendURL + '/api/auth/verification', {
+        code,
+        email,
+        password,
+        isModerator: teacherChecked,
+        majorId: major,
+        fingerprint
+    });
+
+    localStorage.setItem(tokenKey, result.data.jwt);
+    return result;
+}
+
 export function loginWithJwt(jwt) {
     localStorage.setItem(tokenKey, jwt);
 }
@@ -44,6 +59,7 @@ export function getJwt() {
 
 const exportedObject = {
     login,
+    verify,
     loginWithJwt,
     getCurrentUser,
     logout,

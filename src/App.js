@@ -15,6 +15,7 @@ import auth from './services/authService';
 import configureStore from './store/configureStore';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
+import Verification from './pages/user/Verification';
 
 const store = configureStore();
 let persistor = persistStore(store);
@@ -71,6 +72,21 @@ const App = () => {
                                         />
                                     );
                                 return <Registration {...props} />;
+                            }}
+                        />
+                        <Route
+                            path="/verification"
+                            render={(props) => {
+                                if (auth.getCurrentUser())
+                                    return (
+                                        <Redirect
+                                            to={{
+                                                pathname: '/',
+                                                state: { from: props.location },
+                                            }}
+                                        />
+                                    );
+                                return <Verification {...props} />;
                             }}
                         />
                         <Route path="/logout" component={Logout} />
