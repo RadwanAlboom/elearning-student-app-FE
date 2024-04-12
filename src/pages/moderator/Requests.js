@@ -109,6 +109,7 @@ const RequestsComponent = () => {
                 deleteClicked={deleteClicked}
                 acceptClicked={acceptClicked}
             />
+            <div style={{width: '100%', height: '200px'}}></div>
         </div>
     );
 };

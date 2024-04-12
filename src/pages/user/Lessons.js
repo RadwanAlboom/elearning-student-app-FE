@@ -361,6 +361,7 @@ function Lessons({ match, ...other }) {
                 ))}
             </List>
             <Divider />
+            <div style={{width: '100%', height:'350px'}}></div>
         </div>
     );
 

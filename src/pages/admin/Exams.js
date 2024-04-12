@@ -37,6 +37,7 @@ const ExamsComponent = () => {
             </div>
             <div style={{ marginTop: '25px' }}>
                 <ExamTable examPreviews={examPreviews} />
+                <div style={{width: '100%', height: '200px'}}></div>
             </div>
         </div>
     );

@@ -403,7 +403,7 @@ function ResponsiveDrawer({ match, ...other }) {
                     paddingRight: '10px',
                 }}
             >
-                <h3 style={{ margin: 0, fontWeight: 'bold' }}>المحاضرات</h3>
+                <h3 style={{ margin: 0, fontWeight: 'bold', marginLeft: '20px' }}>المحاضرات</h3>
                 <Button
                     variant="contained"
                     color="secondary"
@@ -481,7 +481,7 @@ function ResponsiveDrawer({ match, ...other }) {
                     paddingRight: '10px',
                 }}
             >
-                <h3 style={{ margin: 0, fontWeight: 'bold' }}>الملفات</h3>
+                <h3 style={{ margin: 0, fontWeight: 'bold', marginLeft: '20px' }}>الملفات</h3>
                 <Button
                     variant="contained"
                     color="secondary"
@@ -549,7 +549,7 @@ function ResponsiveDrawer({ match, ...other }) {
                     paddingRight: '10px',
                 }}
             >
-                <h3 style={{ margin: 0, fontWeight: 'bold' }}>الامتحانات</h3>
+                <h3 style={{ margin: 0, fontWeight: 'bold', marginLeft: '20px' }}>الامتحانات</h3>
                 {!exams.length && (
                     <Button
                         variant="contained"
@@ -600,6 +600,7 @@ function ResponsiveDrawer({ match, ...other }) {
                 })}
             </List>
             <Divider />
+            <div style={{width: '100%', height:'350px'}}></div>
         </div>
     );
 

@@ -78,7 +78,7 @@ body {
     right: -2px !important;
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
         rgba(60, 64, 67, 0.15) 0px 2px 6px 2px !important;
-    max-height: 91vh !important;
+    max-height: 95vh !important;
 }
 
 .drawer-style .MuiDrawer-paper {
@@ -337,7 +337,11 @@ h3 {
     }
 
     .circle {
-        height: unset !important;
+        width: 250px !important;
+        height: 250px !important;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     .circle img {
@@ -415,6 +419,10 @@ h3 {
 
     .contact-us {
         height: 100vh !important;
+    }
+
+    .info-control-container {
+        margin-top: -50px;
     }
 }
 

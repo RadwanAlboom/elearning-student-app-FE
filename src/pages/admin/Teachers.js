@@ -157,6 +157,7 @@ const TeahersComponent = () => {
                 acceptClicked={updateClicked}
                 btnName="Update"
             />
+            <div style={{width: '100%', height: '200px'}}></div>
         </div>
     );
 };
