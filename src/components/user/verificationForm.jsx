@@ -1,9 +1,20 @@
 import React from "react";
+import Lottie from 'react-lottie';
 import io from 'socket.io-client';
 import Joi from "joi-browser";
 import Form from "../form";
 import auth from "../../services/authService";
 import ErrorMessage from "../../components/errorMessage";
+import loader from '../../assets/admin/loader.json';
+
+const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: loader,
+    rendererSettings: {
+        preserveAspectRatio: 'xMidYMid slice',
+    },
+};
 
 let backendURL = process.env.REACT_APP_API_URL;
 class VerificationForm extends Form {
@@ -67,6 +78,7 @@ class VerificationForm extends Form {
                     {this.renderInput("code", ":ادخل رمز التحقق")}
                     <div className="verification-btn">
                         {!this.state.verifyClicked && this.renderButton("ارسل رمز التحقق", true)}
+                        {this.state.verifyClicked && <Lottie options={defaultOptions} height={100} width={100} />}
                     </div>
                 </form>
             </div>

@@ -14,7 +14,7 @@ import ru from 'javascript-time-ago/locale/ru';
 TimeAgo.addDefaultLocale(ar);
 TimeAgo.addLocale(ru);
 
-logger.init();
+// logger.init();
 ReactDOM.render(
     <BrowserRouter>
         <App />

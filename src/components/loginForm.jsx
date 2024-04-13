@@ -1,6 +1,6 @@
 import React from 'react';
 import Lottie from 'react-lottie';
-import Joi, { errors } from 'joi-browser';
+import Joi from 'joi-browser';
 import { GoSignIn } from 'react-icons/go';
 import { AiFillLock } from 'react-icons/ai';
 import { MdEmail } from 'react-icons/md';
