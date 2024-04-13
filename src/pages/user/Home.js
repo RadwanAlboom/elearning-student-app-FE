@@ -335,13 +335,13 @@ const HomeComponent = (props) => {
                                 </div>
                             </div>
                             <div className="social-icons">
-                                <a href="https://wa.me/970592078053" target='_blank'>
+                                <a href="https://wa.me/970592078053" target='_blank' rel="noreferrer">
                                     <img alt="" src={whatsapp} height="50" />
                                 </a>
-                                <a href="https://www.facebook.com/groups/760435298130078" target='_blank'>
+                                <a href="https://www.facebook.com/groups/760435298130078" target='_blank' rel="noreferrer">
                                     <img alt="" src={facebook} height="50" />
                                 </a>
-                                <a href="https://www.youtube.com/channel/UCJKNMtpU0ABIVqLyzjeSuHw" target='_blank'>
+                                <a href="https://www.youtube.com/channel/UCJKNMtpU0ABIVqLyzjeSuHw" target='_blank' rel="noreferrer">
                                     <img alt="" src={youtube} height="50" />
                                 </a>
                             </div>

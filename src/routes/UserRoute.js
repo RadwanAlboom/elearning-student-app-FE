@@ -70,7 +70,7 @@ function UserRoute() {
                                 exact
                                 component={ChatRoom}
                             />
-                            <UserProtectedRoute
+                            <ProtectedRoute
                                 path="/teacherProfile"
                                 exact
                                 component={TeacherProfile}

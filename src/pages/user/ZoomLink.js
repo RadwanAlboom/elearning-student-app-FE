@@ -3,7 +3,7 @@ import MotionHoc from './MotionHoc';
 import socketIOClient from 'socket.io-client';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useHistory } from 'react-router-dom';
-import { GoDeviceCameraVideo } from 'react-icons/go';
+import { IoVideocam } from "react-icons/io5";
 
 import { loadLinks } from '../../store/zoom';
 import ZoLink from '../../components/user/zoomLink';
@@ -62,7 +62,7 @@ function ZoomLinkComponent(props) {
         <div className="zoom-page" onContextMenu={(e) => e.preventDefault()}>
             <div className="courses-header">
                 <h3>
-                    <GoDeviceCameraVideo
+                    <IoVideocam
                         size={'1.7rem'}
                         color="#803bec"
                         style={{

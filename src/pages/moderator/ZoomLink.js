@@ -6,7 +6,7 @@ import { useLocation, useHistory } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import AddCircleSharpIcon from '@material-ui/icons/AddCircleSharp';
-import { GoDeviceCameraVideo } from 'react-icons/go';
+import { IoVideocam } from "react-icons/io5";
 import { toast } from 'react-toastify';
 
 import { loadLinks, addLink, updateLink, deleteLink } from '../../store/zoom';
@@ -143,7 +143,7 @@ function ZoomLinkComponent(props) {
             </VerticalModal>
             <div className="courses-header">
                 <h3>
-                    <GoDeviceCameraVideo
+                    <IoVideocam
                         size={'1.7rem'}
                         color="#803bec"
                         style={{

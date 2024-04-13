@@ -6,7 +6,6 @@ import IconButton from '@material-ui/core/IconButton';
 import { FaUserTie } from 'react-icons/fa';
 import { IoMail } from 'react-icons/io5';
 import { BsXDiamondFill } from 'react-icons/bs';
-import { FaFacebookMessenger } from 'react-icons/fa';
 import Messanger from '../Massenger';
 
 import { loadTeacherProfile } from '../../store/profile';
@@ -36,10 +35,6 @@ const ProfileComponent = () => {
         //eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    const handleClick = () => {
-        setShowMessanger(!showMessanger);
-    };
-
     const handleCloseClick = () => {
         setShowMessanger(false);
     };
@@ -65,7 +60,7 @@ const ProfileComponent = () => {
                         </div>
                     </IconButton>
                     <div style={{marginBottom: '10px', display: 'flex', justifyContent: 'center', alignItems: 'baseline'}} className='teacher-profile-whatsapp'>
-                        <a href={profile.whatsapp && profile.whatsapp !== '' ? profile.whatsapp : 'https://wa.me/970592078053' } target='_blank'>
+                        <a href={profile.whatsapp && profile.whatsapp !== '' ? profile.whatsapp : 'https://wa.me/970592078053' } target='_blank'  rel="noreferrer">
                             <img alt="" src={whatsapp} height="50" />
                         </a>
                         <h5 style={{marginLeft: '10px'}}>:واتساب للتواصل</h5>

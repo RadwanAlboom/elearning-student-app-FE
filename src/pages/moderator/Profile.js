@@ -167,7 +167,7 @@ const ProfileComponent = () => {
                         </div>
                     </IconButton>
                     <div className='teacher-profile-whatsapp'>
-                        {profile.whatsapp && <a href={profile.whatsapp} target='_blank'>
+                        {profile.whatsapp && <a href={profile.whatsapp} target='_blank'  rel="noreferrer">
                             <img alt="" src={whatsapp} height="50" />
                         </a>}
                     </div>

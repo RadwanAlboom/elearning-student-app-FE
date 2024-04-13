@@ -1,16 +1,28 @@
 import React from "react";
+import io from 'socket.io-client';
 import Joi from "joi-browser";
 import Form from "../form";
 import auth from "../../services/authService";
 import ErrorMessage from "../../components/errorMessage";
 
+let backendURL = process.env.REACT_APP_API_URL;
 class VerificationForm extends Form {
     state = {
         data: { code: "" },
         errors: {},
         verifyError: "",
-        verifyClicked: false
+        verifyClicked: false,
+        currentSocket: null
     };
+
+    componentDidMount() {
+        const socket = io(backendURL);
+        this.setState({ currentSocket: socket });
+    }
+
+    componentWillUnmount() {
+        this.state.currentSocket.disconnect();
+    }
 
     schema = {
         code: Joi.string().min(10).max(255).required().label("رمز التحقق"),
@@ -28,6 +40,16 @@ class VerificationForm extends Form {
                 isModerator,
                 major
             );
+
+             //login success => dispatch a notification
+             const payload = {
+                id: auth.getCurrentUser().id,
+                name: auth.getCurrentUser().name,
+                role: isModerator ? 'moderator' : 'user',
+                type: 'login',
+            };
+            this.state.currentSocket.emit('loginNotifications', { payload });
+
             window.location = from;
         } catch (ex) {
             if (ex.response && ex.response.status === 400) {
