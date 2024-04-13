@@ -1,6 +1,6 @@
 import React from 'react';
-import io from 'socket.io-client';
-import Joi from 'joi-browser';
+import Lottie from 'react-lottie';
+import Joi, { errors } from 'joi-browser';
 import { GoSignIn } from 'react-icons/go';
 import { AiFillLock } from 'react-icons/ai';
 import { MdEmail } from 'react-icons/md';
@@ -14,8 +14,16 @@ import DropDown from './dropDown';
 import auth from '../services/authService';
 import Form from './form';
 import { addNotification } from '../store/userNotifications';
+import loader from '../assets/admin/loader.json';
 
-let backendURL = process.env.REACT_APP_API_URL;
+const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: loader,
+    rendererSettings: {
+        preserveAspectRatio: 'xMidYMid slice',
+    },
+};
 
 class LoginForm extends Form {
     state = {
@@ -24,18 +32,8 @@ class LoginForm extends Form {
         loginErrors: {},
         teacherChecked: false,
         major: 0,
-        currentSocket: null,
         loginBtnClicked : false
     };
-
-    componentDidMount() {
-        const socket = io(backendURL);
-        this.setState({ currentSocket: socket });
-    }
-
-    componentWillUnmount() {
-        this.state.currentSocket.disconnect();
-    }
 
     schema = {
         loginEmail: Joi.string().required().email().label('Email'),
@@ -47,11 +45,12 @@ class LoginForm extends Form {
     };
 
     doSubmit = async () => {
-        this.setState({loginBtnClicked: true})
+        this.setState({loginBtnClicked: true, loginErrors: {}, errors: {}})
         try {
             if (this.state.teacherChecked && !this.state.major) {
+                this.setState({loginBtnClicked: false})
                 const loginErrors = { ...this.state.loginErrors };
-                loginErrors.error = 'Your major should not be empty';
+                loginErrors.error = 'لا ينبغي أن يكون تخصصك فارغا';
                 this.setState({ loginErrors });
                 return;
             }
@@ -134,6 +133,7 @@ class LoginForm extends Form {
                         />
                     )}
                     {!this.state.loginBtnClicked && this.renderButton('تسجيل الدخول', false)}
+                    {this.state.loginBtnClicked && <Lottie options={defaultOptions} height={100} width={100} />}
                 </form>
             </div>
         );
