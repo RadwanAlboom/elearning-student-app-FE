@@ -28,7 +28,7 @@ const DropDownLevel = ({ handleChange, val }) => {
     };
     return (
         <div>
-            <FormControl className={classes.formControl}>
+            {/* <FormControl className={classes.formControl}>
                 <InputLabel id="level">خاصية الامتحان</InputLabel>
                 <Select
                     labelId="level"
@@ -47,7 +47,7 @@ const DropDownLevel = ({ handleChange, val }) => {
                         <em>تفعيل</em>
                     </MenuItem>
                 </Select>
-            </FormControl>
+            </FormControl> */}
         </div>
     );
 };

@@ -123,7 +123,7 @@ const RequestsComponent = () => {
                 handleChange={handleChangeDropDown}
                 checked={emailChecked}
             />
-            {emailChecked && <div style={{width: '50%'}}>
+            {emailChecked && <div className='search-input'>
                     <Input
                         name='email'
                         label='email:'

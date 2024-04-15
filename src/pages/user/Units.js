@@ -19,11 +19,14 @@ import { BsFillGrid3X3GapFill } from 'react-icons/bs';
 import { AiOutlineMenuFold } from 'react-icons/ai';
 import { BsPersonFill } from 'react-icons/bs';
 import { IoVideocam } from "react-icons/io5";
+import { IoChatbubblesSharp } from 'react-icons/io5';
+import { socketMsg } from '../../socket';
 
 import Unit from '../../components/user/unit.jsx';
 import allAccess from '../../assets/all2.jpg';
 
 import { loadSpecificUnits } from '../../store/units';
+import { loadNotifications } from '../../store/userNotifications';
 import auth from '../../services/authService';
 
 const drawerWidth = 350;
@@ -100,6 +103,15 @@ const Units = ({ match, ...other }) => {
 
         return () => socket.disconnect();
         //eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [dispatch]);
+
+    useEffect(() => {
+        socketMsg.on('refreshStudentUnits', (data) => {
+            if (location.state && location.state.id) {
+                dispatch(loadSpecificUnits(location.state.id, auth.getCurrentUser().id));
+                dispatch(loadNotifications());
+            }
+        });
     }, [dispatch]);
 
     const handleDrawerToggle = () => {
@@ -191,6 +203,31 @@ const Units = ({ match, ...other }) => {
                         <ListItemText primary={'معلمك الخاص'} />
                         <ListItemIcon>
                             <BsPersonFill size={'1.7rem'} color="#803bec" />
+                        </ListItemIcon>
+                    </ListItem>
+                </List>
+            </Link>
+            <Link
+                to={{
+                    pathname: '/chatRoom',
+                    state: { classCourseId, classCourseName },
+                }}
+                style={{ textDecoration: 'none', color: '#000000de' }}
+            >
+                <List
+                    style={{
+                        backgroundColor: '#deded6',
+                        borderRight: '6px solid black',
+                        marginTop: '20px',
+                    }}
+                >
+                    <ListItem button>
+                        <ListItemText primary={'Chat Room'} />
+                        <ListItemIcon>
+                            <IoChatbubblesSharp
+                                size={'1.7rem'}
+                                color="#803bec"
+                            />
                         </ListItemIcon>
                     </ListItem>
                 </List>

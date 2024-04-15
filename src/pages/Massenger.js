@@ -144,7 +144,7 @@ const Massenger = ({ handleCloseClick, teacherId: receiverId }) => {
                                 className="chatSubmitButton"
                                 onClick={handleSubmit}
                             >
-                                Send
+                                ارسل
                             </button>
                         </div>
                     </>

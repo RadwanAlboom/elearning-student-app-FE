@@ -105,7 +105,7 @@ export const loadSpecificUnits = (classcourse_id, user_id) =>
             auth.getCurrentUser() &&
             !auth.getCurrentUser().isModerator &&
             !auth.getCurrentUser().isAdmin
-                ? `/courses/units/${classcourse_id}/users/${user_id}`
+                ? `/courses/class-courses/${classcourse_id}/users/${user_id}`
                 : '/courses/units',
         onStart: unitsRequested.type,
         onSuccess: specificUnitsReceived.type,

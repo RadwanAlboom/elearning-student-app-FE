@@ -1,6 +1,7 @@
 import React from 'react';
 import io from 'socket.io-client';
 import Joi from 'joi-browser';
+import Lottie from 'react-lottie';
 import { GoSignIn } from 'react-icons/go';
 import { AiFillLock } from 'react-icons/ai';
 import { MdEmail } from 'react-icons/md';
@@ -11,6 +12,16 @@ import * as userService from '../services/userService';
 import ErrorMessage from './errorMessage';
 import DropDown from './dropDown';
 import Form from './form';
+import loader from '../assets/admin/loader.json';
+
+const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: loader,
+    rendererSettings: {
+        preserveAspectRatio: 'xMidYMid slice',
+    },
+};
 
 let backendURL = process.env.REACT_APP_API_URL;
 
@@ -29,6 +40,7 @@ class RegisterForm extends Form {
         showloginButton: true,
         showlogoutButton: false,
         currentSocket: null,
+        registerBtnClicked : false
     };
 
     componentDidMount() {
@@ -60,10 +72,12 @@ class RegisterForm extends Form {
     };
 
     doSubmit = async () => {
+        this.setState({registerBtnClicked: true, registerErrors: {}, errors: {}})
         try {
             if (this.state.teacherChecked && !this.state.major) {
+                this.setState({registerBtnClicked: false})
                 const registerErrors = { ...this.state.registerErrors };
-                registerErrors.error = 'Your major should not be empty';
+                registerErrors.error = 'لا ينبغي أن يكون تخصصك فارغا';
                 this.setState({ registerErrors });
                 return;
             }
@@ -92,6 +106,7 @@ class RegisterForm extends Form {
                 registerErrors.error = ex.response.data;
                 this.setState({ registerErrors });
             }
+            this.setState({registerBtnClicked: false})
         }
     };
 
@@ -143,7 +158,8 @@ class RegisterForm extends Form {
                         />
                     )}
 
-                    {this.renderButton('ارسل طلب انضمام', false)}
+                    {!this.state.registerBtnClicked && this.renderButton('ارسل طلب انضمام', false)}
+                    {this.state.registerBtnClicked && <Lottie options={defaultOptions} height={100} width={100} />}
                 </form>
             </div>
         );

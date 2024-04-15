@@ -84,6 +84,7 @@ const Courses = (props) => {
     };
 
     const displayCourses = courses.map((course) => {
+        
         return (
             <div
                 key={course.id}

@@ -125,6 +125,13 @@ const Units = ({ match }) => {
         toast.success('تم حذف الفصل بنجاح');
     };
 
+    const addStudentClicked = (unitId, unitName) => {
+        history.push({
+            pathname: '/admin/studentUnit',
+            state: { unitId, unitName },
+        });  
+    }
+
     const displayChapters = chapters.map((chapter) => {
         return classCourseId + '' === chapter.classcourse_id + '' ? (
             <div
@@ -141,6 +148,7 @@ const Units = ({ match }) => {
                     component={<AiOutlineMenuFold size="2rem" color="white" />}
                     updateClicked={updateClicked}
                     deleteClicked={deleteClicked}
+                    addStudentClicked={addStudentClicked}
                     url="/admin/courses/teachers/classCourses/chapters/lessons"
                 />
             </div>

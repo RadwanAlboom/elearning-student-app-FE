@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { apiCallBegan } from './api';
 import moment from 'moment';
 import { createSelector } from 'reselect';
+import auth from '../services/authService';
 
 const slice = createSlice({
     name: 'adminCourses',
@@ -15,7 +16,15 @@ const slice = createSlice({
             adminCourses.loading = true;
         },
         adminCoursesReceived: (adminCourses, action) => {
-            adminCourses.list = action.payload;
+            const currentUser = auth.getCurrentUser();
+            if (currentUser && currentUser.isModerator) {
+                const courses = action.payload.filter(course => {
+                    return currentUser.majorId + '' === course.id + '';
+                });
+                adminCourses.list = courses;
+            } else {
+                adminCourses.list = action.payload;
+            }
             adminCourses.loading = false;
             adminCourses.lastFetch = Date.now();
         },

@@ -1,8 +1,10 @@
-import React, { Component } from 'react';
-import DeleteIcon from '@material-ui/icons/Delete';
-import UpdateSharpIcon from '@material-ui/icons/UpdateSharp';
-import Button from '@material-ui/core/Button';
-import { Link } from 'react-router-dom';
+import React, { Component } from "react";
+import DeleteIcon from "@material-ui/icons/Delete";
+import UpdateSharpIcon from "@material-ui/icons/UpdateSharp";
+import AddCircleSharpIcon from "@material-ui/icons/AddCircleSharp";
+import Button from "@material-ui/core/Button";
+import { Link } from "react-router-dom";
+import auth from "../../services/authService";
 
 class Unit extends Component {
     state = {};
@@ -14,6 +16,7 @@ class Unit extends Component {
             component,
             updateClicked,
             deleteClicked,
+            addStudentClicked,
             url,
         } = this.props;
         return (
@@ -30,12 +33,27 @@ class Unit extends Component {
                                 state: { id },
                             }}
                         >
-                            {title}{' '}
+                            {title}{" "}
                         </Link>
                     </div>
                 </div>
                 <div className="actions-container">
                     <div className="btn-conatiner">
+                        {auth.getCurrentUser() &&
+                            auth.getCurrentUser().isAdmin && (
+                                <div className="update-btn">
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        startIcon={<AddCircleSharpIcon />}
+                                        onClick={() =>
+                                            addStudentClicked(id, title)
+                                        }
+                                    >
+                                        اضف طالب
+                                    </Button>
+                                </div>
+                            )}
                         <div className="update-btn">
                             <Button
                                 variant="contained"

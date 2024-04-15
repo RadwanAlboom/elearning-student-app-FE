@@ -4,7 +4,8 @@
 .home-wrraper,
 .requests-page,
 .contact-us,
-.course-curriculum {
+.course-curriculum,
+.student-unit {
     display: block;
     width: 100%;
     height: 100vh;
@@ -33,7 +34,8 @@
     margin-bottom: 20px;
 }
 .courses-header,
-.requests-header {
+.requests-header,
+.student-unit-header {
     background-color: white;
     border-radius: 5px;
     padding-left: 5px;
