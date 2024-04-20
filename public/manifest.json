@@ -1,8 +1,8 @@
 {
   "name": "المبدع للتعليم الإلكتروني",
   "short_name": "المبدع للتعليم الإلكتروني",
-  "theme_color": "#7c3fee",
-  "background_color": "#7c3fee",
+  "theme_color": "#000000",
+  "background_color": "#000000",
   "display": "standalone",
   "scope": "/",
   "start_url": "/",

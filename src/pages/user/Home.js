@@ -177,6 +177,7 @@ const HomeComponent = (props) => {
                         style={{
                             backgroundColor: 'white',
                             width: '100%',
+                            overflow: 'hidden'
                         }}
                     >
                         <div className="home-image">
@@ -317,6 +318,7 @@ const HomeComponent = (props) => {
                                     flexWrap: 'wrap',
                                     marginTop: '40px',
                                     justifyContent: 'center',
+                                    width: '100%'
                                 }}
                             >
                                 {displayCourses}
