@@ -23,7 +23,7 @@ import homeImg from '../../assets/learn.jpg';
 import simple from '../../assets/simple.png';
 import time from '../../assets/time.png';
 import slides from '../../assets/slides.png';
-import logo from '../../assets/admin/logo.svg';
+import book from '../../assets/admin/book.png';
 import facebook from '../../assets/admin/facebook.svg';
 import whatsapp from '../../assets/admin/whatsapp.svg';
 import youtube from '../../assets/admin/youtube.svg';
@@ -182,7 +182,7 @@ const HomeComponent = (props) => {
                         <div className="home-image">
                             <img className="image" alt="" src={homeImg} />
                             <div className="logo-container">
-                                <img className="home-logo" alt="" src={logo} />
+                                <img className="home-logo" alt="" src={book} />
                                 <div className='home-logo-text'>
                                     <h2>المبدع</h2>
                                     <div
