@@ -39,14 +39,14 @@ export const {
 } = slice.actions;
 export default slice.reducer;
 
-export const loadExams = () => (dispatch, getState) => {
+export const loadExams = (chapterId) => (dispatch, getState) => {
     const { lastFetch } = getState().entities.exams;
     const diffInMinutes = moment().diff(moment(lastFetch), 'minutes');
     if (diffInMinutes < 0) return;
 
     return dispatch(
         apiCallBegan({
-            url: '/courses/exams',
+            url: `/courses/exams?unitId=${chapterId}`,
             onStart: examsRequested.type,
             onSuccess: examsReceived.type,
             onError: examsRequestFailed.type,

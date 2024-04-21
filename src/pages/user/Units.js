@@ -222,7 +222,7 @@ const Units = ({ match, ...other }) => {
                     }}
                 >
                     <ListItem button>
-                        <ListItemText primary={'Chat Room'} />
+                        <ListItemText primary={'غرفة المحادثة'} />
                         <ListItemIcon>
                             <IoChatbubblesSharp
                                 size={'1.7rem'}

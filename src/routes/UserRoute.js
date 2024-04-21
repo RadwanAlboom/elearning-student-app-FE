@@ -65,7 +65,7 @@ function UserRoute() {
                                 path="/zoomLink"
                                 component={ZoomLink}
                             />
-                            <UserProtectedRoute
+                            <ProtectedRoute
                                 path="/chatRoom"
                                 exact
                                 component={ChatRoom}

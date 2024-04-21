@@ -49,14 +49,14 @@ export const {
 } = slice.actions;
 export default slice.reducer;
 
-export const loadFiles = () => (dispatch, getState) => {
+export const loadFiles = (chapterId) => (dispatch, getState) => {
     const { lastFetch } = getState().entities.files;
     const diffInMinutes = moment().diff(moment(lastFetch), 'minutes');
     if (diffInMinutes < 0) return;
 
     return dispatch(
         apiCallBegan({
-            url: '/courses/files',
+            url: `/courses/files?unitId=${chapterId}`,
             onStart: filesRequested.type,
             onSuccess: filesReceived.type,
             onError: filesRequestFailed.type,

@@ -321,6 +321,10 @@ h3 {
     overflow-y: auto;
 }
 
+.home-logo-text {
+    text-align: center;
+}
+
 
 @media screen and (max-width: 1024px) {
     .right-space {

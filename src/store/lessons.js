@@ -51,14 +51,14 @@ export const {
 } = slice.actions;
 export default slice.reducer;
 
-export const loadLessons = () => (dispatch, getState) => {
+export const loadLessons = (chapterId) => (dispatch, getState) => {
     const { lastFetch } = getState().entities.lessons;
     const diffInMinutes = moment().diff(moment(lastFetch), 'minutes');
     if (diffInMinutes < 0) return;
 
     return dispatch(
         apiCallBegan({
-            url: '/courses/lessons',
+            url: `/courses/lessons?unitId=${chapterId}`,
             onStart: lessonsRequested.type,
             onSuccess: lessonsReceived.type,
             onError: lessonsRequestFailed.type,

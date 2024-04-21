@@ -27,6 +27,7 @@ import PDFReader from './../../components/PDFReader';
 import { loadLessons } from '../../store/lessons';
 import { loadExams } from '../../store/exams';
 import { loadFiles } from '../../store/files';
+import { socketMsg } from '../../socket';
 
 const drawerWidth = 400;
 let socket;
@@ -106,36 +107,49 @@ function Lessons({ match, ...other }) {
         if (!location.state) {
             history.goBack();
         }
-        setChapterId(location.state.id);
-        setClassCourseId(location.state.classCourseId);
-        setTeacherId(location.state.teacherId);
-        dispatch(loadLessons());
+        const {id, classCourseId, teacherId} = location.state;
+        setChapterId(id);
+        setClassCourseId(classCourseId);
+        setTeacherId(teacherId);
+        dispatch(loadLessons(id));
         //eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
-        dispatch(loadExams());
+        const {id} = location.state;
+        dispatch(loadExams(id));
         //eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
-        dispatch(loadFiles());
+        const {id} = location.state;
+        dispatch(loadFiles(id));
         //eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    useEffect(() => {
+        const {id} = location.state;
+        socketMsg.on('refreshStudentUnits', (data) => {
+            dispatch(loadLessons(id));
+            dispatch(loadExams(id));
+            dispatch(loadFiles(id));
+        })
     }, []);
 
     useEffect(() => {
         socket = socketIOClient(backendURL);
+        const {id} = location.state;
         socket.on('lessons', (payload) => {
-            dispatch(loadLessons());
+            dispatch(loadLessons(id));
         });
-
         return () => socket.disconnect();
     }, [dispatch]);
 
     useEffect(() => {
         socket = socketIOClient(backendURL);
+        const {id} = location.state;
         socket.on('exams', (payload) => {
-            dispatch(loadExams());
+            dispatch(loadExams(id));
         });
 
         return () => socket.disconnect();
@@ -151,8 +165,9 @@ function Lessons({ match, ...other }) {
 
     useEffect(() => {
         socket = socketIOClient(backendURL);
+        const {id} = location.state;
         socket.on('files', (payload) => {
-            dispatch(loadFiles());
+            dispatch(loadFiles(id));
         });
 
         return () => socket.disconnect();

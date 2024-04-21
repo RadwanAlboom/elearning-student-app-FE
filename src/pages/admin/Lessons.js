@@ -139,25 +139,29 @@ function ResponsiveDrawer({ match, ...other }) {
         if (!location.state) {
             history.goBack();
         }
-        setChapterId(location.state.id);
-        dispatch(loadLessons());
+        const {id} = location.state;
+        setChapterId(id);
+        dispatch(loadLessons(id));
         //eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
-        dispatch(loadExams());
+        const {id} = location.state;
+        dispatch(loadExams(id));
         //eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
-        dispatch(loadFiles());
+        const {id} = location.state;
+        dispatch(loadFiles(id));
         //eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
         socket = socketIOClient(backendURL);
+        const {id} = location.state;
         socket.on('lessons', (payload) => {
-            dispatch(loadLessons());
+            dispatch(loadLessons(id));
         });
 
         return () => socket.disconnect();
@@ -165,8 +169,9 @@ function ResponsiveDrawer({ match, ...other }) {
 
     useEffect(() => {
         socket = socketIOClient(backendURL);
+        const {id} = location.state;
         socket.on('exams', (payload) => {
-            dispatch(loadExams());
+            dispatch(loadExams(id));
         });
 
         return () => socket.disconnect();
@@ -174,8 +179,9 @@ function ResponsiveDrawer({ match, ...other }) {
 
     useEffect(() => {
         socket = socketIOClient(backendURL);
+        const {id} = location.state;
         socket.on('files', (payload) => {
-            dispatch(loadFiles());
+            dispatch(loadFiles(id));
         });
 
         return () => socket.disconnect();

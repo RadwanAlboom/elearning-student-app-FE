@@ -185,7 +185,7 @@ const HomeComponent = (props) => {
                             <div className="logo-container">
                                 <img className="home-logo" alt="" src={book} />
                                 <div className='home-logo-text'>
-                                    <h2>المبدع</h2>
+                                    <h2>المبدع للتعليم الإلكتروني</h2>
                                     <div
                                         className="img-text"
                                         style={{
@@ -193,8 +193,7 @@ const HomeComponent = (props) => {
                                             letterSpacing: '1px',
                                         }}
                                     >
-                                        واضح وموجز وشامل، و
-                                         عملي بدون زغب
+                                        واضح وموجز وشامل، وعملي بدون زغب
                                     </div>
                                 </div>
                             </div>
