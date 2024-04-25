@@ -11,6 +11,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import UpdateSharpIcon from '@material-ui/icons/UpdateSharp';
+import BlockIcon from '@material-ui/icons/Block';
 
 import TableDropDown from '../tableDropDown';
 
@@ -36,13 +37,21 @@ const useStyles = makeStyles({
     container: {
         maxHeight: 440,
     },
+    
+    button: {
+        backgroundColor: '#292828',
+        '&:hover': {
+            backgroundColor: '#000',
+        }
+    }
 });
 
 export default function StickyHeadTable({
-    userRequests,
+    students,
     acceptClicked,
     deleteClicked,
     btnName,
+    updateUserBlockStatusClicked
 }) {
     const classes = useStyles();
     const [page, setPage] = React.useState(0);
@@ -78,25 +87,28 @@ export default function StickyHeadTable({
                             <TableCell style={{ minWidth: 170 }}>
                                 Delete
                             </TableCell>
+                            <TableCell style={{ minWidth: 170 }}>
+                                Block/ Unblock
+                            </TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {userRequests
+                        {students
                             .slice(
                                 page * rowsPerPage,
                                 page * rowsPerPage + rowsPerPage
                             )
-                            .map((userRequest) => {
+                            .map((student) => {
                                 return (
                                     <TableRow
                                         hover
                                         role="checkbox"
                                         tabIndex={-1}
-                                        key={userRequest.id}
+                                        key={student.id}
                                     >
                                         {columns.map((column) => {
                                             const value =
-                                                userRequest[column.id] + '';
+                                                student[column.id] + '';
                                             return (
                                                 <TableCell
                                                     key={column.id}
@@ -114,11 +126,10 @@ export default function StickyHeadTable({
                                                 variant="contained"
                                                 color="primary"
                                                 size="small"
-                                                className={classes.button}
                                                 startIcon={<UpdateSharpIcon />}
                                                 onClick={() =>
                                                     acceptClicked(
-                                                        userRequest.id
+                                                        student.id
                                                     )
                                                 }
                                             >
@@ -130,15 +141,30 @@ export default function StickyHeadTable({
                                                 variant="contained"
                                                 color="secondary"
                                                 size="small"
-                                                className={classes.button}
                                                 startIcon={<DeleteIcon />}
                                                 onClick={() =>
                                                     deleteClicked(
-                                                        userRequest.id
+                                                        student.id
                                                     )
                                                 }
                                             >
                                                 حذف
+                                            </Button>
+                                        </TableCell>
+                                        <TableCell>
+                                            <Button
+                                                variant="contained"
+                                                color="secondary"
+                                                size="small"
+                                                className={classes.button}
+                                                startIcon={<BlockIcon />}
+                                                onClick={() =>
+                                                    updateUserBlockStatusClicked(
+                                                        student.id, !student.isBlocked
+                                                    )
+                                                }
+                                            >
+                                                {student.isBlocked ? 'الغاء الحظر' : 'حظر'}
                                             </Button>
                                         </TableCell>
                                     </TableRow>
@@ -161,7 +187,7 @@ export default function StickyHeadTable({
             </div>
             <TablePagination
                 component="div"
-                count={userRequests.length}
+                count={students.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onChangePage={handleChangePage}

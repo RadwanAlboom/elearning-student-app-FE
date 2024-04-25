@@ -1,6 +1,8 @@
 {
   "name": "المبدع للتعليم الإلكتروني",
   "short_name": "المبدع للتعليم الإلكتروني",
+  "description": "المبدع للتعليم الإلكتروني",
+  "app_name": "المبدع للتعليم الإلكتروني",
   "theme_color": "#000000",
   "background_color": "#000000",
   "display": "standalone",
@@ -9,9 +11,9 @@
   "icons": [
     {
       "src": "maskable.png",
-      "sizes": "196x196",
+      "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "maskable"
     },
     {
       "src": "logo192.png",

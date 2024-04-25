@@ -1,9 +1,9 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { apiCallBegan } from './api';
-import moment from 'moment';
+import { createSlice } from "@reduxjs/toolkit";
+import { apiCallBegan } from "./api";
+import moment from "moment";
 
 const slice = createSlice({
-    name: 'teachers',
+    name: "teachers",
     initialState: {
         list: [],
         loading: false,
@@ -24,14 +24,14 @@ const slice = createSlice({
 
         teacherDeleted: (teachers, action) => {
             const newTeachers = teachers.list.filter((teacher) => {
-                return teacher.id + '' !== action.payload.id;
+                return teacher.id + "" !== action.payload.id;
             });
             teachers.list = newTeachers;
         },
         teacherUpdated: (teachers, action) => {
             const { id, newTeacher } = action.payload;
             const index = teachers.list.findIndex(
-                (teacher) => teacher.id + '' === id + ''
+                (teacher) => teacher.id + "" === id + ""
             );
             teachers.list[index] = newTeacher;
         },
@@ -49,7 +49,7 @@ export default slice.reducer;
 
 export const loadTeachers = (emailFilter) => (dispatch, getState) => {
     const { lastFetch } = getState().teachers;
-    const diffInMinutes = moment().diff(moment(lastFetch), 'minutes');
+    const diffInMinutes = moment().diff(moment(lastFetch), "minutes");
     if (diffInMinutes < 0) return;
 
     return dispatch(
@@ -65,14 +65,22 @@ export const loadTeachers = (emailFilter) => (dispatch, getState) => {
 export const deleteTeacher = (id) =>
     apiCallBegan({
         url: `/teachers/${id}`,
-        method: 'delete',
+        method: "delete",
         onSuccess: teacherDeleted.type,
     });
 
 export const updateTeacher = (id, updatedTeacher) =>
     apiCallBegan({
         url: `/teachers/${id}`,
-        method: 'put',
+        method: "put",
         data: updatedTeacher,
+        onSuccess: teacherUpdated.type,
+    });
+
+export const updateTeacherBlockStatus = (id, isBlock) =>
+    apiCallBegan({
+        url: `/teachers/block/${id}`,
+        method: "put",
+        data: { isBlock },
         onSuccess: teacherUpdated.type,
     });

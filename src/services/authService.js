@@ -35,6 +35,10 @@ export async function verify(code, email, password, teacherChecked, major) {
     return result;
 }
 
+export async function authMe() {
+    await http.post(backendURL + '/api/auth/me', {});
+}
+
 export function loginWithJwt(jwt) {
     localStorage.setItem(tokenKey, jwt);
 }
@@ -63,6 +67,7 @@ const exportedObject = {
     loginWithJwt,
     getCurrentUser,
     logout,
+    authMe
 };
 
 export default exportedObject;

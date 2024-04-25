@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import http from '../../services/httpService';
 import Table from '../../components/table.jsx';
 import VerticalModal from '../../components/admin/verticalModel.jsx';
-import RequestDeleteForm from '../../components/admin/requestDeleteForm';
+import TableDeleteForm from '../../components/admin/TableDeleteForm';
 import RequestAcceptForm from '../../components/admin/requestAcceptForm';
 
 let backendURL = process.env.REACT_APP_API_URL;
@@ -78,9 +78,11 @@ const RequestsComponent = () => {
                 onHide={() => setModalShow(false)}
             >
                 {deleteFormShow && (
-                    <RequestDeleteForm
+                    <TableDeleteForm
                         id={requestId}
                         submitted={handleDeleteSubmitted}
+                        popup="هل انت متأكد من انك تريد حذف هذا الطلب؟"
+                        btnName="حذف طلب"
                     />
                 )}
 

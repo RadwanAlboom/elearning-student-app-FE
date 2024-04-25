@@ -2,7 +2,7 @@ import React from 'react';
 import Joi from 'joi-browser';
 import Form from '../form';
 
-class RequestDeleteForm extends Form {
+class TableDeleteForm extends Form {
     state = {
         data: {
             id: this.props.id,
@@ -24,13 +24,13 @@ class RequestDeleteForm extends Form {
                 <form onSubmit={this.handleSubmit}>
                     {this.renderInput('id', 'المعرف', 'text', '', true)}
                     <div style={{ fontSize: '1.5rem' }}>
-                        هل انت متأكد من انك تريد حذف هذا الطلب؟
+                        {this.props.popup}
                     </div>
-                    {this.renderButton(`حذف طلب`, false)}
+                    {this.renderButton(this.props.btnName, false)}
                 </form>
             </div>
         );
     }
 }
 
-export default RequestDeleteForm;
+export default TableDeleteForm;

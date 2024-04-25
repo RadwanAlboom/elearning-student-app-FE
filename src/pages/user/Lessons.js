@@ -133,6 +133,17 @@ function Lessons({ match, ...other }) {
             dispatch(loadLessons(id));
             dispatch(loadExams(id));
             dispatch(loadFiles(id));
+        });
+
+        socketMsg.on('refreshLessonsPage', (data) => {
+            dispatch(loadLessons(id));
+        })
+    }, []);
+
+    useEffect(() => {
+        const {id} = location.state;
+        socketMsg.on('refreshLessonsPage', (data) => {
+            dispatch(loadLessons(id));
         })
     }, []);
 
@@ -177,18 +188,15 @@ function Lessons({ match, ...other }) {
         fetchUserExams();
     }, [userId, fetchUserExams]);
 
-    useEffect(() => {
-        console.log();
-    }, []);
-
-
     const handleClick = (link) => {
+        auth.authMe();
         setMobileOpen(false);
         setLink(link);
         setIsPdf(false);
     };
 
     const handlePDFClick = (link) => {
+        auth.authMe();
         setPdf(link);
         setIsPdf(true);
     };

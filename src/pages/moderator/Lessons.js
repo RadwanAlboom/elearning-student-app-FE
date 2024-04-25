@@ -45,6 +45,7 @@ import {
 import { loadExams, deleteExam } from '../../store/exams';
 import { loadFiles, addFile, deleteFile, updateFile } from '../../store/files';
 import {uploadPdfFile, handleDeleteFile} from "../../services/uploadService";
+import auth from '../../services/authService';
 
 const drawerWidth = 400;
 let socket;
@@ -306,11 +307,13 @@ function ResponsiveDrawer({ match, ...other }) {
     };
 
     const handleClick = (link) => {
+        auth.authMe();
         setLink(link);
         setIsPdf(false);
     };
 
     const handlePDFClick = (link, linkId) => {
+        auth.authMe();
         setPdf(link);
         setIsPdf(true);
         setLinkId(linkId);

@@ -9,7 +9,7 @@ import Input from '../../components/input.jsx';
 
 import RequestTable from '../../components/admin/requestTable.jsx';
 import VerticalModal from '../../components/admin/verticalModel.jsx';
-import RequestDeleteForm from '../../components/admin/requestDeleteForm';
+import TableDeleteForm from '../../components/admin/TableDeleteForm';
 import RequestAcceptForm from '../../components/admin/requestAcceptForm';
 
 import {
@@ -104,9 +104,11 @@ const RequestsComponent = () => {
                 onHide={() => setModalShow(false)}
             >
                 {deleteFormShow && (
-                    <RequestDeleteForm
+                    <TableDeleteForm
                         id={requestId}
                         submitted={handleDeleteSubmitted}
+                        popup="هل انت متأكد من انك تريد حذف هذا الطلب؟"
+                        btnName="حذف طلب"
                     />
                 )}
 
