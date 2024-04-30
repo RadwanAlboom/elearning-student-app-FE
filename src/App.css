@@ -325,6 +325,22 @@ h3 {
     text-align: center;
 }
 
+.hidden-logo {
+    display: none;
+}
+
+.side-bar-hidden-logo {
+    display: none !important;
+}
+
+.exam-review-background, .course-curriculum {
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.course-curriculum {
+    padding-top: 0px !important;
+}
 
 @media screen and (max-width: 1024px) {
     .right-space {
@@ -438,7 +454,7 @@ h3 {
     }
 
     .wrapper {
-        height: 150vh;
+        height: 180vh;
         background-color: white;
     }
 
@@ -504,18 +520,44 @@ h3 {
     }
 
     .unit-icon {
-        background-color: #5346bb !important;
+        background-color: blueviolet !important;
+    }
+
+    .MuiAppBar-colorPrimary {
+        background-color: black !important;
+    }
+
+    .side-bar-to-right > a > span {
+        font-size: 18px !important;
+    }
+
+    .bar-hidden-logo {
+        display: inline !important;
+    }
+
+    .side-bar-to-right > a {
+        margin-bottom: 30px !important;
+        padding: unset !important;
+    }
+
+    .side-bar-hidden-logo {
+        display: block !important;
     }
 
     .routes-no-padding {
-        background-color: #292929 !important;
-    }
-
-    .MuiCardActions-root {
         background-color: white !important;
     }
 
-    .home-card > .MuiCard-root > .MuiCardActions-root {
+    .admin-unit {
+        background-color: black !important;
+        color: white !important;
+    }
+
+    .admin-unit .title-container .title a {
+        color: white !important;
+    }
+
+    .exam-review-background {
         background-color: black !important;
     }
 }
@@ -532,11 +574,18 @@ h3 {
         top: 0 !important;
     }
 
+    .hidden-logo {
+        display: block;
+        margin-bottom: 30px;
+        margin-left: 35px;
+    }
+
     .routes-no-padding {
         padding: unset !important;
     }
     .requests-page {
         padding-top: 55px !important;
+        background-color: black !important;
     }
 
     .card-mid,
@@ -544,6 +593,55 @@ h3 {
         width: 100% !important;
         max-width: unset !important;
         display: block !important;
+    }
+
+    .filters-label > label, .search-input > div > div  {
+        color: white;
+    }
+    
+    .courses-header {
+        background-color: black !important;
+    }
+
+    .courses-header h3 {
+        background: unset !important;
+        -webkit-background-clip: unset !important;
+        -webkit-text-fill-color: unset !important;
+        color: white;
+    }
+
+    .align-mid {
+        padding: 20px 20px 0px 20px !important;
+    }
+    
+    .zoom-container {
+        width: 100% !important;
+    }
+
+    .zoom-page {
+        background-color: black !important;
+    }
+
+    .zoom-page .courses-header, .course-curriculum > div > .courses-header {
+        background-color: white !important;
+    }
+
+    .zoom-page .courses-header h3, .course-curriculum > div > .courses-header > h3 {
+        background: linear-gradient(to right, #803bec 30%, #1b1b1b 100%) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+    }
+
+    .course-curriculum {
+        background-color: black !important;
+    }
+
+    .chat-room {
+        background-color: black !important;
+    }
+
+    .side-bar-to-right {
+        top: -67px !important;
     }
 }
 
@@ -593,7 +691,6 @@ h3 {
     }
 
     .zoom-container {
-        width: unset !important;
         min-height: 40vh !important;
     }
 
@@ -650,11 +747,5 @@ h3 {
     .iEuMwL {
         padding: 0 !important;
         top: 4rem !important;
-    }
-
-    .side-bar-to-right {
-        top: -67px !important;
-        border-radius: unset !important;
-        height: 100vh;
     }
 }

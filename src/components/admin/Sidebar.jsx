@@ -110,7 +110,7 @@ const SlickBar = styled.ul`
     top: 6rem;
     left: 0;
 
-    width: ${(props) => (props.clicked ? '12rem' : '3.5rem')};
+    width: ${(props) => (props.clicked ? '14rem' : '3.5rem')};
     transition: all 0.5s ease;
     border-radius: 0 30px 30px 0;
 `;
@@ -147,6 +147,9 @@ const Text = styled.span`
     overflow: hidden;
     margin-left: ${(props) => (props.clicked ? '1.5rem' : '0')};
     transition: all 0.3s ease;
+    img {
+        width: 100%
+    }
 `;
 
 const Profile = styled.div`
@@ -230,9 +233,12 @@ const Sidebar = () => {
             <Button clicked={click} onClick={() => handleClick()}></Button>
             <SidebarContainer className="side-bar-to-left">
                 <Logo>
-                    <img src={logo} alt="logo" />
+                    <img src={logo} alt="logo"/>
                 </Logo>
                 <SlickBar clicked={click} className="side-bar-to-right">
+                    <Logo className='hidden-logo'>
+                        <img src={logo} alt="logo" />
+                    </Logo>
                     <Item
                         onClick={() => setClick(false)}
                         exact
@@ -240,7 +246,10 @@ const Sidebar = () => {
                         to="/"
                     >
                         <img src={Home} alt="Home" />
-                        <Text clicked={click}>الرئيسية</Text>
+                        <Text clicked={click}>
+                            <img src={Home} alt="Home" className='side-bar-hidden-logo' />
+                            الرئيسية
+                        </Text>
                     </Item>
                     <Item
                         onClick={() => setClick(false)}
@@ -248,7 +257,10 @@ const Sidebar = () => {
                         to="/admin/profile"
                     >
                         <img src={adminProfile} alt="Home" />
-                        <Text clicked={click}>الشخصي</Text>
+                        <Text clicked={click}>
+                            <img src={adminProfile} alt="Home" className='side-bar-hidden-logo' />
+                            الشخصي
+                        </Text>
                     </Item>
                     <Item
                         onClick={() => setClick(false)}
@@ -256,7 +268,10 @@ const Sidebar = () => {
                         to="/admin/courses"
                     >
                         <img src={Courses} alt="Courses" />
-                        <Text clicked={click}>المساقات</Text>
+                        <Text clicked={click}>
+                            <img src={Courses} alt="Courses" className='side-bar-hidden-logo' />
+                            المساقات
+                        </Text>
                     </Item>
                     <Item
                         onClick={() => setClick(false)}
@@ -264,7 +279,10 @@ const Sidebar = () => {
                         to="/admin/requests"
                     >
                         <img src={Requests} alt="Requests" />
-                        <Text clicked={click}>الطلبات</Text>
+                        <Text clicked={click}>
+                            <img src={Requests} alt="Requests" className='side-bar-hidden-logo' />
+                            الطلبات
+                        </Text>
                     </Item>
                     <Item
                         onClick={() => setClick(false)}
@@ -272,7 +290,10 @@ const Sidebar = () => {
                         to="/admin/exams"
                     >
                         <img src={Exams} alt="Exams" />
-                        <Text clicked={click}>الامتحانات</Text>
+                        <Text clicked={click}>
+                            <img src={Exams} alt="Exams" className='side-bar-hidden-logo' />
+                            الامتحانات
+                        </Text>
                     </Item>
 
                     <Item
@@ -281,7 +302,10 @@ const Sidebar = () => {
                         to="/admin/students"
                     >
                         <img src={Students} alt="Students" />
-                        <Text clicked={click}>الطلاب</Text>
+                        <Text clicked={click}>
+                            <img src={Students} alt="Students" className='side-bar-hidden-logo' />
+                            الطلاب
+                        </Text>
                     </Item>
                     <Item
                         onClick={() => setClick(false)}
@@ -296,7 +320,17 @@ const Sidebar = () => {
                                 height: '25px',
                             }}
                         />
-                        <Text clicked={click}>المعلمين</Text>
+                        <Text clicked={click}>
+                            <img
+                                className='side-bar-hidden-logo'
+                                src={Teachers}
+                                alt="teachers"
+                                style={{
+                                    height: '25px',
+                                }}
+                            />
+                            المعلمين
+                        </Text>
                     </Item>
                 </SlickBar>
 

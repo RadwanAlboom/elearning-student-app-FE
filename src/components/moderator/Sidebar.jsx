@@ -107,7 +107,7 @@ const SlickBar = styled.ul`
     top: 6rem;
     left: 0;
 
-    width: ${(props) => (props.clicked ? '12rem' : '3.5rem')};
+    width: ${(props) => (props.clicked ? '14rem' : '3.5rem')};
     transition: all 0.5s ease;
     border-radius: 0 30px 30px 0;
 `;
@@ -144,6 +144,9 @@ const Text = styled.span`
     overflow: hidden;
     margin-left: ${(props) => (props.clicked ? '1.5rem' : '0')};
     transition: all 0.3s ease;
+    img {
+        width: 100%
+    }
 `;
 
 const Profile = styled.div`
@@ -230,6 +233,9 @@ const Sidebar = () => {
                     <img src={logo} alt="logo" />
                 </Logo>
                 <SlickBar clicked={click} className="side-bar-to-right">
+                    <Logo className='hidden-logo'>
+                        <img src={logo} alt="logo" />
+                    </Logo>
                     <Item
                         onClick={() => setClick(false)}
                         exact
@@ -237,7 +243,10 @@ const Sidebar = () => {
                         to="/"
                     >
                         <img src={Home} alt="Home" />
-                        <Text clicked={click}>الرئيسية</Text>
+                        <Text clicked={click}>
+                            <img src={Home} alt="Home" className='side-bar-hidden-logo'/>
+                            الرئيسية
+                        </Text>
                     </Item>
                     <Item
                         onClick={() => setClick(false)}
@@ -245,7 +254,10 @@ const Sidebar = () => {
                         to="/moderator/profile"
                     >
                         <img src={adminProfile} alt="Home" />
-                        <Text clicked={click}>الشخصي</Text>
+                        <Text clicked={click}>
+                            <img src={adminProfile} alt="Home" className='side-bar-hidden-logo'/>
+                            الشخصي
+                        </Text>
                     </Item>
                     <Item
                         onClick={() => setClick(false)}
@@ -253,7 +265,10 @@ const Sidebar = () => {
                         to="/moderator/courses"
                     >
                         <img src={Courses} alt="Courses" />
-                        <Text clicked={click}>المساقات</Text>
+                        <Text clicked={click}>
+                            <img src={Courses} alt="Courses" className='side-bar-hidden-logo'/>
+                            المساقات
+                        </Text>
                     </Item>
 
                     <Item
@@ -262,7 +277,10 @@ const Sidebar = () => {
                         to="/moderator/exams"
                     >
                         <img src={Exams} alt="Exams" />
-                        <Text clicked={click}>الامتحانات</Text>
+                        <Text clicked={click}>
+                            <img src={Exams} alt="Exams" className='side-bar-hidden-logo'/>
+                            الامتحانات
+                        </Text>
                     </Item>
 
                     <Item
@@ -271,7 +289,10 @@ const Sidebar = () => {
                         to="/moderator/projects"
                     >
                         <img src={Projects} alt="Projects" />
-                        <Text clicked={click}>المشاريع</Text>
+                        <Text clicked={click}>
+                            <img src={Projects} alt="Projects" className='side-bar-hidden-logo'/>
+                            المشاريع
+                        </Text>
                     </Item>
                 </SlickBar>
 

@@ -74,7 +74,7 @@ const CourseCurriculumComponent = () => {
         }
     };
     return (
-        <div style={{ height: '90vh', overflowY: 'auto' }}>
+        <div className='course-curriculum'>
             <div
                 style={{
                     width: '100%',

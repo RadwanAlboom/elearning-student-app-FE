@@ -92,6 +92,7 @@ function ChatRoomComponent(props) {
                 overflowY: 'auto',
                 padding: '10px',
             }}
+            className='chat-room'
         >
             <div className="chat-contain">
                 <header className="chat-head">

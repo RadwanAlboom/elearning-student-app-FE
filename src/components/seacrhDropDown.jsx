@@ -18,7 +18,7 @@ const SearchDropDown = ({ handleChange, filters, checked}) => {
     return (
         <div>
             <FormControl style={{padding: '10px 0px 10px 0px'}}>
-                <div style={{marginBottom: '15px'}}>
+                <div style={{marginBottom: '15px'}} className='filters-label'>
                     <InputLabel id="Filters" style={{fontWeight:'bold'}}>Filters:</InputLabel>
                 </div>
                 <Select

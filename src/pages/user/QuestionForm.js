@@ -99,12 +99,7 @@ function QuestionFormComponent() {
     };
 
     return (
-        <div
-            style={{
-                height: '700px',
-                overflowY: 'auto',
-            }}
-        >
+        <div className='exam-review-background'>
             <div className="question_form">
                 <br></br>
                 <div className="section">

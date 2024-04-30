@@ -71,14 +71,15 @@ const ProfileComponent = () => {
                                     <FaFacebookMessenger
                                         size="50px"
                                         color="#803bec"
+                                        style={{backgroundColor: 'white', borderRadius: '10px', padding: '5px'}}
                                     />
                                 </IconButton>
                             </div>
                         </div>
                         <a href={profile.whatsapp && profile.whatsapp !== '' ? profile.whatsapp : 'https://wa.me/970592078053' } target='_blank'  rel="noreferrer">
-                            <img alt="" src={whatsapp} height="50" />
+                            <img alt="" src={whatsapp} height="50" style={{backgroundColor: 'white', borderRadius: '10px', padding: '5px'}}/>
                         </a>
-                        <h5 style={{marginLeft: '10px'}}>:للتواصل</h5>
+                        <h5 style={{marginLeft: '10px', color: 'white'}}>:للتواصل</h5>
                     </div>
                     <div className="info-control-container">
                         <div className="info-container">
