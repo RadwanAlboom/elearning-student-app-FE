@@ -385,6 +385,7 @@ h3 {
     .top-right-triangle {
         border-top: 50px solid !important;
         border-left: 50px solid transparent !important;
+        color: blueviolet;
     }
 
     .bottom-right-triangle {
@@ -402,6 +403,7 @@ h3 {
     .bottom-left-triangle {
         border-bottom: 50px solid !important;
         border-right: 50px solid transparent !important;
+        color: blueviolet;
     }
 
     .circle {
@@ -499,6 +501,22 @@ h3 {
 
     .search-input, .search-bar-container {
         width: 100%;
+    }
+
+    .unit-icon {
+        background-color: #5346bb !important;
+    }
+
+    .routes-no-padding {
+        background-color: #292929 !important;
+    }
+
+    .MuiCardActions-root {
+        background-color: white !important;
+    }
+
+    .home-card > .MuiCard-root > .MuiCardActions-root {
+        background-color: black !important;
     }
 }
 
