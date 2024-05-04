@@ -313,7 +313,7 @@ const Units = ({ match, ...other }) => {
                     >
                         {displayChapters}
                     </div>
-                    <div style={{ marginTop: "150px" }}></div>
+                    <div style={{ marginTop: "210px" }}></div>
                     <div className="bottom-container courses-bottom-wave">
                         <div className="wavy">
                             <div className="waveWrapperInner bgTop">
