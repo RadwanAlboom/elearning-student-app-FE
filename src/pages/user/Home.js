@@ -1,55 +1,55 @@
-import React, { useState, useEffect } from 'react';
-import MotionHoc from './MotionHoc';
-import { makeStyles } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Divider from '@material-ui/core/Divider';
-import Drawer from '@material-ui/core/Drawer';
-import Hidden from '@material-ui/core/Hidden';
-import Toolbar from '@material-ui/core/Toolbar';
-import MenuIcon from '@material-ui/icons/Menu';
-import IconButton from '@material-ui/core/IconButton';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import { IoHome } from 'react-icons/io5';
-import { FaBrain } from 'react-icons/fa';
+import React, { useState, useEffect } from "react";
+import MotionHoc from "./MotionHoc";
+import { makeStyles } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Divider from "@material-ui/core/Divider";
+import Drawer from "@material-ui/core/Drawer";
+import Hidden from "@material-ui/core/Hidden";
+import Toolbar from "@material-ui/core/Toolbar";
+import MenuIcon from "@material-ui/icons/Menu";
+import IconButton from "@material-ui/core/IconButton";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import { IoHome } from "react-icons/io5";
+import { FaBrain } from "react-icons/fa";
 
-import http from '../../services/httpService';
-import Card from '../../components/user/Card';
+import http from "../../services/httpService";
+import Card from "../../components/user/Card";
 
-import allAccess from '../../assets/all2.jpg';
-import homeImg from '../../assets/learn.jpg';
-import simple from '../../assets/simple.png';
-import time from '../../assets/time.png';
-import slides from '../../assets/slides.png';
-import book from '../../assets/admin/book.png';
-import facebook from '../../assets/admin/facebook.svg';
-import whatsapp from '../../assets/admin/whatsapp.svg';
-import youtube from '../../assets/admin/youtube.svg';
+import allAccess from "../../assets/all2.jpg";
+import homeImg from "../../assets/learn.jpg";
+import simple from "../../assets/simple.png";
+import time from "../../assets/time.png";
+import slides from "../../assets/slides.png";
+import book from "../../assets/admin/book.png";
+import facebook from "../../assets/admin/facebook.svg";
+import whatsapp from "../../assets/admin/whatsapp.svg";
+import youtube from "../../assets/admin/youtube.svg";
 
-import './wave.css';
+import "./wave.css";
 
 const drawerWidth = 350;
 
 const useStyles = makeStyles((theme) => ({
     root: {
-        display: 'flex',
-        [theme.breakpoints.down('sm')]: {
-            display: 'unset',
+        display: "flex",
+        [theme.breakpoints.down("sm")]: {
+            display: "unset",
         },
-        fontWeight: 'bold',
+        fontWeight: "bold",
     },
     drawer: {
-        [theme.breakpoints.up('sm')]: {
+        [theme.breakpoints.up("sm")]: {
             width: drawerWidth,
             flexShrink: 0,
         },
     },
     menuButton: {
         marginRight: theme.spacing(2),
-        [theme.breakpoints.up('md')]: {
-            display: 'none',
+        [theme.breakpoints.up("md")]: {
+            display: "none",
         },
     },
     // necessary for content to be below app bar
@@ -59,8 +59,8 @@ const useStyles = makeStyles((theme) => ({
     },
     content: {
         flexGrow: 1,
-        overflowY: 'auto',
-        height: '100vh',
+        overflowY: "auto",
+        height: "100vh",
     },
 }));
 
@@ -87,11 +87,11 @@ const HomeComponent = (props) => {
     const displayCourses = randomCourses.map((course) => {
         return (
             <div
-                key={course.id + ''}
+                key={course.id + ""}
                 style={{
-                    marginRight: '100px',
-                    marginBottom: '40px',
-                    marginLeft: '10px'
+                    marginRight: "100px",
+                    marginBottom: "40px",
+                    marginLeft: "10px",
                 }}
                 className="home-card"
             >
@@ -111,18 +111,18 @@ const HomeComponent = (props) => {
             <div
                 className="access-card"
                 style={{
-                    width: '100%',
-                    height: '300px',
-                    backgroundColor: '#0f0f15',
+                    width: "100%",
+                    height: "300px",
+                    backgroundColor: "#0f0f15",
                 }}
             >
                 <img
                     src={allAccess}
                     alt="allAccess"
                     style={{
-                        width: '100%',
-                        height: '100%',
-                        objectFit: 'contain',
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "contain",
                     }}
                 />
             </div>
@@ -131,16 +131,16 @@ const HomeComponent = (props) => {
 
             <List
                 style={{
-                    backgroundColor: '#deded6',
-                    borderRight: '6px solid black',
-                    marginTop: '20px',
+                    backgroundColor: "#deded6",
+                    borderRight: "6px solid black",
+                    marginTop: "20px",
                 }}
             >
                 <ListItem button>
                     <ListItemIcon>
-                        <IoHome size={'1.7rem'} color="#803bec" />
+                        <IoHome size={"1.7rem"} color="#803bec" />
                     </ListItemIcon>
-                    <ListItemText primary={'الصفحة الرئيسية'} />
+                    <ListItemText primary={"الصفحة الرئيسية"} />
                 </ListItem>
             </List>
         </div>
@@ -154,10 +154,10 @@ const HomeComponent = (props) => {
             <CssBaseline />
             <Toolbar
                 style={{
-                    position: 'absolute',
-                    top: '0px',
-                    right: '0px',
-                    color: 'white',
+                    position: "absolute",
+                    top: "0px",
+                    right: "0px",
+                    color: "white",
                 }}
             >
                 <IconButton
@@ -171,26 +171,26 @@ const HomeComponent = (props) => {
                 </IconButton>
             </Toolbar>
             <main className={classes.content}>
-                <div className="home-wrraper" style={{ paddingTop: '20px' }}>
+                <div className="home-wrraper" style={{ paddingTop: "20px" }}>
                     <div
                         className="home-container"
                         style={{
-                            backgroundColor: 'white',
-                            width: '100%',
-                            overflow: 'hidden'
+                            backgroundColor: "white",
+                            width: "100%",
+                            overflow: "hidden",
                         }}
                     >
                         <div className="home-image">
                             <img className="image" alt="" src={homeImg} />
                             <div className="logo-container">
                                 <img className="home-logo" alt="" src={book} />
-                                <div className='home-logo-text'>
+                                <div className="home-logo-text">
                                     <h2>المبدع للتعليم الإلكتروني</h2>
                                     <div
                                         className="img-text"
                                         style={{
-                                            fontSize: '30px',
-                                            letterSpacing: '1px',
+                                            fontSize: "30px",
+                                            letterSpacing: "1px",
                                         }}
                                     >
                                         واضح وموجز وشامل، وعملي بدون زغب
@@ -199,17 +199,17 @@ const HomeComponent = (props) => {
                             </div>
                         </div>
                         <div className="about-courses">
-                            <h3 style={{ fontWeight: 'bold' }}>
+                            <h3 style={{ fontWeight: "bold" }}>
                                 <FaBrain
-                                    size={'1.7rem'}
+                                    size={"1.7rem"}
                                     color="black"
-                                    style={{ marginRight: '10px' }}
+                                    style={{ marginRight: "10px" }}
                                 />
                                 واضح وموجز وشامل
                                 <FaBrain
-                                    size={'1.7rem'}
+                                    size={"1.7rem"}
                                     color="black"
-                                    style={{ marginLeft: '10px' }}
+                                    style={{ marginLeft: "10px" }}
                                 />
                             </h3>
                         </div>
@@ -217,45 +217,45 @@ const HomeComponent = (props) => {
                             <div className="simple-text">
                                 <div
                                     style={{
-                                        color: '#dc43c6',
-                                        marginBottom: '10px',
-                                        fontSize: '30px',
+                                        color: "#dc43c6",
+                                        marginBottom: "10px",
+                                        fontSize: "30px",
                                     }}
                                 >
                                     دروس خطوة بخطوة
                                 </div>
-                                <h4 style={{ fontWeight: 'bold' }}>
-                                بسيط وصديق للمبتدئين
+                                <h4 style={{ fontWeight: "bold" }}>
+                                    بسيط وصديق للطلاب
                                 </h4>
-                                <div style={{fontSize: '20px'}}>
-                                مرارًا وتكرارًا، يا طلاب "انتهى الأمر".
-                                    الثناء على قدرته على كسر المواضيع المعقدة إلى بسيطة وسهلة الهضم 
-                                    ودروس يمكن لأي شخص أن يفهمها
+                                <div style={{ fontSize: "20px" }}>
+                                    المبدع يتميز بقدرته على كسر المواضيع المعقدة
+                                    إلى بسيطة وسهلة الهضم ودروس يمكن لأي طالب أن
+                                    يفهمها
                                 </div>
                             </div>
                             <div className="simple-img">
                                 <img alt="" src={simple} />
                             </div>
                         </div>
-                        <div className="user-friendly">
+                        <div className="user-friendly part-2">
                             <div className="simple-img">
                                 <img alt="" src={time} />
                             </div>
                             <div className="simple-text">
                                 <div
                                     style={{
-                                        color: '#dc43c6',
-                                        marginBottom: '10px',
-                                        fontSize: '30px',
+                                        color: "#dc43c6",
+                                        marginBottom: "10px",
+                                        fontSize: "30px",
                                     }}
                                 >
                                     تتبع تعلمك بسرعة
                                 </div>
-                                <h4 style={{ fontWeight: 'bold' }}>
-                                دروس واضحة وموجزة
+                                <h4 style={{ fontWeight: "bold" }}>
+                                    دروس واضحة وموجزة
                                 </h4>
-                                <div style={{fontSize: '20px'}}>
-                                لا تضيعوا المزيد من الوقت على المدى الطويل،
+                                <div style={{ fontSize: "20px" }}>
+                                    لا تضيعوا المزيد من الوقت على المدى الطويل،
                                     دروس المبدع موجزة، مناسبة وبسيطة
                                 </div>
                             </div>
@@ -265,59 +265,89 @@ const HomeComponent = (props) => {
                             <div className="simple-text">
                                 <div
                                     style={{
-                                        color: '#dc43c6',
-                                        marginBottom: '10px',
-                                        fontSize: '30px',
+                                        color: "#dc43c6",
+                                        marginBottom: "10px",
+                                        fontSize: "30px",
                                     }}
                                 >
                                     مقاطع فيديو ذات جودة عالمية
                                 </div>
-                                <h4 style={{ fontWeight: 'bold' }}>
-                                دروس ممتعة وجذابة
+                                <h4 style={{ fontWeight: "bold" }}>
+                                    دروس ممتعة وجذابة
                                 </h4>
-                                <div style={{fontSize: '20px'}}>
-                                المبدع هو منشد الكمال وهو كامل
-                                    مهووس بجودة مقاطع الفيديو الخاصة به.
-                                    رسومات جميلة، والشرائح، والرسوم المتحركة
-                                    تساعدك على الاستمرار في التركيز، والتذكر، وأفضل في فهم المواد
+                                <div style={{ fontSize: "20px" }}>
+                                    المبدع هو منشد الكمال وهو كامل مهووس بجودة
+                                    مقاطع الفيديو الخاصة، به رسومات جميلة،
+                                    والشرائح، والرسوم المتحركة تساعدك على
+                                    الاستمرار في التركيز، والتذكر، وأفضل في فهم
+                                    المواد
                                 </div>
                             </div>
                             <div className="simple-img">
                                 <img alt="" src={slides} />
                             </div>
                         </div>
-                        <div className="about-courses">
-                            <h3 style={{ fontWeight: 'bold' }}>
+                        <div className="about-courses" style={{marginTop: "40px"}}>
+                            <h3 style={{ fontWeight: "bold" }}>
                                 <FaBrain
-                                    size={'1.7rem'}
+                                    size={"1.7rem"}
                                     color="black"
-                                    style={{ marginRight: '10px' }}
+                                    style={{ marginRight: "10px" }}
+                                />
+                                اقتبس من اليوم
+                                <FaBrain
+                                    size={"1.7rem"}
+                                    color="black"
+                                    style={{ marginLeft: "10px" }}
+                                />
+                            </h3>
+                        </div>
+                        <div style={{paddingLeft: '20px', paddingRight: '20px'}}>
+                            <div class="blockquote">
+                                <h1>
+                                    لا تتوقف عن التعلم، لأن الحياة لا تتوقف عن
+                                    التعليم. كل يوم هو فرصة لتعلم شيء جديد
+                                </h1>
+                                <h4>المبدع للتعليم الإلكتروني &mdash;</h4>
+                            </div>
+                        </div>
+                        <div className="about-courses">
+                            <h3 style={{ fontWeight: "bold" }}>
+                                <FaBrain
+                                    size={"1.7rem"}
+                                    color="black"
+                                    style={{ marginRight: "10px" }}
                                 />
                                 المساقات المقترحة
                                 <FaBrain
-                                    size={'1.7rem'}
+                                    size={"1.7rem"}
                                     color="black"
-                                    style={{ marginLeft: '10px' }}
+                                    style={{ marginLeft: "10px" }}
                                 />
                             </h3>
                         </div>
 
-                        <div style={{ display: 'flex', justifyContent: 'center'}}>
+                        <div
+                            style={{
+                                display: "flex",
+                                justifyContent: "center",
+                            }}
+                        >
                             <div
                                 className="right-space"
                                 style={{
-                                    width: 'calc(27% - 15%)',
-                                    height: '10px',
+                                    width: "calc(27% - 15%)",
+                                    height: "10px",
                                 }}
                             ></div>
                             <div
                                 className="align-mid"
                                 style={{
-                                    display: 'flex',
-                                    flexWrap: 'wrap',
-                                    marginTop: '40px',
-                                    justifyContent: 'center',
-                                    width: '100%'
+                                    display: "flex",
+                                    flexWrap: "wrap",
+                                    marginTop: "40px",
+                                    justifyContent: "center",
+                                    width: "100%",
                                 }}
                             >
                                 {displayCourses}
@@ -336,22 +366,34 @@ const HomeComponent = (props) => {
                                 </div>
                             </div>
                             <div className="social-icons">
-                                <a href="https://wa.me/970592078053" target='_blank' rel="noreferrer">
+                                <a
+                                    href="https://wa.me/970592078053"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                >
                                     <img alt="" src={whatsapp} height="50" />
                                 </a>
-                                <a href="https://www.facebook.com/groups/760435298130078" target='_blank' rel="noreferrer">
+                                <a
+                                    href="https://www.facebook.com/groups/760435298130078"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                >
                                     <img alt="" src={facebook} height="50" />
                                 </a>
-                                <a href="https://www.youtube.com/channel/UCJKNMtpU0ABIVqLyzjeSuHw" target='_blank' rel="noreferrer">
+                                <a
+                                    href="https://www.youtube.com/channel/UCJKNMtpU0ABIVqLyzjeSuHw"
+                                    target="_blank"
+                                    rel="noreferrer"
+                                >
                                     <img alt="" src={youtube} height="50" />
                                 </a>
                             </div>
                             <div className="copyright_right">
-                               المبدع ©, حقوق النشر محفوظة
+                                المبدع ©, حقوق النشر محفوظة
                             </div>
                         </div>
                     </div>
-                    <div className='home-empty-bottom'></div>
+                    <div className="home-empty-bottom"></div>
                 </div>
             </main>
             <nav className={classes.drawer} aria-label="mailbox folders">
@@ -360,7 +402,7 @@ const HomeComponent = (props) => {
                     <Drawer
                         container={container}
                         variant="temporary"
-                        anchor={'right'}
+                        anchor={"right"}
                         open={mobileOpen}
                         onClose={handleDrawerToggle}
                         classes={{
