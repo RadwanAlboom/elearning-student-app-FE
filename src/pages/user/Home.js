@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { toast } from 'react-toastify';
 import MotionHoc from "./MotionHoc";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -73,6 +74,11 @@ const HomeComponent = (props) => {
     const [randomCourses, setRandomCourses] = useState([]);
 
     useEffect(() => {
+        const isSuccessRegister = localStorage.getItem('isSuccessRegister');
+        if (isSuccessRegister) {
+            toast.success('تم إرسال طلب الإنظمام الى المسؤول بنجاح');
+            localStorage.removeItem('isSuccessRegister');
+        }
         fetchCourses();
     }, []);
 

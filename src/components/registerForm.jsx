@@ -98,6 +98,7 @@ class RegisterForm extends Form {
                 payload,
             });
 
+            localStorage.setItem('isSuccessRegister', 'true');
             window.location = '/';
             const registerErrors = {};
             this.setState({ registerErrors });
