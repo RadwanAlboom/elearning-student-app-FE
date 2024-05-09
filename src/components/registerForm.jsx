@@ -59,6 +59,7 @@ class RegisterForm extends Form {
             .min(5)
             .max(255)
             .email()
+            .regex(/@gmail\.com$/)
             .label('Email'),
         registerPassword: Joi.string()
             .required()

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import socketIOClient from 'socket.io-client';
 import { Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
@@ -20,14 +21,18 @@ import Verification from './pages/user/Verification';
 const store = configureStore();
 let persistor = persistStore(store);
 
+let backendURL = process.env.REACT_APP_API_URL;
+let socket;
+
 const App = () => {
     const history = useHistory();
-    const [fraud, setFraud] = useState(false);
 
     useEffect(() => {
+        socket = socketIOClient(backendURL);
         document.addEventListener('keydown', keydownHandler);
 
         return () => {
+            socket.disconnect();
             document.removeEventListener('keydown', keydownHandler);
         };
     }, []);
@@ -38,17 +43,13 @@ const App = () => {
             message: {get() {
                 const user = auth.getCurrentUser();
                 if (user && !user.isAdmin) {
-                    setFraud(true);
+                    socket.emit('fraud', { email: user.email });
                     auth.logout();
-                    history.goBack();
+                    window.location = '/registration';
                 }
             }},
           }));
     }, 1000);  
-
-    // if (fraud) {
-    //     alert("hello");
-    // }
 
     const keydownHandler = (e) => {
         if (e.keyCode === 123) e.preventDefault();

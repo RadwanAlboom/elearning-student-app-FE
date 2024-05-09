@@ -185,6 +185,18 @@ export default function PrimarySearchAppBar({ user }) {
     }, [dispatch]);
 
     useEffect(() => {
+        const socketFraud = socketIOClient(backendURL);
+        socketFraud.on('fraudNotification', (payload) => {
+            const user = auth.getCurrentUser();
+            if (user.isAdmin) {
+                dispatch(loadNotifications());
+            }
+        });
+
+        return () => socketFraud.disconnect();
+    }, [dispatch]);
+
+    useEffect(() => {
         socket = socketIOClient(backendURL);
         socket.on('openNotification', (payload) => {
             dispatch(loadNotifications());
