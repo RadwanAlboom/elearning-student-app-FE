@@ -49,7 +49,7 @@ class ContactForm extends Form {
                                 Nablus, Palestine
                             </li>
                             <li>
-                                <i className="fa fa-phone"></i> (+972) 595254935
+                                <i className="fa fa-phone"></i> (+970) 595254935
                             </li>
                             <li>
                                 <i className="fa fa-envelope"></i>{" "}

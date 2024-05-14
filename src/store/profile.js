@@ -17,9 +17,11 @@ const slice = createSlice({
             profile.list.image = newImg;
             profile.list.imageId = newImgId;
         },
-        profileWhatsUpdated: (profile, action) => {
-            const { newLink } = action.payload;
-            profile.list.whatsapp = newLink;
+        contactMethodUpdated: (profile, action) => {
+            const { newWhatsLink, newFacebookLink, newPhone } = action.payload;
+            profile.list.whatsapp = newWhatsLink;
+            profile.list.facebook = newFacebookLink;
+            profile.list.phone = newPhone;
         },
         profileRecevierReceived: (profile, action) => {
             profile.recevier = action.payload;
@@ -35,7 +37,7 @@ export const {
     profileImageUpdated,
     profileRecevierReceived,
     profileTeacherReceived,
-    profileWhatsUpdated
+    contactMethodUpdated
 } = slice.actions;
 export default slice.reducer;
 
@@ -84,11 +86,11 @@ export const updatePassProfile = (id, newPass) =>
         data: newPass,
     });
 
-export const updateWhatsProfile = (id, newWhats) =>
+export const updateContactMethod = (updatedContactMethod) =>
     apiCallBegan({
-        url: `/profile/whatsapp/${id}`,
+        url: `/profile/teacher/contact-method`,
         method: 'put',
-        name: 'whatsUpdated',
-        data: newWhats,
-        onSuccess: profileWhatsUpdated.type,
+        name: 'contactMethodUpdated',
+        data: updatedContactMethod,
+        onSuccess: contactMethodUpdated.type,
     });

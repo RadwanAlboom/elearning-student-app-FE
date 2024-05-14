@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import adminCoursesReducer from './adminCourses';
 import teachersReducer from './teachers';
+import teamReducer from './team';
 import classCoursesReducer from './classCourses';
 import unitsReducer from './units';
 import usersUnitReducer from './usersUnit';
@@ -12,6 +13,7 @@ import zoomReducer from './zoom';
 export default combineReducers({
     adminCourses: adminCoursesReducer,
     teachers: teachersReducer,
+    team: teamReducer,
     classCourses: classCoursesReducer,
     units: unitsReducer,
     usersUnit: usersUnitReducer,

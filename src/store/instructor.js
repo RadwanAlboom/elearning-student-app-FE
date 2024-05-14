@@ -62,6 +62,17 @@ export const loadTeachers = (emailFilter) => (dispatch, getState) => {
     );
 };
 
+export const loadTeam = () => (dispatch, getState) => {
+    return dispatch(
+        apiCallBegan({
+            url: `/teachers/team`,
+            onStart: teachersRequested.type,
+            onSuccess: teachersReceived.type,
+            onError: teachersRequestFailed.type,
+        })
+    );
+};
+
 export const deleteTeacher = (id) =>
     apiCallBegan({
         url: `/teachers/${id}`,

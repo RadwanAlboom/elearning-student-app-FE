@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import socketIOClient from 'socket.io-client';
 import { Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
-import { useHistory } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -25,7 +24,6 @@ let backendURL = process.env.REACT_APP_API_URL;
 let socket;
 
 const App = () => {
-    const history = useHistory();
 
     useEffect(() => {
         socket = socketIOClient(backendURL);

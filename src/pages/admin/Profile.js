@@ -161,15 +161,21 @@ const ProfileComponent = () => {
                                 style={{ width: '100%', fontSize: '20px' }}
                                 className="profile-info"
                             >
-                                <div>
-                                    <FaUserTie
-                                        style={{ marginRight: '10px' }}
-                                    />
-                                    Admin Name: {profile.name}
+                               <div>
+                                    <span style={{ float: "right", marginLeft: '5px' }}>
+                                        :المسؤول
+                                        <FaUserTie
+                                            style={{ marginLeft: "10px" }}
+                                        />
+                                    </span>
+                                    <span>{profile.name}</span>
                                 </div>
                                 <div>
-                                    <IoMail style={{ marginRight: '10px' }} />
-                                    Email: {profile.email}
+                                    <span style={{ float: "right", marginLeft: '5px' }}>
+                                        :البريد
+                                        <IoMail style={{ marginLeft: "10px" }} />
+                                    </span>
+                                    <span>{profile.email}</span>
                                 </div>
                             </div>
                         </div>

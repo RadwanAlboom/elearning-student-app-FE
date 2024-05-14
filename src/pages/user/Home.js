@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import MotionHoc from "./MotionHoc";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -74,10 +74,10 @@ const HomeComponent = (props) => {
     const [randomCourses, setRandomCourses] = useState([]);
 
     useEffect(() => {
-        const isSuccessRegister = localStorage.getItem('isSuccessRegister');
+        const isSuccessRegister = localStorage.getItem("isSuccessRegister");
         if (isSuccessRegister) {
-            toast.success('تم إرسال طلب الإنظمام الى المسؤول بنجاح');
-            localStorage.removeItem('isSuccessRegister');
+            toast.success("تم إرسال طلب الإنظمام الى المسؤول بنجاح");
+            localStorage.removeItem("isSuccessRegister");
         }
         fetchCourses();
     }, []);
@@ -199,7 +199,7 @@ const HomeComponent = (props) => {
                                             letterSpacing: "1px",
                                         }}
                                     >
-                                        واضح وموجز وشامل، وعملي بدون زغب
+                                        نحو جيل عربي متمكن
                                     </div>
                                 </div>
                             </div>
@@ -293,7 +293,48 @@ const HomeComponent = (props) => {
                                 <img alt="" src={slides} />
                             </div>
                         </div>
-                        <div className="about-courses" style={{marginTop: "40px"}}>
+                        <div
+                            className="about-courses"
+                            style={{ marginTop: "40px" }}
+                        >
+                            <h3 style={{ fontWeight: "bold" }}>
+                                <FaBrain
+                                    size={"1.7rem"}
+                                    color="black"
+                                    style={{ marginRight: "10px" }}
+                                />
+                                خدمات المبدع
+                                <FaBrain
+                                    size={"1.7rem"}
+                                    color="black"
+                                    style={{ marginLeft: "10px" }}
+                                />
+                            </h3>
+                        </div>
+                        <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                            <h2
+                                style={{
+                                    marginTop: "25px",
+                                    color: "rgb(244 0 255)",
+                                    fontWeight: "bold",
+                                }}
+                            >
+                                المبدع للتعليم الإلكتروني
+                            </h2>
+                            <h4 style={{width: '60%', marginTop: '20px', fontWeight: 'bold', textAlign: 'center'}}>
+                                أول منصة تعليم الكتروني بفلسطين تتكون من نخبة من
+                                المعلميين المميزين. تتنوع خدماتنا من تعليم
+                                تفاعلي متكامل لطلاب المنهاج الوطني والدولي
+                                والجامعات والعديد من الدورات التدريبية باستخدام
+                                أحدث التقنيات والتكنولوجيا والذكاء الاصطناعي
+                                لتسهيل وصول المعلومة بما يتناسب مع تطور العصر
+                                والتكنولوجيا
+                            </h4>
+                        </div>
+                        <div
+                            className="about-courses"
+                            style={{ marginTop: "40px" }}
+                        >
                             <h3 style={{ fontWeight: "bold" }}>
                                 <FaBrain
                                     size={"1.7rem"}
@@ -308,8 +349,13 @@ const HomeComponent = (props) => {
                                 />
                             </h3>
                         </div>
-                        <div style={{paddingLeft: '20px', paddingRight: '20px'}}>
-                            <div class="blockquote">
+                        <div
+                            style={{
+                                paddingLeft: "20px",
+                                paddingRight: "20px",
+                            }}
+                        >
+                            <div className="blockquote">
                                 <h1>
                                     لا تتوقف عن التعلم، لأن الحياة لا تتوقف عن
                                     التعليم. كل يوم هو فرصة لتعلم شيء جديد
@@ -395,7 +441,8 @@ const HomeComponent = (props) => {
                                 </a>
                             </div>
                             <div className="copyright_right">
-                                المبدع ©, حقوق النشر محفوظة
+                                جميع الحقوق محفوظة © المبدع للتعليم الإلكتروني
+                                2024
                             </div>
                         </div>
                     </div>

@@ -414,6 +414,43 @@ h3 {
     z-index: 1;
 }
 
+.team-container {
+    background-color: black;
+    width: 110%;
+    height: 100vh;
+    text-align: right;
+    padding: 20px 40px 20px 40px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: relative;
+    left: -60px;
+    overflow-y: scroll !important;
+}
+
+.team-container .about {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.team-container .about .description {
+    text-align: center;
+    width: 50%;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+.team-container .about h2 {
+    text-align: center;
+}
+
+.teacher-profile-contact-method {
+    display: flex;
+}
+
+
 @media screen and (max-width: 1024px) {
     .right-space {
         width: 0 !important;
@@ -583,7 +620,7 @@ h3 {
         height: 170px !important;
     }
 
-    .teacher-profile-whatsapp {
+    .teacher-profile-contact-method {
         margin-top: 50px;
     }
 
@@ -733,6 +770,19 @@ h3 {
     .part-2 .simple-img {
         order: 1 !important;
     }
+
+    .team-container .about .description {
+        width: 100%;
+    }
+
+    .team-container {
+        left: 0px;
+        width: 100%;
+    }
+
+    .team-container .about h2 {
+        margin-top: 30px;
+    }
 }
 
 @media screen and (max-width: 380px) {
@@ -790,6 +840,10 @@ h3 {
 
     .container-contact {
         margin-top: 0px;
+    }
+
+    .swiper-slide {
+        min-height: 65vh !important;
     }
 }
 @media screen and (max-width: 320px) {

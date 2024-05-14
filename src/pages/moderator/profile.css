@@ -110,7 +110,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px;
 }
 
 .info-container {
@@ -121,4 +120,8 @@
     background-color: white;
     border-radius: 5px;
     padding: 10px;
+}
+
+.info-container div {
+    text-align: right;
 }
