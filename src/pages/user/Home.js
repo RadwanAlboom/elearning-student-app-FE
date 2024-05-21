@@ -321,7 +321,7 @@ const HomeComponent = (props) => {
                             >
                                 المبدع للتعليم الإلكتروني
                             </h2>
-                            <h4 style={{width: '60%', marginTop: '20px', fontWeight: 'bold', textAlign: 'center'}}>
+                            <h4 className="services-desc" style={{width: '60%', marginTop: '20px', fontWeight: 'bold', textAlign: 'center'}}>
                                 أول منصة تعليم الكتروني بفلسطين تتكون من نخبة من
                                 المعلميين المميزين. تتنوع خدماتنا من تعليم
                                 تفاعلي متكامل لطلاب المنهاج الوطني والدولي

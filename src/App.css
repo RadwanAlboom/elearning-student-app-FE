@@ -450,6 +450,12 @@ h3 {
     display: flex;
 }
 
+.services-desc {
+    width: 60%;
+    margin-top: 20px;
+    font-weight: bold;
+    text-align: center;
+}
 
 @media screen and (max-width: 1024px) {
     .right-space {
@@ -782,6 +788,10 @@ h3 {
 
     .team-container .about h2 {
         margin-top: 30px;
+    }
+
+    .services-desc {
+        width: 90% !important;
     }
 }
 
