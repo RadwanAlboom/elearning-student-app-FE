@@ -29,6 +29,11 @@ const slice = createSlice({
         profileTeacherReceived: (profile, action) => {
             profile.teacher = action.payload;
         },
+        RESET_DATA: (profile, action) => {
+            profile.list = {};
+            profile.recevier = {};
+            profile.teacher = {};
+        },
     },
 });
 
@@ -37,11 +42,17 @@ export const {
     profileImageUpdated,
     profileRecevierReceived,
     profileTeacherReceived,
-    contactMethodUpdated
+    contactMethodUpdated,
+    RESET_DATA,
 } = slice.actions;
 export default slice.reducer;
 
+const resetData = () => ({
+    type: RESET_DATA,
+});
+
 export const loadProfile = (userId) => (dispatch, getState) => {
+    dispatch(resetData());
     return dispatch(
         apiCallBegan({
             url: `/profile/${userId}`,
@@ -51,6 +62,7 @@ export const loadProfile = (userId) => (dispatch, getState) => {
     );
 };
 export const loadRecevierProfile = (userId) => (dispatch, getState) => {
+    dispatch(resetData());
     return dispatch(
         apiCallBegan({
             url: `/profile/recevier/${userId}`,
@@ -61,6 +73,7 @@ export const loadRecevierProfile = (userId) => (dispatch, getState) => {
 };
 
 export const loadTeacherProfile = (userId) => (dispatch, getState) => {
+    dispatch(resetData());
     return dispatch(
         apiCallBegan({
             url: `/profile/teacher/${userId}`,

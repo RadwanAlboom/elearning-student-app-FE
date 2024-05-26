@@ -1,14 +1,22 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useLocation, useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import socketIOClient from 'socket.io-client';
-import { toast } from 'react-toastify';
+import { useLocation, useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import socketIOClient from "socket.io-client";
+import { toast } from "react-toastify";
 import MotionHoc from "./MotionHoc";
 import { IoPeople } from "react-icons/io5";
 import { FaSearch } from "react-icons/fa";
+import VerticalModal from "../../components/admin/verticalModel";
 import StudentsUnitTable from "../../components/admin/studentsUnitTable";
-import {loadSpecificUsersUnit, loadAssignedUsersUnit, addUserToUnit, deleteUserFromUnit} from '../../store/usersUnit';
-import * as studentUnitService from '../../services/studentUnitService';
+import {
+    loadSpecificUsersUnit,
+    loadAssignedUsersUnit,
+    addUserToUnit,
+    deleteUserFromUnit,
+} from "../../store/usersUnit";
+import * as studentUnitService from "../../services/studentUnitService";
+import AddStudentToUnitForm from "../../components/admin/AddStudentToUnitForm";
+import DeleteUserFromUnitForm from "../../components/admin/DeleteUserFromUnitForm";
 
 let backendURL = process.env.REACT_APP_API_URL;
 let socket;
@@ -21,9 +29,17 @@ function StudentUnitComponent(props) {
     const [results, setResults] = useState([]);
     const [email, setEmail] = useState("");
     const [unitId, setUnitId] = useState();
-    const [unitName, setUnitName] = useState('');
+    const [unitName, setUnitName] = useState("");
     const [emailFilter, setEmailFilter] = useState("");
-    
+    const [modalShow, setModalShow] = useState(false);
+    const [formTitle, setFormTitle] = useState("");
+    const [progress, setProgress] = useState(0);
+    const [addFormShow, setAddFormShow] = useState(false);
+    const [deleteFormShow, setDeleteFormShow] = useState(false);
+    const [studentEmail, setStudentEmail] = useState(false);
+    const [studentId, setStudentId] = useState(false);
+    const [student, setStudent] = useState(null);
+
     const ref = useRef(null);
 
     const studentsUnit = useSelector((state) => state.entities.usersUnit.list);
@@ -37,15 +53,19 @@ function StudentUnitComponent(props) {
         if (!location.state) {
             history.goBack();
         }
-        const { unitId: id, unitName: name } = location.state; 
+        const { unitId: id, unitName: name } = location.state;
         dispatch(loadSpecificUsersUnit(id));
         setUnitId(id);
         setUnitName(name);
     }, [dispatch]);
 
     const fetchData = async (value) => {
-        try{
-            const { data } = await studentUnitService.getNotAssignedStudentsUnit(unitId, value);
+        try {
+            const { data } =
+                await studentUnitService.getNotAssignedStudentsUnit(
+                    unitId,
+                    value
+                );
             setResults(data);
         } catch (ex) {
             console.log(ex);
@@ -62,7 +82,6 @@ function StudentUnitComponent(props) {
         dispatch(loadAssignedUsersUnit(unitId, value));
     };
 
-
     useEffect(() => {
         document.addEventListener("click", handleClickOutside, true);
         return () => {
@@ -77,44 +96,92 @@ function StudentUnitComponent(props) {
         }
     };
 
-    const deleteClicked = (userId) => {
-        try {
-            dispatch(deleteUserFromUnit(userId, unitId));
-            toast.success('تم حذف هذا الطالب بنجاح');
+    const cancelUploading = () => {
+        setProgress(0);
+        setModalShow(false);
+    };
 
-            const receiver = {id: userId};
+    const deleteClicked = (user) => {
+        setFormTitle(`(${unitName}) :حذف طالب من الوحدة`);
+        setModalShow(true);
+        setDeleteFormShow(true);
+        setAddFormShow(false);
+        setStudentEmail(user.email);
+        setStudentId(user.id);
+        setStudent(user);
+    };
+
+    const addStudentToUnitClicked = ({ id, email }) => {
+        setFormTitle(`(${unitName}) :اضافة طالب الى الوحدة`);
+        setModalShow(true);
+        setAddFormShow(true);
+        setDeleteFormShow(false);
+        setStudentEmail(email);
+        setStudentId(id);
+    };
+
+    const unassiagnUserFromUnit = () => {
+        setModalShow(false);
+        try {
+            dispatch(deleteUserFromUnit(studentId, unitId));
+            toast.success("تم حذف هذا الطالب من هذه الوحدة بنجاح");
+
+            const receiver = { id: studentId };
             socket.emit(
-                'unassignStudentFromUnit',
+                "unassignStudentFromUnit",
                 { receiver, unitId },
                 (error) => {}
             );
         } catch (error) {
             console.log(error);
         }
-    }
+    };
 
-    const addStudentToUnit = async (userId) => {
+    const addStudentToUnit = async (paymentAmount) => {
+        setModalShow(false);
         try {
-            dispatch(addUserToUnit(userId, unitId));
+            dispatch(addUserToUnit(studentId, unitId, paymentAmount));
             setResults([]);
             setEmail("");
-            toast.success('تم اضافة الطالب لهذه الوحدة بنجاح');
+            toast.success("تم اضافة الطالب لهذه الوحدة بنجاح");
 
-            const receiver = {id: userId};
+            const receiver = { id: studentId };
             socket.emit(
-                'assignStudentToUnit',
+                "assignStudentToUnit",
                 { receiver, unitId },
                 (error) => {}
             );
         } catch (error) {
             console.log(error);
         }
-    }
+    };
 
     return (
         <div className="student-unit">
+            <VerticalModal
+                formTitle={formTitle}
+                progress={progress}
+                show={modalShow}
+                onHide={() => {
+                    cancelUploading();
+                }}
+            >
+                {addFormShow && (
+                    <AddStudentToUnitForm
+                        studentId={studentId}
+                        studentEmail={studentEmail}
+                        submitted={addStudentToUnit}
+                    />
+                )}
+                {deleteFormShow && (
+                    <DeleteUserFromUnitForm
+                        student={student}
+                        submitted={unassiagnUserFromUnit}
+                    />
+                )}
+            </VerticalModal>
             <div className="student-unit-header">
-                <h3>
+                <h3 style={{fontSize : '25px'}}>
                     <IoPeople
                         size={"3rem"}
                         color="#803bec"
@@ -145,7 +212,9 @@ function StudentUnitComponent(props) {
                                 <div
                                     key={id}
                                     className="search-result"
-                                    onClick={(e) => addStudentToUnit(result.id)}
+                                    onClick={(e) =>
+                                        addStudentToUnitClicked(result)
+                                    }
                                 >
                                     {result.email}
                                 </div>
@@ -153,14 +222,19 @@ function StudentUnitComponent(props) {
                         })}
                 </div>
             </div>
-            <div className="search-bar-container" style={{marginBottom: '10px'}}>
+            <div
+                className="search-bar-container"
+                style={{ marginBottom: "10px" }}
+            >
                 <div className="input-wrapper">
                     <FaSearch id="search-icon" />
                     <input
                         className="student-unit-email-serach-input"
                         placeholder="Type student email to search in table..."
                         value={emailFilter}
-                        onChange={(e) => handleChangeEmailFilter(e.target.value)}
+                        onChange={(e) =>
+                            handleChangeEmailFilter(e.target.value)
+                        }
                     />
                 </div>
             </div>
@@ -168,7 +242,7 @@ function StudentUnitComponent(props) {
                 studentsUnit={studentsUnit}
                 deleteClicked={deleteClicked}
             />
-            <div style={{width: '100%', height: '200px'}}></div>
+            <div style={{ width: "100%", height: "200px" }}></div>
         </div>
     );
 }

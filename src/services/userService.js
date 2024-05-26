@@ -9,5 +9,6 @@ export function register(user, major, teacherChecked) {
         password: user.registerPassword,
         isModerator: teacherChecked,
         majorId: major,
+        phone: user.registerPhone
     });
 }

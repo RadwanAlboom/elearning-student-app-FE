@@ -6,37 +6,33 @@ import IconButton from "@material-ui/core/IconButton";
 import { FaUserTie } from "react-icons/fa";
 import { IoMail } from "react-icons/io5";
 import { FaPhone } from "react-icons/fa";
-import { BsXDiamondFill } from "react-icons/bs";
 import { FaFacebookMessenger } from "react-icons/fa";
-import { FaFacebook } from "react-icons/fa";
-import { RiWhatsappFill } from "react-icons/ri";
-import Messanger from "../Massenger";
 import auth from "../../services/authService";
+import Messanger from "../Massenger";
 
-import { loadTeacherProfile } from "../../store/profile";
+import { loadProfile } from "../../store/studentProfile";
 import "../moderator/profile.css";
-import userImg from "../../assets/user.jpg";
+import userImg from "../../assets/user.png";
 
-const ProfileComponent = () => {
+const StudentProfileComponent = () => {
     const dispatch = useDispatch();
     const location = useLocation();
     const history = useHistory();
     const [showMessanger, setShowMessanger] = useState(false);
-    const [teacherId, setTeacherId] = useState("");
+    const [studentId, setStudentId] = useState("");
 
-    const profile = useSelector((state) => state.profile.teacher);
+    const profile = useSelector((state) => state.studentProfile.list);
 
     useEffect(() => {
         if (!location.state) {
             history.goBack();
         }
-        dispatch(loadTeacherProfile(location.state.teacherId));
-        //eslint-disable-next-line react-hooks/exhaustive-deps
+        dispatch(loadProfile(location.state.studentId));
     }, [dispatch]);
 
     useEffect(() => {
-        setTeacherId(location.state.teacherId);
-        //eslint-disable-next-line react-hooks/exhaustive-deps
+        console.log(location.state);
+        setStudentId(location.state.studentId);
     }, []);
 
     const handleClick = () => {
@@ -79,8 +75,7 @@ const ProfileComponent = () => {
                         <div className="control-container">
                             <div>
                                 {auth.getCurrentUser() &&
-                                    !auth.getCurrentUser().isModerator &&
-                                    !auth.getCurrentUser().isAdmin && (
+                                    auth.getCurrentUser().isModerator && (
                                         <IconButton onClick={handleClick}>
                                             <FaFacebookMessenger
                                                 size="50px"
@@ -95,45 +90,6 @@ const ProfileComponent = () => {
                                     )}
                             </div>
                         </div>
-                        <a
-                            href={
-                                profile.whatsapp && profile.whatsapp !== ""
-                                    ? profile.whatsapp
-                                    : "https://wa.me/970592078053"
-                            }
-                            target="_blank"
-                            rel="noreferrer"
-                        >
-                            <div
-                                style={{
-                                    backgroundColor: "white",
-                                    borderRadius: "10px",
-                                    padding: "5px",
-                                    marginRight: "12px",
-                                }}
-                            >
-                                <RiWhatsappFill size="40px" color="green"/>
-                            </div>
-                        </a>
-                        <a
-                            href={
-                                profile.facebook && profile.facebook !== ""
-                                    ? profile.facebook
-                                    : ""
-                            }
-                            target="_blank"
-                            rel="noreferrer"
-                        >
-                            <div
-                                style={{
-                                    backgroundColor: "white",
-                                    borderRadius: "10px",
-                                    padding: "5px",
-                                }}
-                            >
-                                <FaFacebook size="40px" />
-                            </div>
-                        </a>
                         <h5 style={{ marginLeft: "10px", color: "white" }}>
                             :للتواصل
                         </h5>
@@ -151,26 +107,12 @@ const ProfileComponent = () => {
                                             marginLeft: "5px",
                                         }}
                                     >
-                                        :المعلم
+                                        :الطالب
                                         <FaUserTie
                                             style={{ marginLeft: "10px" }}
                                         />
                                     </span>
                                     <span>{profile.name}</span>
-                                </div>
-                                <div>
-                                    <span
-                                        style={{
-                                            float: "right",
-                                            marginLeft: "5px",
-                                        }}
-                                    >
-                                        :التخصص
-                                        <BsXDiamondFill
-                                            style={{ marginLeft: "10px" }}
-                                        />
-                                    </span>
-                                    <span>{profile.major}</span>
                                 </div>
                                 <div>
                                     <span
@@ -207,7 +149,7 @@ const ProfileComponent = () => {
                 {showMessanger && (
                     <Messanger
                         handleCloseClick={handleCloseClick}
-                        receiverId={teacherId}
+                        receiverId={studentId}
                     />
                 )}
             </div>
@@ -215,6 +157,6 @@ const ProfileComponent = () => {
     );
 };
 
-const Profile = MotionHoc(ProfileComponent);
+const StudentProfile = MotionHoc(StudentProfileComponent);
 
-export default Profile;
+export default StudentProfile;

@@ -1,24 +1,25 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import './messenger.css';
-import { IoMdClose } from 'react-icons/io';
-import Avatar from '@material-ui/core/Avatar';
-import IconButton from '@material-ui/core/IconButton';
+import React, { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import "./messenger.css";
+import { IoMdClose } from "react-icons/io";
+import Avatar from "@material-ui/core/Avatar";
+import IconButton from "@material-ui/core/IconButton";
 
-import Message from '../components/message.jsx';
-import auth from '../services/authService';
-import http from '../services/httpService';
-import { openNotification } from '../store/msgNotifications';
-import { loadRecevierProfile } from '../store/profile';
+import Message from "../components/message.jsx";
+import auth from "../services/authService";
+import http from "../services/httpService";
+import { openNotification } from "../store/msgNotifications";
+import { loadRecevierProfile } from "../store/profile";
 
-import { loadMessages } from '../store/messages';
-import { socketMsg } from '../socket';
+import { loadMessages } from "../store/messages";
+import { socketMsg } from "../socket";
 
 let backendURL = process.env.REACT_APP_API_URL;
 
-const Massenger = ({ handleCloseClick, teacherId: receiverId }) => {
+const Massenger = ({ handleCloseClick, receiverId }) => {
     const dispatch = useDispatch();
-    const [newMessage, setNewMessage] = useState('');
+    const [newMessage, setNewMessage] = useState("");
     const messages = useSelector((state) => state.messages.list);
     const profileSender = useSelector((state) => state.profile.list);
     const profileRecevier = useSelector((state) => state.profile.recevier);
@@ -34,9 +35,9 @@ const Massenger = ({ handleCloseClick, teacherId: receiverId }) => {
 
     useEffect(() => {
         scrollRef.current?.scrollIntoView({
-            behavior: 'smooth',
-            block: 'nearest',
-            inline: 'start',
+            behavior: "smooth",
+            block: "nearest",
+            inline: "start",
         });
     }, [messages]);
 
@@ -66,8 +67,8 @@ const Massenger = ({ handleCloseClick, teacherId: receiverId }) => {
             text: newMessage,
         };
 
-        socketMsg.emit('sendMessage', { sender, receiver });
-        setNewMessage('');
+        socketMsg.emit("sendMessage", { sender, receiver });
+        setNewMessage("");
     };
 
     const handleChatClick = async () => {
@@ -85,12 +86,12 @@ const Massenger = ({ handleCloseClick, teacherId: receiverId }) => {
     };
 
     const onEnterPress = (e) => {
-        if(e.keyCode === 13 && e.shiftKey === false) {
-          e.preventDefault();
-          handleSubmit(e);
+        if (e.keyCode === 13 && e.shiftKey === false) {
+            e.preventDefault();
+            handleSubmit(e);
         }
-    }
-    
+    };
+
     return (
         <div className="chat-container" onClick={handleChatClick}>
             <div className="chat-header">
@@ -100,8 +101,25 @@ const Massenger = ({ handleCloseClick, teacherId: receiverId }) => {
                     </IconButton>
                 </div>
                 <div className="name-img">
-                    <div style={{ fontSize: '18px', color: 'white' }}>
-                        {profileRecevier.name}
+                    <div style={{ fontSize: "18px", color: "white" }} onClick={() => handleCloseClick()}>
+                        <Link
+                            to={
+                                profileRecevier.isModerator
+                                    ? {
+                                        pathname: "/teacherProfile",
+                                        state: { teacherId: profileRecevier.id }
+                                      }
+                                    : {
+                                        pathname: "/student-profile",
+                                        state: { studentId: profileRecevier.id }
+                                      }
+                            }
+                            style={{
+                                color: "white",
+                            }}
+                        >
+                            {profileRecevier.name}
+                        </Link>
                     </div>
                     <div className="profile-img">
                         <Avatar alt="Profile" src={profileRecevier.image} />
@@ -119,9 +137,9 @@ const Massenger = ({ handleCloseClick, teacherId: receiverId }) => {
                                             message={m.text}
                                             own={
                                                 !(
-                                                    m.sender_id + '' ===
+                                                    m.sender_id + "" ===
                                                     auth.getCurrentUser().id +
-                                                        ''
+                                                        ""
                                                 )
                                             }
                                             senderImg={profileSender.image}

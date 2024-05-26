@@ -25,10 +25,12 @@ const slice = createSlice({
         },
         usersUnitDeleted: (usersUnit, action) => {
             const newUsersUnit = usersUnit.list.filter((userUnit) => {
-                console.log(userUnit.id, action.payload.id);
                 return userUnit.id !== action.payload.id;
             });
             usersUnit.list = newUsersUnit;
+        },
+        RESET_DATA: (usersUnit, action) => {
+            usersUnit.list = [];
         },
     },
 });
@@ -39,31 +41,45 @@ export const {
     usersUnitRequestFailed,
     usersUnitAdded,
     usersUnitDeleted,
+    RESET_DATA,
 } = slice.actions;
 export default slice.reducer;
 
-export const loadSpecificUsersUnit = (unitId) =>
-    apiCallBegan({
-        url: `/users-unit/${unitId}`,
-        onStart: usersUnitRequested.type,
-        onSuccess: specificUsersUnitReceived.type,
-        onError: usersUnitRequestFailed.type,
-    });
+const resetData = () => ({
+    type: RESET_DATA,
+});
 
-export const loadAssignedUsersUnit = (unitId, email) =>
-    apiCallBegan({
-        url: `/users-unit/${unitId}/assigned-users?email=${email}`,
-        onStart: usersUnitRequested.type,
-        onSuccess: specificUsersUnitReceived.type,
-        onError: usersUnitRequestFailed.type,
-    });
+export const loadSpecificUsersUnit = (unitId) => (dispatch, getState) => {
+    dispatch(resetData());
+    return dispatch(
+        apiCallBegan({
+            url: `/users-unit/${unitId}`,
+            onStart: usersUnitRequested.type,
+            onSuccess: specificUsersUnitReceived.type,
+            onError: usersUnitRequestFailed.type,
+        })
+    );
+};
 
-export const addUserToUnit = (userId, unitId) =>
+export const loadAssignedUsersUnit =
+    (unitId, email) => (dispatch, getState) => {
+        dispatch(resetData());
+        return dispatch(
+            apiCallBegan({
+                url: `/users-unit/${unitId}/assigned-users?email=${email}`,
+                onStart: usersUnitRequested.type,
+                onSuccess: specificUsersUnitReceived.type,
+                onError: usersUnitRequestFailed.type,
+            })
+        );
+    };
+
+export const addUserToUnit = (userId, unitId, paymentAmount) =>
     apiCallBegan({
         url: `/users-unit/users`,
         method: "post",
         name: "usersUnit",
-        data: { userId, unitId },
+        data: { userId, unitId, paymentAmount },
         onSuccess: usersUnitAdded.type,
     });
 

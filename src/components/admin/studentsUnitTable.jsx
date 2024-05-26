@@ -15,6 +15,7 @@ import TableDropDown from "../tableDropDown";
 const columns = [
     { id: "name", label: "Name", minWidth: 170 },
     { id: "email", label: "Email", minWidth: 100 },
+    { id: "payment", label: "Payment", minWidth: 100 },
 ];
 
 const useStyles = makeStyles({
@@ -94,7 +95,7 @@ export default function StudentsUnitTable({ studentsUnit, deleteClicked }) {
                                                 className={classes.button}
                                                 startIcon={<DeleteIcon />}
                                                 onClick={() =>
-                                                    deleteClicked(user.id)
+                                                    deleteClicked(user)
                                                 }
                                             >
                                                 حذف

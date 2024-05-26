@@ -1,9 +1,9 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { apiCallBegan } from './api';
-import moment from 'moment';
+import { createSlice } from "@reduxjs/toolkit";
+import { apiCallBegan } from "./api";
+import moment from "moment";
 
 const slice = createSlice({
-    name: 'chats',
+    name: "chats",
     initialState: {
         list: [],
         loading: false,
@@ -26,17 +26,30 @@ const slice = createSlice({
             !chats.list.some((chat) => chat.id === action.payload.id) &&
                 chats.list.unshift(action.payload);
         },
+        RESET_DATA: (chats, action) => {
+            chats.list = [];
+        },
     },
 });
 
-export const { chatsReceived, chatsRequested, chatsRequestFailed, chatAdded } =
-    slice.actions;
+export const {
+    chatsReceived,
+    chatsRequested,
+    chatsRequestFailed,
+    chatAdded,
+    RESET_DATA,
+} = slice.actions;
 export default slice.reducer;
+
+const resetData = () => ({
+    type: RESET_DATA,
+});
 
 export const loadChats = (classCourseId) => (dispatch, getState) => {
     const { lastFetch } = getState().chats;
-    const diffInMinutes = moment().diff(moment(lastFetch), 'minutes');
+    const diffInMinutes = moment().diff(moment(lastFetch), "minutes");
     if (diffInMinutes < 0) return;
+    dispatch(resetData());
 
     return dispatch(
         apiCallBegan({

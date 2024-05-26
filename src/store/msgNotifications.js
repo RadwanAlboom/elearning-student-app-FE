@@ -1,8 +1,8 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { apiCallBegan } from './api';
+import { createSlice } from "@reduxjs/toolkit";
+import { apiCallBegan } from "./api";
 
 const slice = createSlice({
-    name: 'msgNotifications',
+    name: "msgNotifications",
     initialState: {
         list: [],
     },
@@ -30,24 +30,36 @@ const slice = createSlice({
         },
         notificationOpened: (msgNotifications, action) => {
             const index = msgNotifications.list.findIndex(
-                (msgNotify) => msgNotify.chatId + '' === action.payload.id + ''
+                (msgNotify) => msgNotify.chatId + "" === action.payload.id + ""
             );
             if (msgNotifications.list[index]) {
                 msgNotifications.list[index].counter = 0;
             }
         },
+        RESET_DATA: (msgNotifications, action) => {
+            msgNotifications.list = [];
+        },
     },
 });
 
-export const { notificationsReceived, personAdded, notificationOpened } =
-    slice.actions;
+export const {
+    notificationsReceived,
+    personAdded,
+    notificationOpened,
+    RESET_DATA,
+} = slice.actions;
 export default slice.reducer;
 
+const resetData = () => ({
+    type: RESET_DATA,
+});
+
 export const loadMsgNotifications = (userId) => (dispatch, getState) => {
+    dispatch(resetData());
     return dispatch(
         apiCallBegan({
             url: `/messages/msgNotfications/${userId}`,
-            method: 'post',
+            method: "post",
             onSuccess: notificationsReceived.type,
         })
     );

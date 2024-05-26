@@ -1,11 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { apiCallBegan } from './api';
-import moment from 'moment';
-import { createSelector } from 'reselect';
-import auth from '../services/authService';
+import { createSlice } from "@reduxjs/toolkit";
+import { apiCallBegan } from "./api";
+import moment from "moment";
+import { createSelector } from "reselect";
+import auth from "../services/authService";
 
 const slice = createSlice({
-    name: 'adminCourses',
+    name: "adminCourses",
     initialState: {
         list: [],
         loading: false,
@@ -18,8 +18,8 @@ const slice = createSlice({
         adminCoursesReceived: (adminCourses, action) => {
             const currentUser = auth.getCurrentUser();
             if (currentUser && currentUser.isModerator) {
-                const courses = action.payload.filter(course => {
-                    return currentUser.majorId + '' === course.id + '';
+                const courses = action.payload.filter((course) => {
+                    return currentUser.majorId + "" === course.id + "";
                 });
                 adminCourses.list = courses;
             } else {
@@ -39,16 +39,19 @@ const slice = createSlice({
         },
         adminCourseDeleted: (adminCourses, action) => {
             const newCourses = adminCourses.list.filter((course) => {
-                return course.id + '' !== action.payload.id;
+                return course.id + "" !== action.payload.id;
             });
             adminCourses.list = newCourses;
         },
         adminCourseUpdated: (adminCourses, action) => {
             const { id, newCourse } = action.payload;
             const index = adminCourses.list.findIndex(
-                (course) => course.id + '' === id
+                (course) => course.id + "" === id
             );
             adminCourses.list[index] = newCourse;
+        },
+        RESET_DATA: (adminCourses, action) => {
+            adminCourses.list = [];
         },
     },
 });
@@ -60,15 +63,21 @@ export const {
     adminCourseAdded,
     adminCourseDeleted,
     adminCourseUpdated,
+    RESET_DATA,
 } = slice.actions;
 export default slice.reducer;
 
-const url = '/courses';
+const url = "/courses";
+
+const resetData = () => ({
+    type: RESET_DATA,
+});
 
 export const loadAdminCourses = () => (dispatch, getState) => {
     const { lastFetch } = getState().entities.adminCourses;
-    const diffInMinutes = moment().diff(moment(lastFetch), 'minutes');
+    const diffInMinutes = moment().diff(moment(lastFetch), "minutes");
     if (diffInMinutes < 0) return;
+    dispatch(resetData());
 
     return dispatch(
         apiCallBegan({
@@ -83,8 +92,8 @@ export const loadAdminCourses = () => (dispatch, getState) => {
 export const addAdminCourse = (adminCourse) =>
     apiCallBegan({
         url,
-        method: 'post',
-        name: 'courses',
+        method: "post",
+        name: "courses",
         data: adminCourse,
         onSuccess: adminCourseAdded.type,
     });
@@ -92,16 +101,16 @@ export const addAdminCourse = (adminCourse) =>
 export const deleteAdminCourse = (id) =>
     apiCallBegan({
         url: `${url}/${id}`,
-        method: 'delete',
-        name: 'courses',
+        method: "delete",
+        name: "courses",
         onSuccess: adminCourseDeleted.type,
     });
 
 export const updateAdminCourse = (id, updateCourse) =>
     apiCallBegan({
         url: `${url}/${id}`,
-        method: 'put',
-        name: 'courses',
+        method: "put",
+        name: "courses",
         data: updateCourse,
         onSuccess: adminCourseUpdated.type,
     });
@@ -110,7 +119,7 @@ export const getMajor = (id) =>
     createSelector(
         (state) => state.entities.adminCourses,
         (adminCourses) =>
-            adminCourses.list.filter((course) => course.id + '' === id + '')
+            adminCourses.list.filter((course) => course.id + "" === id + "")
     );
 
 export const getCourses = createSelector(

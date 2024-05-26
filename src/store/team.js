@@ -21,6 +21,9 @@ const slice = createSlice({
         teamRequestFailed: (team, action) => {
             team.loading = false;
         },
+        RESET_DATA: (team, action) => {
+            team.list = [];
+        },
     },
 });
 
@@ -28,14 +31,19 @@ export const {
     teamReceived,
     teamRequested,
     teamRequestFailed,
+    RESET_DATA
 } = slice.actions;
 export default slice.reducer;
 
+const resetData = () => ({
+    type: RESET_DATA,
+});
 
 export const loadTeam = () => (dispatch, getState) => {
     const { lastFetch } = getState().teachers;
     const diffInMinutes = moment().diff(moment(lastFetch), "minutes");
     if (diffInMinutes < 0) return;
+    dispatch(resetData());
 
     return dispatch(
         apiCallBegan({

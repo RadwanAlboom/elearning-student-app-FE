@@ -14,6 +14,7 @@ import ChatRoom from '../pages/user/ChatRoom';
 import ZoomLink from '../pages/user/ZoomLink';
 import ProtectedRoute from '../components/protectedRoute';
 import UserProtectedRoute from '../components/user/protectedRoute';
+import StudentProfile from '../pages/admin/StudentProfile';
 import styled from 'styled-components';
 import { AnimatePresence } from 'framer-motion';
 import '../components/style.css';
@@ -86,6 +87,10 @@ function UserRoute() {
                             <ProtectedRoute
                                 path="/courses"
                                 component={UserCoursesRoute}
+                            />
+                            <ProtectedRoute
+                                path="/student-profile"
+                                component={StudentProfile}
                             />
                             <Route path="/contactUs" component={ContactUs} />
                             <Route

@@ -1,12 +1,12 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { createSelector } from 'reselect';
-import { apiCallBegan } from './api';
+import { createSlice } from "@reduxjs/toolkit";
+import { createSelector } from "reselect";
+import { apiCallBegan } from "./api";
 
-import auth from '../services/authService';
+import auth from "../services/authService";
 
 const slice = createSlice({
     //user => admin, moderator, simple user
-    name: 'userNotifications',
+    name: "userNotifications",
     initialState: {
         list: [],
     },
@@ -23,27 +23,42 @@ const slice = createSlice({
 
         notificationOpend: (userNotifications, action) => {
             const index = userNotifications.list.findIndex(
-                (notify) => notify.id + '' === action.payload.id
+                (notify) => notify.id + "" === action.payload.id
             );
             userNotifications.list[index].open = 1;
+        },
+        RESET_DATA: (userNotifications, action) => {
+            userNotifications.list = [];
         },
     },
 });
 
-export const { notificationsReceived, notificationsAdded, notificationOpend } =
-    slice.actions;
+export const {
+    notificationsReceived,
+    notificationsAdded,
+    notificationOpend,
+    RESET_DATA,
+} = slice.actions;
 export default slice.reducer;
+
+const resetData = () => ({
+    type: RESET_DATA,
+});
 
 // Action Creators
 const url =
     auth.getCurrentUser() &&
     `/userRequest/${auth.getCurrentUser().id}/notifications`;
 
-export const loadNotifications = () =>
-    apiCallBegan({
-        url,
-        onSuccess: notificationsReceived.type,
-    });
+export const loadNotifications = () => (dispatch, getState) => {
+    dispatch(resetData());
+    return dispatch(
+        apiCallBegan({
+            url,
+            onSuccess: notificationsReceived.type,
+        })
+    );
+};
 
 export const addNotification = (payload) => ({
     type: notificationsAdded.type,
@@ -62,8 +77,8 @@ export const getNotOpenedNotification = createSelector(
 export const openNotification = (id) =>
     apiCallBegan({
         url: `/userRequest/notifications/${id}`,
-        method: 'patch',
-        name: 'openNotification',
+        method: "patch",
+        name: "openNotification",
         data: { open: 1 },
         onSuccess: notificationOpend.type,
     });

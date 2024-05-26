@@ -1,9 +1,9 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { apiCallBegan } from './api';
-import moment from 'moment';
+import { createSlice } from "@reduxjs/toolkit";
+import { apiCallBegan } from "./api";
+import moment from "moment";
 
 const slice = createSlice({
-    name: 'requests',
+    name: "requests",
     initialState: {
         list: [],
         loading: false,
@@ -27,16 +27,19 @@ const slice = createSlice({
         },
         requestDeleted: (requests, action) => {
             const newRequests = requests.list.filter((request) => {
-                return request.id + '' !== action.payload.id;
+                return request.id + "" !== action.payload.id;
             });
             requests.list = newRequests;
         },
         requestAccepted: (requests, action) => {
             const { id, newRequest } = action.payload;
             const index = requests.list.findIndex(
-                (request) => request.id + '' === id
+                (request) => request.id + "" === id
             );
             requests.list[index] = newRequest;
+        },
+        RESET_DATA: (requests, action) => {
+            requests.list = [];
         },
     },
 });
@@ -48,13 +51,19 @@ export const {
     requestAdded,
     requestDeleted,
     requestAccepted,
+    RESET_DATA,
 } = slice.actions;
 export default slice.reducer;
 
+const resetData = () => ({
+    type: RESET_DATA,
+});
+
 export const loadRequests = (emailFilter) => (dispatch, getState) => {
     const { lastFetch } = getState().requests;
-    const diffInMinutes = moment().diff(moment(lastFetch), 'minutes');
+    const diffInMinutes = moment().diff(moment(lastFetch), "minutes");
     if (diffInMinutes < 0) return;
+    dispatch(resetData());
 
     return dispatch(
         apiCallBegan({
@@ -69,8 +78,8 @@ export const loadRequests = (emailFilter) => (dispatch, getState) => {
 export const addRequest = (newRequest) =>
     apiCallBegan({
         url: `/userRequest/request`,
-        method: 'post',
-        name: 'requests',
+        method: "post",
+        name: "requests",
         data: newRequest,
         onSuccess: requestAdded.type,
     });
@@ -78,15 +87,15 @@ export const addRequest = (newRequest) =>
 export const deleteRequest = (id) =>
     apiCallBegan({
         url: `/userRequest/${id}`,
-        method: 'delete',
-        name: 'requests',
+        method: "delete",
+        name: "requests",
         onSuccess: requestDeleted.type,
     });
 
 export const acceptRequest = (id) =>
     apiCallBegan({
         url: `/userRequest/${id}`,
-        method: 'put',
-        name: 'requests',
+        method: "put",
+        name: "requests",
         onSuccess: requestAccepted.type,
     });

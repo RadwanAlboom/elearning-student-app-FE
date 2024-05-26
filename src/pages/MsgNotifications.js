@@ -149,7 +149,7 @@ export default function SimplePopover({ handleClose, anchorEl }) {
             {auth.getCurrentUser() && showMessanger && (
                 <Messanger
                     handleCloseClick={handleCloseClick}
-                    teacherId={recevierId}
+                    receiverId={recevierId}
                 />
             )}
         </div>

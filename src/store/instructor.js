@@ -35,6 +35,9 @@ const slice = createSlice({
             );
             teachers.list[index] = newTeacher;
         },
+        RESET_DATA: (teachers, action) => {
+            teachers.list = [];
+        },
     },
 });
 
@@ -44,13 +47,19 @@ export const {
     teachersRequestFailed,
     teacherDeleted,
     teacherUpdated,
+    RESET_DATA
 } = slice.actions;
 export default slice.reducer;
+
+const resetData = () => ({
+    type: RESET_DATA,
+});
 
 export const loadTeachers = (emailFilter) => (dispatch, getState) => {
     const { lastFetch } = getState().teachers;
     const diffInMinutes = moment().diff(moment(lastFetch), "minutes");
     if (diffInMinutes < 0) return;
+    dispatch(resetData());
 
     return dispatch(
         apiCallBegan({
@@ -63,6 +72,7 @@ export const loadTeachers = (emailFilter) => (dispatch, getState) => {
 };
 
 export const loadTeam = () => (dispatch, getState) => {
+    dispatch(resetData());
     return dispatch(
         apiCallBegan({
             url: `/teachers/team`,

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -18,6 +19,7 @@ import TableDropDown from '../tableDropDown';
 const columns = [
     { id: 'name', label: 'Name', minWidth: 170 },
     { id: 'email', label: 'Email', minWidth: 100 },
+    { id: 'phone', label: 'Phone', minWidth: 100 },
     { id: 'major', label: 'Major', minWidth: 100 },
     {
         id: 'isModerator',
@@ -79,6 +81,9 @@ export default function StickyHeadTable({
                                 </TableCell>
                             ))}
                             <TableCell style={{ minWidth: 170 }}>
+                                Profile
+                            </TableCell>
+                            <TableCell style={{ minWidth: 170 }}>
                                 {btnName ? 'Update' : 'Accept'}
                             </TableCell>
                             <TableCell style={{ minWidth: 170 }}>
@@ -118,6 +123,16 @@ export default function StickyHeadTable({
                                                 </TableCell>
                                             );
                                         })}
+                                        <TableCell>
+                                            <Link
+                                                to={{
+                                                    pathname: '/teacherProfile',
+                                                    state: { teacherId: teacher.id },
+                                                }}
+                                            >
+                                                    الملف الشخصي
+                                            </Link>
+                                        </TableCell>
                                         <TableCell>
                                             <Button
                                                 variant="contained"

@@ -17,6 +17,7 @@ import TableDropDown from '../tableDropDown';
 const columns = [
     { id: 'name', label: 'Name', minWidth: 170 },
     { id: 'email', label: 'Email', minWidth: 100 },
+    { id: 'phone', label: 'Phone', minWidth: 100 },
     {
         id: 'isModerator',
         label: 'Is-Moderator',

@@ -1,9 +1,9 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { apiCallBegan } from './api';
-import moment from 'moment';
+import { createSlice } from "@reduxjs/toolkit";
+import { apiCallBegan } from "./api";
+import moment from "moment";
 
 const slice = createSlice({
-    name: 'files',
+    name: "files",
     initialState: {
         list: [],
         loading: false,
@@ -27,14 +27,17 @@ const slice = createSlice({
         },
         fileDeleted: (files, action) => {
             const newFiles = files.list.filter((file) => {
-                return file.id + '' !== action.payload.id;
+                return file.id + "" !== action.payload.id;
             });
             files.list = newFiles;
         },
         fileUpdated: (files, action) => {
             const { id, newFile } = action.payload;
-            const index = files.list.findIndex((file) => file.id + '' === id);
+            const index = files.list.findIndex((file) => file.id + "" === id);
             files.list[index] = newFile;
+        },
+        RESET_DATA: (files, action) => {
+            files.list = [];
         },
     },
 });
@@ -46,13 +49,19 @@ export const {
     fileAdded,
     fileDeleted,
     fileUpdated,
+    RESET_DATA,
 } = slice.actions;
 export default slice.reducer;
 
+const resetData = () => ({
+    type: RESET_DATA,
+});
+
 export const loadFiles = (chapterId) => (dispatch, getState) => {
     const { lastFetch } = getState().entities.files;
-    const diffInMinutes = moment().diff(moment(lastFetch), 'minutes');
+    const diffInMinutes = moment().diff(moment(lastFetch), "minutes");
     if (diffInMinutes < 0) return;
+    dispatch(resetData());
 
     return dispatch(
         apiCallBegan({
@@ -67,8 +76,8 @@ export const loadFiles = (chapterId) => (dispatch, getState) => {
 export const addFile = (newFile, chapterId) =>
     apiCallBegan({
         url: `/courses/files/${chapterId}`,
-        method: 'post',
-        name: 'files',
+        method: "post",
+        name: "files",
         data: newFile,
         onSuccess: fileAdded.type,
     });
@@ -76,16 +85,16 @@ export const addFile = (newFile, chapterId) =>
 export const deleteFile = (id) =>
     apiCallBegan({
         url: `/courses/files/${id}`,
-        method: 'delete',
-        name: 'files',
+        method: "delete",
+        name: "files",
         onSuccess: fileDeleted.type,
     });
 
 export const updateFile = (id, updatedFile) =>
     apiCallBegan({
         url: `/courses/files/${id}`,
-        method: 'put',
-        name: 'files',
+        method: "put",
+        name: "files",
         data: updatedFile,
         onSuccess: fileUpdated.type,
     });

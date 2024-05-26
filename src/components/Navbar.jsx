@@ -1,33 +1,32 @@
-import React, { useEffect } from 'react';
-import socketIOClient from 'socket.io-client';
-import { useDispatch, useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
-import { fade, makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Badge from '@material-ui/core/Badge';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import MailIcon from '@material-ui/icons/Mail';
-import NotificationsIcon from '@material-ui/icons/Notifications';
-import MoreIcon from '@material-ui/icons/MoreVert';
-import { FaFacebookMessenger } from 'react-icons/fa';
-import Upload from '../components/upload';
-import circle from "../assets/admin/circle.json"
+import React, { useEffect } from "react";
+import socketIOClient from "socket.io-client";
+import { useDispatch, useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
+import { fade, makeStyles } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import IconButton from "@material-ui/core/IconButton";
+import Badge from "@material-ui/core/Badge";
+import MenuItem from "@material-ui/core/MenuItem";
+import Menu from "@material-ui/core/Menu";
+import AccountCircle from "@material-ui/icons/AccountCircle";
+import NotificationsIcon from "@material-ui/icons/Notifications";
+import MoreIcon from "@material-ui/icons/MoreVert";
+import { FaFacebookMessenger } from "react-icons/fa";
+import Upload from "../components/upload";
+import circle from "../assets/admin/circle.json";
 
-import { loadNotifications } from '../store/userNotifications';
-import { loadRequests } from '../store/requests';
-import Notifications from '../pages/user/Notifications';
-import MsgNotifications from '../pages/MsgNotifications';
-import auth from '../services/authService';
-import { socketMsg } from '../socket';
-import { addMessage } from '../store/messages';
+import { loadNotifications } from "../store/userNotifications";
+import { loadRequests } from "../store/requests";
+import Notifications from "../pages/user/Notifications";
+import MsgNotifications from "../pages/MsgNotifications";
+import auth from "../services/authService";
+import { socketMsg } from "../socket";
+import { addMessage } from "../store/messages";
 import {
     addPersonOnChat,
     loadMsgNotifications,
-} from '../store/msgNotifications';
+} from "../store/msgNotifications";
 
 let socket;
 let backendURL = process.env.REACT_APP_API_URL;
@@ -40,60 +39,60 @@ const useStyles = makeStyles((theme) => ({
         marginRight: theme.spacing(2),
     },
     title: {
-        display: 'none',
-        [theme.breakpoints.up('sm')]: {
-            display: 'block',
+        display: "none",
+        [theme.breakpoints.up("sm")]: {
+            display: "block",
         },
     },
     search: {
-        position: 'relative',
+        position: "relative",
         borderRadius: theme.shape.borderRadius,
         backgroundColor: fade(theme.palette.common.white, 0.15),
-        '&:hover': {
+        "&:hover": {
             backgroundColor: fade(theme.palette.common.white, 0.25),
         },
         marginRight: theme.spacing(2),
         marginLeft: 0,
-        width: '100%',
-        [theme.breakpoints.up('sm')]: {
+        width: "100%",
+        [theme.breakpoints.up("sm")]: {
             marginLeft: theme.spacing(3),
-            width: 'auto',
+            width: "auto",
         },
     },
     searchIcon: {
         padding: theme.spacing(0, 2),
-        height: '100%',
-        position: 'absolute',
-        pointerEvents: 'none',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+        height: "100%",
+        position: "absolute",
+        pointerEvents: "none",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
     },
     inputRoot: {
-        color: 'inherit',
+        color: "inherit",
     },
     inputInput: {
         padding: theme.spacing(1, 1, 1, 0),
         // vertical padding + font size from searchIcon
         paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-        transition: theme.transitions.create('width'),
-        width: '100%',
-        [theme.breakpoints.up('md')]: {
-            width: '20ch',
+        transition: theme.transitions.create("width"),
+        width: "100%",
+        [theme.breakpoints.up("md")]: {
+            width: "20ch",
         },
     },
     sectionDesktop: {
-        display: 'none',
-        marginRight: '60px',
-        [theme.breakpoints.up('md')]: {
-            display: 'flex',
+        display: "none",
+        marginRight: "60px",
+        [theme.breakpoints.up("md")]: {
+            display: "flex",
         },
     },
     sectionMobile: {
-        display: 'flex',
-        marginRight: '60px',
-        [theme.breakpoints.up('md')]: {
-            display: 'none',
+        display: "flex",
+        marginRight: "60px",
+        [theme.breakpoints.up("md")]: {
+            display: "none",
         },
     },
 }));
@@ -118,7 +117,7 @@ export default function PrimarySearchAppBar({ user }) {
     );
 
     useEffect(() => {
-        socketMsg.on('imageUpdated', (data) => {
+        socketMsg.on("imageUpdated", (data) => {
             if (auth.getCurrentUser()) {
                 dispatch(loadMsgNotifications(auth.getCurrentUser().id));
             }
@@ -128,20 +127,20 @@ export default function PrimarySearchAppBar({ user }) {
     useEffect(() => {
         socket = socketIOClient(backendURL);
 
-        socket.on('teachers', ({ id }) => {
+        socket.on("teachers", ({ id }) => {
             if (
                 auth.getCurrentUser() &&
                 auth.getCurrentUser().isModerator &&
-                auth.getCurrentUser().id + '' === id + ''
+                auth.getCurrentUser().id + "" === id + ""
             ) {
                 auth.logout();
             }
         });
-        socket.on('students', ({ id }) => {
+        socket.on("students", ({ id }) => {
             if (
                 auth.getCurrentUser() &&
                 !auth.getCurrentUser().isModerator &&
-                auth.getCurrentUser().id + '' === id + ''
+                auth.getCurrentUser().id + "" === id + ""
             ) {
                 auth.logout();
             }
@@ -151,27 +150,27 @@ export default function PrimarySearchAppBar({ user }) {
     }, [dispatch]);
 
     useEffect(() => {
-        socketMsg.on('getMessage', (data) => {
+        socketMsg.on("getMessage", (data) => {
             dispatch(addMessage(data.savedMsg));
             // dispatch(addPersonOnChat(data.person));
         });
     }, [dispatch]);
 
     useEffect(() => {
-        socketMsg.on('getMessage', (data) => {
+        socketMsg.on("getMessage", (data) => {
             data.person.me = false;
             dispatch(addPersonOnChat(data.person));
         });
     }, [dispatch]);
 
     useEffect(() => {
-        socketMsg.on('senderMessage', (data) => {
+        socketMsg.on("senderMessage", (data) => {
             dispatch(addMessage(data.savedMsg));
         });
     }, [dispatch]);
 
     useEffect(() => {
-        socketMsg.on('senderMessage', (data) => {
+        socketMsg.on("senderMessage", (data) => {
             data.sender.me = true;
             dispatch(addPersonOnChat(data.sender));
         });
@@ -186,7 +185,7 @@ export default function PrimarySearchAppBar({ user }) {
 
     useEffect(() => {
         const socketFraud = socketIOClient(backendURL);
-        socketFraud.on('fraudNotification', (payload) => {
+        socketFraud.on("fraudNotification", (payload) => {
             const user = auth.getCurrentUser();
             if (user.isAdmin) {
                 dispatch(loadNotifications());
@@ -198,7 +197,7 @@ export default function PrimarySearchAppBar({ user }) {
 
     useEffect(() => {
         socket = socketIOClient(backendURL);
-        socket.on('openNotification', (payload) => {
+        socket.on("openNotification", (payload) => {
             dispatch(loadNotifications());
         });
 
@@ -207,7 +206,7 @@ export default function PrimarySearchAppBar({ user }) {
 
     useEffect(() => {
         socket = socketIOClient(backendURL);
-        socket.on('insertRequestNotification', (payload) => {
+        socket.on("insertRequestNotification", (payload) => {
             dispatch(loadNotifications());
             dispatch(loadRequests());
         });
@@ -247,21 +246,21 @@ export default function PrimarySearchAppBar({ user }) {
         setMsgAnchorElNot(null);
     };
 
-    const menuId = 'primary-search-account-menu';
+    const menuId = "primary-search-account-menu";
     const renderMenu = (
         <Menu
             anchorEl={anchorEl}
-            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+            anchorOrigin={{ vertical: "top", horizontal: "right" }}
             id={menuId}
             keepMounted
-            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+            transformOrigin={{ vertical: "top", horizontal: "right" }}
             open={isMenuOpen}
             onClose={handleMenuClose}
         >
             {!user && (
                 <NavLink
                     to="/registration"
-                    style={{ textDecoration: 'none', color: 'black' }}
+                    style={{ textDecoration: "none", color: "black" }}
                 >
                     <MenuItem onClick={handleMenuClose}>تسجيل الدخول</MenuItem>
                 </NavLink>
@@ -271,12 +270,12 @@ export default function PrimarySearchAppBar({ user }) {
                     <NavLink
                         to={
                             user.isAdmin
-                                ? '/admin/profile'
+                                ? "/admin/profile"
                                 : user.isModerator
-                                ? '/moderator/profile'
-                                : '/user/profile'
+                                ? "/moderator/profile"
+                                : "/user/profile"
                         }
-                        style={{ textDecoration: 'none', color: 'black' }}
+                        style={{ textDecoration: "none", color: "black" }}
                     >
                         <MenuItem onClick={handleMenuClose}>
                             الملف الشخصي
@@ -284,23 +283,25 @@ export default function PrimarySearchAppBar({ user }) {
                     </NavLink>
                     <NavLink
                         to="/logout"
-                        style={{ textDecoration: 'none', color: 'black' }}
+                        style={{ textDecoration: "none", color: "black" }}
                     >
-                        <MenuItem onClick={handleMenuClose}>تسجيل الخروج</MenuItem>
+                        <MenuItem onClick={handleMenuClose}>
+                            تسجيل الخروج
+                        </MenuItem>
                     </NavLink>
                 </div>
             )}
         </Menu>
     );
 
-    const mobileMenuId = 'primary-search-account-menu-mobile';
+    const mobileMenuId = "primary-search-account-menu-mobile";
     const renderMobileMenu = (
         <Menu
             anchorEl={mobileMoreAnchorEl}
-            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+            anchorOrigin={{ vertical: "top", horizontal: "right" }}
             id={mobileMenuId}
             keepMounted
-            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+            transformOrigin={{ vertical: "top", horizontal: "right" }}
             open={isMobileMenuOpen}
             onClose={handleMobileMenuClose}
         >
@@ -315,10 +316,13 @@ export default function PrimarySearchAppBar({ user }) {
                             badgeContent={userMsgNotificationsNotOpend.length}
                             color="secondary"
                         >
-                            <MailIcon />
+                            <FaFacebookMessenger
+                                color="black"
+                                size={'23px'}
+                            />
                         </Badge>
                     </IconButton>
-                    <p>المحادثات</p>
+                    <p style={{marginBottom: '0px'}}>المحادثات</p>
                 </MenuItem>
             </div>
             <div onClick={handleClick}>
@@ -335,7 +339,7 @@ export default function PrimarySearchAppBar({ user }) {
                         </Badge>
                     </IconButton>
 
-                    <p>الاشعارات</p>
+                    <p style={{marginBottom: '0px'}}>الاشعارات</p>
                 </MenuItem>
             </div>
 
@@ -348,7 +352,7 @@ export default function PrimarySearchAppBar({ user }) {
                 >
                     <AccountCircle />
                 </IconButton>
-                <p>الملف الشخصي</p>
+                <p style={{marginBottom: '5px'}}>الملف الشخصي</p>
             </MenuItem>
         </Menu>
     );
@@ -361,17 +365,11 @@ export default function PrimarySearchAppBar({ user }) {
                 anchorEl={anchorMsgElNot}
             />
 
-            <AppBar position="static" style={{ backgroundColor: '#0f0f15' }}>
+            <AppBar position="static" style={{ backgroundColor: "#0f0f15" }}>
                 <Toolbar>
-                    <Upload
-                        lotti={circle}
-                        height={60}
-                        width={200}
-                    />
+                    <Upload lotti={circle} height={60} width={200} />
                     <div className={classes.search}>
-                        <div className={classes.searchIcon}>
-                            
-                        </div>
+                        <div className={classes.searchIcon}></div>
                     </div>
                     <div className={classes.grow} />
                     <div className={classes.sectionDesktop}>
@@ -388,7 +386,7 @@ export default function PrimarySearchAppBar({ user }) {
                             >
                                 <FaFacebookMessenger
                                     color="white"
-                                    style={{ marginRight: '5px', marginBottom: '5px' }}
+                                    size={'23px'}
                                 />
                             </Badge>
                         </IconButton>

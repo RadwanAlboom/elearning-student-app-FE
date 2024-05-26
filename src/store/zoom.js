@@ -1,9 +1,9 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { apiCallBegan } from './api';
-import moment from 'moment';
+import { createSlice } from "@reduxjs/toolkit";
+import { apiCallBegan } from "./api";
+import moment from "moment";
 
 const slice = createSlice({
-    name: 'links',
+    name: "links",
     initialState: {
         list: [],
         loading: false,
@@ -28,14 +28,17 @@ const slice = createSlice({
         },
         linkDeleted: (links, action) => {
             const newLinks = links.list.filter((link) => {
-                return link.id + '' !== action.payload.id;
+                return link.id + "" !== action.payload.id;
             });
             links.list = newLinks;
         },
         linkUpdated: (links, action) => {
             const { id, newLink } = action.payload;
-            const index = links.list.findIndex((link) => link.id + '' === id);
+            const index = links.list.findIndex((link) => link.id + "" === id);
             links.list[index] = newLink;
+        },
+        RESET_DATA: (links, action) => {
+            links.list = [];
         },
     },
 });
@@ -47,13 +50,19 @@ export const {
     linkAdded,
     linkDeleted,
     linkUpdated,
+    RESET_DATA,
 } = slice.actions;
 export default slice.reducer;
 
+const resetData = () => ({
+    type: RESET_DATA,
+});
+
 export const loadLinks = (id) => (dispatch, getState) => {
     const { lastFetch } = getState().entities.zoom;
-    const diffInMinutes = moment().diff(moment(lastFetch), 'minutes');
+    const diffInMinutes = moment().diff(moment(lastFetch), "minutes");
     if (diffInMinutes < 0) return;
+    dispatch(resetData());
 
     return dispatch(
         apiCallBegan({
@@ -68,25 +77,25 @@ export const loadLinks = (id) => (dispatch, getState) => {
 export const addLink = (newLink, id) =>
     apiCallBegan({
         url: `/courses/classCourses/links/${id}`,
-        method: 'post',
+        method: "post",
         data: newLink,
-        name: 'zoomLink',
+        name: "zoomLink",
         onSuccess: linkAdded.type,
     });
 
 export const deleteLink = (id) =>
     apiCallBegan({
         url: `/courses/classCourses/links/${id}`,
-        method: 'delete',
-        name: 'zoomLink',
+        method: "delete",
+        name: "zoomLink",
         onSuccess: linkDeleted.type,
     });
 
 export const updateLink = (id, updatedLink) =>
     apiCallBegan({
         url: `/courses/classCourses/links/${id}`,
-        method: 'put',
+        method: "put",
         data: updatedLink,
-        name: 'zoomLink',
+        name: "zoomLink",
         onSuccess: linkUpdated.type,
     });

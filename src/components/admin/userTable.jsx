@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -18,6 +19,7 @@ import TableDropDown from '../tableDropDown';
 const columns = [
     { id: 'name', label: 'Name', minWidth: 170 },
     { id: 'email', label: 'Email', minWidth: 100 },
+    { id: 'phone', label: 'Phone', minWidth: 100 },
     {
         id: 'isModerator',
         label: 'Is-Moderator',
@@ -82,6 +84,12 @@ export default function StickyHeadTable({
                                 </TableCell>
                             ))}
                             <TableCell style={{ minWidth: 170 }}>
+                                Payment Actions
+                            </TableCell>
+                            <TableCell style={{ minWidth: 170 }}>
+                                Profile
+                            </TableCell>
+                            <TableCell style={{ minWidth: 170 }}>
                                 {btnName ? 'Update' : 'Accept'}
                             </TableCell>
                             <TableCell style={{ minWidth: 170 }}>
@@ -121,6 +129,26 @@ export default function StickyHeadTable({
                                                 </TableCell>
                                             );
                                         })}
+                                        <TableCell>
+                                            <Link
+                                                to={{
+                                                    pathname: '/admin/payment-actions',
+                                                    state: { studentId: student.id },
+                                                }}
+                                            >
+                                                إجراءات الدفع
+                                            </Link>
+                                        </TableCell>
+                                        <TableCell>
+                                            <Link
+                                                to={{
+                                                    pathname: '/student-profile',
+                                                    state: { studentId: student.id },
+                                                }}
+                                            >
+                                                    الملف الشخصي
+                                            </Link>
+                                        </TableCell>
                                         <TableCell>
                                             <Button
                                                 variant="contained"

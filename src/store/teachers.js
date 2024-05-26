@@ -1,11 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { apiCallBegan } from './api';
-import { createSelector } from 'reselect';
-import auth from '../services/authService';
-import moment from 'moment';
+import { createSlice } from "@reduxjs/toolkit";
+import { apiCallBegan } from "./api";
+import { createSelector } from "reselect";
+import auth from "../services/authService";
+import moment from "moment";
 
 const slice = createSlice({
-    name: 'teachers',
+    name: "teachers",
     initialState: {
         list: [],
         loading: false,
@@ -18,8 +18,8 @@ const slice = createSlice({
         teachersReceived: (teachers, action) => {
             const currentUser = auth.getCurrentUser();
             if (currentUser && currentUser.isModerator) {
-                const teachersList = action.payload.filter(teacher => {
-                    return currentUser.id + '' === teacher.id + '';
+                const teachersList = action.payload.filter((teacher) => {
+                    return currentUser.id + "" === teacher.id + "";
                 });
                 teachers.list = teachersList;
             } else {
@@ -38,6 +38,9 @@ const slice = createSlice({
         teacherAdded: (teachers, action) => {
             teachers.list.push(action.payload);
         },
+        RESET_DATA: (teachers, action) => {
+            teachers.list = [];
+        },
     },
 });
 
@@ -46,15 +49,21 @@ export const {
     teachersReceived,
     teachersRequestFailed,
     teacherAdded,
+    RESET_DATA,
 } = slice.actions;
 export default slice.reducer;
 
-const url = '/courses/teachers';
+const resetData = () => ({
+    type: RESET_DATA,
+});
+
+const url = "/courses/teachers";
 
 export const loadTeachers = () => (dispatch, getState) => {
     const { lastFetch } = getState().entities.teachers;
-    const diffInMinutes = moment().diff(moment(lastFetch), 'minutes');
+    const diffInMinutes = moment().diff(moment(lastFetch), "minutes");
     if (diffInMinutes < 0) return;
+    dispatch(resetData());
 
     return dispatch(
         apiCallBegan({
@@ -68,8 +77,8 @@ export const loadTeachers = () => (dispatch, getState) => {
 
 export const addTeacher = (teacher) =>
     apiCallBegan({
-        url: '/userRequest/',
-        method: 'post',
+        url: "/userRequest/",
+        method: "post",
         data: teacher,
         onSuccess: teacherAdded.type,
     });
@@ -79,6 +88,6 @@ export const getTeachers = (id) =>
         (state) => state.entities.teachers,
         (teachers) =>
             teachers.list.filter(
-                (teacher) => teacher.course_id + '' === id + ''
+                (teacher) => teacher.course_id + "" === id + ""
             )
     );

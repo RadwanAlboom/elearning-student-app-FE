@@ -35,6 +35,9 @@ const slice = createSlice({
             );
             students.list[index] = newStudent;
         },
+        RESET_DATA: (students, action) => {
+            students.list = [];
+        },
     },
 });
 
@@ -44,13 +47,19 @@ export const {
     studentsRequestFailed,
     studentDeleted,
     studentUpdated,
+    RESET_DATA,
 } = slice.actions;
 export default slice.reducer;
+
+const resetData = () => ({
+    type: RESET_DATA,
+});
 
 export const loadStudents = (emailFilter) => (dispatch, getState) => {
     const { lastFetch } = getState().students;
     const diffInMinutes = moment().diff(moment(lastFetch), "minutes");
     if (diffInMinutes < 0) return;
+    dispatch(resetData());
 
     return dispatch(
         apiCallBegan({

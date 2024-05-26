@@ -1,25 +1,27 @@
-import React from 'react';
-import io from 'socket.io-client';
-import Joi from 'joi-browser';
-import Lottie from 'react-lottie';
-import { GoSignIn } from 'react-icons/go';
-import { AiFillLock } from 'react-icons/ai';
-import { MdEmail } from 'react-icons/md';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
+import React from "react";
+import io from "socket.io-client";
+import Joi from "joi-browser";
+import Lottie from "react-lottie";
+import { GoSignIn } from "react-icons/go";
+import { AiFillLock } from "react-icons/ai";
+import { FaUserTie } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
+import { FaPhone } from "react-icons/fa";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
 
-import * as userService from '../services/userService';
-import ErrorMessage from './errorMessage';
-import DropDown from './dropDown';
-import Form from './form';
-import loader from '../assets/admin/loader.json';
+import * as userService from "../services/userService";
+import ErrorMessage from "./errorMessage";
+import DropDown from "./dropDown";
+import Form from "./form";
+import loader from "../assets/admin/loader.json";
 
 const defaultOptions = {
     loop: true,
     autoplay: true,
     animationData: loader,
     rendererSettings: {
-        preserveAspectRatio: 'xMidYMid slice',
+        preserveAspectRatio: "xMidYMid slice",
     },
 };
 
@@ -28,19 +30,20 @@ let backendURL = process.env.REACT_APP_API_URL;
 class RegisterForm extends Form {
     state = {
         data: {
-            registerName: '',
-            registerEmail: '',
-            registerPassword: '',
+            registerName: "",
+            registerEmail: "",
+            registerPassword: "",
+            registerPhone: "",
         },
         errors: {},
         registerErrors: {},
         teacherChecked: false,
         major: 0,
-        email: '',
+        email: "",
         showloginButton: true,
         showlogoutButton: false,
         currentSocket: null,
-        registerBtnClicked : false
+        registerBtnClicked: false,
     };
 
     componentDidMount() {
@@ -53,19 +56,25 @@ class RegisterForm extends Form {
     }
 
     schema = {
-        registerName: Joi.string().required().min(5).max(255).label('Username'),
+        registerName: Joi.string().required().min(5).max(255).label("اسم المستخدم"),
         registerEmail: Joi.string()
             .required()
             .min(5)
             .max(255)
             .email()
             .regex(/@gmail\.com$/)
-            .label('Email'),
+            .label("البريد الإلكتروني"),
         registerPassword: Joi.string()
             .required()
             .min(5)
             .max(255)
-            .label('Password'),
+            .label("كلمة المرور"),
+        registerPhone: Joi.string()
+            .required()
+            .regex(/^[0-9]+$/)
+            .min(10)
+            .max(15)
+            .label("رقم الهاتف"),
     };
 
     handleCheckChange = (event) => {
@@ -73,12 +82,16 @@ class RegisterForm extends Form {
     };
 
     doSubmit = async () => {
-        this.setState({registerBtnClicked: true, registerErrors: {}, errors: {}})
+        this.setState({
+            registerBtnClicked: true,
+            registerErrors: {},
+            errors: {},
+        });
         try {
             if (this.state.teacherChecked && !this.state.major) {
-                this.setState({registerBtnClicked: false})
+                this.setState({ registerBtnClicked: false });
                 const registerErrors = { ...this.state.registerErrors };
-                registerErrors.error = 'لا ينبغي أن يكون تخصصك فارغا';
+                registerErrors.error = "لا ينبغي أن يكون تخصصك فارغا";
                 this.setState({ registerErrors });
                 return;
             }
@@ -92,14 +105,14 @@ class RegisterForm extends Form {
             const payload = {
                 name: this.state.data.registerName,
                 email: this.state.data.registerEmail,
-                type: 'request',
+                type: "request",
             };
-            this.state.currentSocket.emit('insertRequestNotification', {
+            this.state.currentSocket.emit("insertRequestNotification", {
                 payload,
             });
 
-            localStorage.setItem('isSuccessRegister', 'true');
-            window.location = '/';
+            localStorage.setItem("isSuccessRegister", "true");
+            window.location = "/";
             const registerErrors = {};
             this.setState({ registerErrors });
         } catch (ex) {
@@ -108,38 +121,41 @@ class RegisterForm extends Form {
                 registerErrors.error = ex.response.data;
                 this.setState({ registerErrors });
             }
-            this.setState({registerBtnClicked: false})
+            this.setState({ registerBtnClicked: false });
         }
     };
 
     render() {
-        const lock = <AiFillLock style={{ marginRight: '5px' }} />;
-        const email = <MdEmail style={{ marginRight: '5px' }} />;
+        const lock = <AiFillLock style={{ marginRight: "5px" }} />;
+        const email = <MdEmail style={{ marginRight: "5px" }} />;
+        const user = <FaUserTie style={{ marginRight: "5px" }} />;
+        const phone = <FaPhone style={{ marginRight: "5px" }} />;
         return (
             <div className="form-section">
                 <form onSubmit={this.handleSubmit}>
                     <h2
                         style={{
-                            textAlign: 'center',
-                            marginBottom: '20px',
-                            borderBottom: '1px solid #bfbfbf',
-                            paddingBottom: '20px',
+                            textAlign: "center",
+                            marginBottom: "20px",
+                            borderBottom: "1px solid #bfbfbf",
+                            paddingBottom: "20px",
                         }}
                     >
-                        <GoSignIn style={{ marginRight: '10px' }} />
+                        <GoSignIn style={{ marginRight: "10px" }} />
                         انشاء حساب جديد
                     </h2>
                     <ErrorMessage error={this.state.registerErrors.error} />
                     {this.renderInput(
-                        'registerName',
-                        'Username',
-                        'username',
-                        email
+                        "registerName",
+                        "Username",
+                        "username",
+                        user
                     )}
-                    {this.renderInput('registerEmail', 'Email', 'email', email)}
+                    {this.renderInput("registerPhone", "Phone", "phone", phone)}
+                    {this.renderInput("registerEmail", "Email", "email", email)}
 
                     <div>{lock} Password</div>
-                    {this.renderPasswordInput('registerPassword')}
+                    {this.renderPasswordInput("registerPassword")}
                     <FormControlLabel
                         control={
                             <Checkbox
@@ -160,8 +176,15 @@ class RegisterForm extends Form {
                         />
                     )}
 
-                    {!this.state.registerBtnClicked && this.renderButton('ارسل طلب انضمام', false)}
-                    {this.state.registerBtnClicked && <Lottie options={defaultOptions} height={100} width={100} />}
+                    {!this.state.registerBtnClicked &&
+                        this.renderButton("ارسل طلب انضمام", false)}
+                    {this.state.registerBtnClicked && (
+                        <Lottie
+                            options={defaultOptions}
+                            height={100}
+                            width={100}
+                        />
+                    )}
                 </form>
             </div>
         );

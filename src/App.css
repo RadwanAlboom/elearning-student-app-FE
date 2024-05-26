@@ -394,6 +394,10 @@ h3 {
     display: none;
 }
 
+.modal {
+    padding-left: unset !important;
+}
+
 /* increase header size after 600px */
 @media all and (min-width: 600px) {
     .blockquote h1 {

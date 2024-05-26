@@ -40,6 +40,9 @@ const slice = createSlice({
             );
             classCourses.list[index] = newClassCourse;
         },
+        RESET_DATA: (classCourses, action) => {
+            classCourses.list = [];
+        },
     },
 });
 
@@ -50,8 +53,13 @@ export const {
     classCourseAdded,
     classCourseDeleted,
     classCourseUpdated,
+    RESET_DATA,
 } = slice.actions;
 export default slice.reducer;
+
+const resetData = () => ({
+    type: RESET_DATA,
+});
 
 const url = '/courses/teachers/classCourses';
 
@@ -59,6 +67,7 @@ export const loadClassCourses = () => (dispatch, getState) => {
     const { lastFetch } = getState().entities.classCourses;
     const diffInMinutes = moment().diff(moment(lastFetch), 'minutes');
     if (diffInMinutes < 0) return;
+    dispatch(resetData());
 
     return dispatch(
         apiCallBegan({
