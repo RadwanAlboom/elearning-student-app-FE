@@ -5,17 +5,13 @@ const slice = createSlice({
     name: "studentProfile",
     initialState: {
         list: {},
-        recevier: {},
-        teacher: {},
     },
     reducers: {
-        profileReceived: (profile, action) => {
-            profile.list = action.payload;
+        profileReceived: (studentProfile, action) => {
+            studentProfile.list = action.payload;
         },
-        RESET_DATA: (profile, action) => {
-            profile.list = {};
-            profile.recevier = {};
-            profile.teacher = {};
+        RESET_DATA: (studentProfile, action) => {
+            studentProfile.list = {};
         },
     },
 });

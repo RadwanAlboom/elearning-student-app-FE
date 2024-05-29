@@ -133,7 +133,7 @@ export default function StickyHeadTable({
                                             <Link
                                                 to={{
                                                     pathname: '/admin/payment-actions',
-                                                    state: { studentId: student.id },
+                                                    state: { student },
                                                 }}
                                             >
                                                 إجراءات الدفع

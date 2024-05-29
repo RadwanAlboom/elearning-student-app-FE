@@ -1,8 +1,8 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { apiCallBegan } from './api';
+import { createSlice } from "@reduxjs/toolkit";
+import { apiCallBegan } from "./api";
 
 const slice = createSlice({
-    name: 'profile',
+    name: "profile",
     initialState: {
         list: {},
         recevier: {},
@@ -29,9 +29,13 @@ const slice = createSlice({
         profileTeacherReceived: (profile, action) => {
             profile.teacher = action.payload;
         },
-        RESET_DATA: (profile, action) => {
+        RESET_DATA_PROFILE: (profile, action) => {
             profile.list = {};
+        },
+        RESET_DATA_RECEVIER: (profile, action) => {
             profile.recevier = {};
+        },
+        RESET_DATA_TEACHER: (profile, action) => {
             profile.teacher = {};
         },
     },
@@ -43,41 +47,51 @@ export const {
     profileRecevierReceived,
     profileTeacherReceived,
     contactMethodUpdated,
-    RESET_DATA,
+    RESET_DATA_PROFILE,
+    RESET_DATA_RECEVIER,
+    RESET_DATA_TEACHER,
 } = slice.actions;
 export default slice.reducer;
 
-const resetData = () => ({
-    type: RESET_DATA,
+const resetDataProfile = () => ({
+    type: RESET_DATA_PROFILE,
+});
+
+const resetDataRecevier = () => ({
+    type: RESET_DATA_RECEVIER,
+});
+
+const resetDataTeacher = () => ({
+    type: RESET_DATA_TEACHER,
 });
 
 export const loadProfile = (userId) => (dispatch, getState) => {
-    dispatch(resetData());
+    dispatch(resetDataProfile());
     return dispatch(
         apiCallBegan({
             url: `/profile/${userId}`,
-            method: 'get',
+            method: "get",
             onSuccess: profileReceived.type,
         })
     );
 };
 export const loadRecevierProfile = (userId) => (dispatch, getState) => {
-    dispatch(resetData());
+    dispatch(resetDataRecevier());
     return dispatch(
         apiCallBegan({
             url: `/profile/recevier/${userId}`,
-            method: 'get',
+            method: "get",
             onSuccess: profileRecevierReceived.type,
         })
     );
 };
 
 export const loadTeacherProfile = (userId) => (dispatch, getState) => {
-    dispatch(resetData());
+    dispatch(resetDataTeacher());
     return dispatch(
         apiCallBegan({
             url: `/profile/teacher/${userId}`,
-            method: 'get',
+            method: "get",
             onSuccess: profileTeacherReceived.type,
         })
     );
@@ -86,8 +100,8 @@ export const loadTeacherProfile = (userId) => (dispatch, getState) => {
 export const updateImageProfile = (id, newImage) =>
     apiCallBegan({
         url: `/profile/${id}`,
-        method: 'put',
-        name: 'imageUpdated',
+        method: "put",
+        name: "imageUpdated",
         data: newImage,
         onSuccess: profileImageUpdated.type,
     });
@@ -95,15 +109,15 @@ export const updateImageProfile = (id, newImage) =>
 export const updatePassProfile = (id, newPass) =>
     apiCallBegan({
         url: `/profile/password/${id}`,
-        method: 'put',
+        method: "put",
         data: newPass,
     });
 
 export const updateContactMethod = (updatedContactMethod) =>
     apiCallBegan({
         url: `/profile/teacher/contact-method`,
-        method: 'put',
-        name: 'contactMethodUpdated',
+        method: "put",
+        name: "contactMethodUpdated",
         data: updatedContactMethod,
         onSuccess: contactMethodUpdated.type,
     });

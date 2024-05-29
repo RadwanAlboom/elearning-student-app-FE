@@ -38,6 +38,7 @@ function StudentUnitComponent(props) {
     const [deleteFormShow, setDeleteFormShow] = useState(false);
     const [studentEmail, setStudentEmail] = useState(false);
     const [studentId, setStudentId] = useState(false);
+    const [studentName, setStudentName] = useState(false);
     const [student, setStudent] = useState(null);
 
     const ref = useRef(null);
@@ -111,13 +112,14 @@ function StudentUnitComponent(props) {
         setStudent(user);
     };
 
-    const addStudentToUnitClicked = ({ id, email }) => {
+    const addStudentToUnitClicked = ({ id, email, name }) => {
         setFormTitle(`(${unitName}) :اضافة طالب الى الوحدة`);
         setModalShow(true);
         setAddFormShow(true);
         setDeleteFormShow(false);
         setStudentEmail(email);
         setStudentId(id);
+        setStudentName(name);
     };
 
     const unassiagnUserFromUnit = () => {
@@ -170,6 +172,7 @@ function StudentUnitComponent(props) {
                     <AddStudentToUnitForm
                         studentId={studentId}
                         studentEmail={studentEmail}
+                        studentName={studentName}
                         submitted={addStudentToUnit}
                     />
                 )}

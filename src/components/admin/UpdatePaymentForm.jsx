@@ -5,17 +5,17 @@ import { BsCashCoin } from "react-icons/bs";
 import { FaUserTie } from "react-icons/fa";
 import Form from "../form";
 
-class AddStudentToUnitForm extends Form {
+class UpdatePaymentForm extends Form {
     state = {
         data: {
-            id: this.props.studentId + "",
-            paymentAmount: 0,
+            id: this.props.action.chapterId + "-" + this.props.action.userId,
+            paymentAmount: "",
         },
         errors: {},
     };
 
     schema = {
-        id: Joi.string().required().label("المعرف"),
+        id: Joi.string().required().label("معرف القيمة"),
         paymentAmount: Joi.number()
             .min(0)
             .max(1000000)
@@ -24,16 +24,20 @@ class AddStudentToUnitForm extends Form {
     };
 
     doSubmit = () => {
-        this.props.submitted(this.state.data.paymentAmount);
+        this.props.submitted(
+            this.props.action.chapterId,
+            this.props.action.userId,
+            this.state.data.paymentAmount
+        );
     };
 
     render() {
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
-                    {this.renderInput("id", "المعرف", "text", "", true)}
+                    {this.renderInput("id", "معرف القيمة", "text", "", true)}
                     <div style={{ fontSize: "1.5rem" }}>
-                        هل انت متاكد انك تريد اضافة هذا الطالب؟
+                        هل انت متاكد انك تريد تحديث هذه القيمة؟
                     </div>
                     <div
                         style={{
@@ -52,7 +56,7 @@ class AddStudentToUnitForm extends Form {
                             :الطالب
                         </div>
                         <div style={{ order: 1 }}>
-                            {this.props.studentName}
+                            {this.props.student.name}
                         </div>
                     </div>
                     <div
@@ -72,7 +76,7 @@ class AddStudentToUnitForm extends Form {
                             :البريد
                         </div>
                         <div style={{ order: 1 }}>
-                            {this.props.studentEmail}
+                            {this.props.student.email}
                         </div>
                     </div>
                     <div
@@ -95,15 +99,39 @@ class AddStudentToUnitForm extends Form {
                             :الدفع
                         </div>
                         <div style={{ order: 2 }}>
+                            {this.props.action.payment}
+                        </div>
+                        <div style={{ marginRight: "5px", order: 1 }}>شيقل</div>
+                    </div>
+                    <div
+                        style={{
+                            display: "flex",
+                            justifyContent: "end",
+                            alignItems: "center",
+                        }}
+                    >
+                        <div style={{ order: 4 }}>
+                            <BsCashCoin
+                                style={{
+                                    marginLeft: "10px",
+                                    marginTop: "10px",
+                                }}
+                                size={"30px"}
+                            />
+                        </div>
+                        <div style={{ marginLeft: "5px", order: 3 }}>
+                            :القيمة الجديدة
+                        </div>
+                        <div style={{ order: 2 }}>
                             {this.renderInput("paymentAmount", "")}
                         </div>
                         <div style={{ marginRight: "5px", order: 1 }}>شيقل</div>
                     </div>
-                    {this.renderButton(`اضافة طالب`, false)}
+                    {this.renderButton("تحديث القيمة", false)}
                 </form>
             </div>
         );
     }
 }
 
-export default AddStudentToUnitForm;
+export default UpdatePaymentForm;
