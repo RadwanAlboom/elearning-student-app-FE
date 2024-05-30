@@ -7,6 +7,7 @@ import { loadAdminCourses } from '../../store/adminCourses';
 
 import Card from '../../components/user/Card';
 import auth from '../../services/authService';
+import RequestLoader from '../../components/RequestLoader';
 
 let socket;
 let backendURL = process.env.REACT_APP_API_URL;
@@ -15,6 +16,7 @@ const Courses = () => {
     const dispatch = useDispatch();
 
     const courses = useSelector((state) => state.entities.adminCourses.list);
+    const isLoading = useSelector((state) => state.entities.adminCourses.loading);
 
     useEffect(() => {
         dispatch(loadAdminCourses());
@@ -76,6 +78,7 @@ const Courses = () => {
                 className="course-mid"
             >
                 {displayCourses}
+                { isLoading && <RequestLoader width={160} height={160}/>}
             </div>
             <div style={{ marginTop: '50px' }}></div>
         </div>

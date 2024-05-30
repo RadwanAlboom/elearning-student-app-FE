@@ -24,6 +24,7 @@ import allAccess from "../../assets/all2.jpg";
 import facebook from "../../assets/admin/facebook.svg";
 import whatsapp from "../../assets/admin/whatsapp.svg";
 import youtube from "../../assets/admin/youtube.svg";
+import RequestLoader from "../../components/RequestLoader";
 
 const drawerWidth = 350;
 
@@ -75,6 +76,7 @@ const ClassCourses = ({ match, ...other }) => {
     const classCourses = useSelector(
         (state) => state.entities.classCourses.list
     );
+    const isLoading = useSelector((state) => state.entities.classCourses.loading);
 
     useEffect(() => {
         if (!location.state) {
@@ -212,10 +214,11 @@ const ClassCourses = ({ match, ...other }) => {
                         className="course-mid"
                     >
                         {displayClassCourses}
+                        { isLoading && <RequestLoader width={160} height={160}/>}
                     </div>
                     <div style={{ marginTop: "150px" }}></div>
                     <div className="bottom-container courses-bottom-wave">
-                        <div className="wavy">
+                        <div className="wavy" style={{width: '0px'}}>
                             <div className="waveWrapperInner bgTop">
                                 <div className="wave waveTop"></div>
                             </div>

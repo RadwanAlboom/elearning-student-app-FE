@@ -21,6 +21,7 @@ import {
     updateClassCourse,
     deleteClassCourse,
 } from '../../store/classCourses';
+import RequestLoader from '../../components/RequestLoader';
 
 let socket;
 let backendURL = process.env.REACT_APP_API_URL;
@@ -52,6 +53,7 @@ const ClassCourses = () => {
     const classCourses = useSelector(
         (state) => state.entities.classCourses.list
     );
+    const isLoading = useSelector((state) => state.entities.classCourses.loading);
 
     useEffect(() => {
         if (!location.state) {
@@ -231,6 +233,7 @@ const ClassCourses = () => {
                 className="course-mid"
             >
                 {displayClassCourses}
+                { isLoading && <RequestLoader width={160} height={160}/>}
             </div>
             <div style={{ marginTop: '50px' }}></div>
         </div>

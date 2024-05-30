@@ -11,7 +11,10 @@ const api =
     async (action) => {
         if (action.type !== actions.apiCallBegan.type) return next(action);
 
-        const { url, method, data, onSuccess } = action.payload;
+        const { url, method, data, onSuccess, onStart } = action.payload;
+
+        if (onStart)
+                dispatch({ type: onStart });
 
         next(action);
 

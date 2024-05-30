@@ -13,9 +13,11 @@ const slice = createSlice({
     },
     reducers: {
         adminCoursesRequested: (adminCourses, action) => {
+            console.log("radwan req");
             adminCourses.loading = true;
         },
         adminCoursesReceived: (adminCourses, action) => {
+            console.log("radwan rec");
             const currentUser = auth.getCurrentUser();
             if (currentUser && currentUser.isModerator) {
                 const courses = action.payload.filter((course) => {
@@ -74,6 +76,7 @@ const resetData = () => ({
 });
 
 export const loadAdminCourses = () => (dispatch, getState) => {
+    console.log("radwan load");
     const { lastFetch } = getState().entities.adminCourses;
     const diffInMinutes = moment().diff(moment(lastFetch), "minutes");
     if (diffInMinutes < 0) return;

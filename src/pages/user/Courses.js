@@ -21,8 +21,8 @@ import allAccess from "../../assets/all2.jpg";
 import facebook from "../../assets/admin/facebook.svg";
 import whatsapp from "../../assets/admin/whatsapp.svg";
 import youtube from "../../assets/admin/youtube.svg";
-
 import { loadAdminCourses, getCourses } from "../../store/adminCourses";
+import RequestLoader from "../../components/RequestLoader";
 
 let socket;
 let backendURL = process.env.REACT_APP_API_URL;
@@ -68,6 +68,7 @@ const Courses = (props) => {
     const [mobileOpen, setMobileOpen] = useState(false);
 
     const courses = useSelector(getCourses);
+    const isLoading = useSelector((state) => state.entities.adminCourses.loading);
 
     useEffect(() => {
         dispatch(loadAdminCourses());
@@ -196,10 +197,11 @@ const Courses = (props) => {
                         className="course-mid"
                     >
                         {displayCourses}
+                        { isLoading && <RequestLoader width={160} height={160}/>}
                     </div>
                     <div style={{ marginTop: "150px" }}></div>
                     <div className="bottom-container courses-bottom-wave">
-                        <div className="wavy">
+                        <div className="wavy" style={{width: '0px'}}>
                             <div className="waveWrapperInner bgTop">
                                 <div className="wave waveTop"></div>
                             </div>

@@ -11,6 +11,7 @@ import { BsFillGrid3X3GapFill } from "react-icons/bs";
 import facebook from "../../assets/admin/facebook.svg";
 import whatsapp from "../../assets/admin/whatsapp.svg";
 import youtube from "../../assets/admin/youtube.svg";
+import RequestLoader from "../../components/RequestLoader";
 
 let socket;
 let backendURL = process.env.REACT_APP_API_URL;
@@ -24,6 +25,7 @@ const Teacher = () => {
 
     const teachers = useSelector(getTeachers(courseId));
     const major = useSelector(getMajor(courseId));
+    const isLoading = useSelector((state) => state.entities.teachers.loading);
 
     useEffect(() => {
         if (!location.state) {
@@ -90,10 +92,11 @@ const Teacher = () => {
                 className="course-mid"
             >
                 {displayTeachers}
+                { isLoading && <RequestLoader width={160} height={160}/>}
             </div>
             <div style={{ marginTop: "150px" }}></div>
             <div className="bottom-container courses-bottom-wave">
-                <div className="wavy">
+                <div className="wavy" style={{width: '0px'}}>
                     <div className="waveWrapperInner bgTop">
                         <div className="wave waveTop"></div>
                     </div>

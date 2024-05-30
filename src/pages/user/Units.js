@@ -31,6 +31,7 @@ import youtube from "../../assets/admin/youtube.svg";
 import { loadSpecificUnits } from "../../store/units";
 import { loadNotifications } from "../../store/userNotifications";
 import auth from "../../services/authService";
+import RequestLoader from "../../components/RequestLoader";
 
 const drawerWidth = 350;
 
@@ -82,6 +83,7 @@ const Units = ({ match, ...other }) => {
     const [teacherId, setTeacherId] = useState("");
 
     const chapters = useSelector((state) => state.entities.units.specificList);
+    const isLoading = useSelector((state) => state.entities.units.loading);
 
     useEffect(() => {
         if (!location.state) {
@@ -312,10 +314,11 @@ const Units = ({ match, ...other }) => {
                         }}
                     >
                         {displayChapters}
+                        { isLoading && <RequestLoader width={160} height={160}/>}
                     </div>
                     <div style={{ marginTop: "210px" }}></div>
                     <div className="bottom-container courses-bottom-wave">
-                        <div className="wavy">
+                        <div className="wavy" style={{width: '0px'}}>
                             <div className="waveWrapperInner bgTop">
                                 <div className="wave waveTop"></div>
                             </div>

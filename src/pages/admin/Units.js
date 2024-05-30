@@ -18,6 +18,7 @@ import DropDownLevel from '../../components/dropDownLevel';
 import { BsFillGrid3X3GapFill } from 'react-icons/bs';
 
 import { loadUnits, addUnit, updateUnit, deleteUnit } from '../../store/units';
+import RequestLoader from '../../components/RequestLoader';
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -45,6 +46,7 @@ const Units = ({ match }) => {
     const [value, setValue] = useState('');
 
     const chapters = useSelector((state) => state.entities.units.list);
+    const isLoading = useSelector((state) => state.entities.units.loading);
 
     useEffect(() => {
         if (!location.state) {
@@ -245,6 +247,7 @@ const Units = ({ match }) => {
                 }}
             >
                 {displayChapters}
+                { isLoading && <RequestLoader width={160} height={160}/>}
             </div>
             <div style={{ marginTop: '50px' }}></div>
         </div>

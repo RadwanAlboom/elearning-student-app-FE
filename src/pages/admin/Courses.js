@@ -20,6 +20,7 @@ import {
     deleteAdminCourse,
     updateAdminCourse,
 } from '../../store/adminCourses';
+import RequestLoader from '../../components/RequestLoader';
 
 const useStyles = makeStyles((theme) => ({
     button: {
@@ -45,6 +46,7 @@ const Courses = () => {
     const [imageId, setImageId] = useState('');
 
     const courses = useSelector((state) => state.entities.adminCourses.list);
+    const isLoading = useSelector((state) => state.entities.adminCourses.loading);
 
     useEffect(() => {
         dispatch(loadAdminCourses());
@@ -216,6 +218,7 @@ const Courses = () => {
                 className="course-mid"
             >
                 {displayCourses}
+                { isLoading && <RequestLoader width={160} height={160}/>}
             </div>
             <div style={{ marginTop: '50px' }}></div>
         </div>

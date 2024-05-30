@@ -9,6 +9,7 @@ import auth from '../../services/authService';
 
 import { loadTeachers, getTeachers } from '../../store/teachers';
 import { getMajor } from '../../store/adminCourses';
+import RequestLoader from '../../components/RequestLoader';
 
 let socket;
 let backendURL = process.env.REACT_APP_API_URL;
@@ -21,6 +22,7 @@ const Teacher = () => {
 
     const teachers = useSelector(getTeachers(courseId));
     const major = useSelector(getMajor(courseId));
+    const isLoading = useSelector((state) => state.entities.teachers.loading);
 
     useEffect(() => {
         if (!location.state) {
@@ -89,6 +91,7 @@ const Teacher = () => {
                 className="course-mid"
             >
                 {displayTeachers}
+                { isLoading && <RequestLoader width={160} height={160}/>}
             </div>
             <div style={{ marginTop: '50px' }}></div>
         </div>
