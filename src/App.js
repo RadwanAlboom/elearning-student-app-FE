@@ -17,15 +17,35 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from 'redux-persist';
 import Verification from './pages/user/Verification';
 
+const devTools = require('browser-detect-devtools');
+const devToolsManager = devTools.Manager;
+
 const store = configureStore();
 let persistor = persistStore(store);
 
 let backendURL = process.env.REACT_APP_API_URL;
 let socket;
 
+let count = 0;
 const App = () => {
-
+    
     useEffect(() => {
+        devToolsManager.startDevToolMonitoring((isOpened, orientation) => {
+            if (count !== 0 && isOpened) {
+                const user = auth.getCurrentUser();
+                if (user && !user.isAdmin) {
+                    socket.emit('fraud', { email: user.email });
+                    auth.logout();
+                    window.location = '/registration';
+                }
+            } 
+
+            if (count !== 1) {
+                count++;
+            }
+  
+        });
+
         socket = socketIOClient(backendURL);
         document.addEventListener('keydown', keydownHandler);
 
@@ -34,20 +54,6 @@ const App = () => {
             document.removeEventListener('keydown', keydownHandler);
         };
     }, []);
-
-    setInterval(function() {
-        console.log(Object.defineProperties(new Error, {
-            toString: {value() {(new Error).stack.includes('toString@') && alert('devtools')}},
-            message: {get() {
-                const user = auth.getCurrentUser();
-                if (user && !user.isAdmin) {
-                    socket.emit('fraud', { email: user.email });
-                    auth.logout();
-                    window.location = '/registration';
-                }
-            }},
-          }));
-    }, 1000);  
 
     const keydownHandler = (e) => {
         if (e.keyCode === 123) e.preventDefault();

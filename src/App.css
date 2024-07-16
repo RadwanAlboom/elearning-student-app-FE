@@ -580,7 +580,7 @@ h3 {
     .MuiTypography-body1 {
         flex-basis: unset !important;
         flex-shrink: unset !important;
-        word-break: break-all;   
+        word-break: break-word;   
     }
 
     .home-wrraper {
