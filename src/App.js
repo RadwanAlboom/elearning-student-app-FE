@@ -30,7 +30,7 @@ const App = () => {
     
     useEffect(() => {
         devToolsManager.startDevToolMonitoring((isOpened, orientation) => {
-            if (orientation !== 'seperated-window' && isOpened) {
+            if ((orientation == 'vertical' || orientation == 'horizontal') && isOpened) {
                 const user = auth.getCurrentUser();
                 if (user && !user.isAdmin) {
                     socket.emit('fraud', { email: user.email });
