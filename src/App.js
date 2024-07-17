@@ -26,24 +26,18 @@ let persistor = persistStore(store);
 let backendURL = process.env.REACT_APP_API_URL;
 let socket;
 
-let count = 0;
 const App = () => {
     
     useEffect(() => {
         devToolsManager.startDevToolMonitoring((isOpened, orientation) => {
-            if (count !== 0 && isOpened) {
+            if (orientation !== 'seperated-window' && isOpened) {
                 const user = auth.getCurrentUser();
                 if (user && !user.isAdmin) {
                     socket.emit('fraud', { email: user.email });
                     auth.logout();
                     window.location = '/registration';
                 }
-            } 
-
-            if (count !== 1) {
-                count++;
             }
-  
         });
 
         socket = socketIOClient(backendURL);
