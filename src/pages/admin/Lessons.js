@@ -718,7 +718,7 @@ function ResponsiveDrawer({ match, ...other }) {
                                 padding: '0 0 0 0',
                             }}
                         >
-                            <iframe title='admin-frame' frameborder="0" width="100%" height="100%" src={"https://geo.dailymotion.com/player/xry4k.html?video=" + link} allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe>
+                            <iframe title='user-frame' frameborder="0" width="100%" height="100%" src={`https://drive.google.com/file/d/${link}/preview`} sandbox="allow-same-origin allow-scripts" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe>
                         </div>
                     </div>
                 )}
