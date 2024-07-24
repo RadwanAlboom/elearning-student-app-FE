@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import CacheBuster from "react-cache-buster";
+import { version } from "../package.json";
 import socketIOClient from "socket.io-client";
 import { Switch, Route, useHistory } from "react-router-dom";
 import { Provider } from "react-redux";
@@ -16,6 +18,7 @@ import configureStore from "./store/configureStore";
 import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
 import Verification from "./pages/user/Verification";
+import Loader from "./components/Loader";
 
 const devTools = require("browser-detect-devtools");
 const devToolsManager = devTools.Manager;
@@ -164,9 +167,9 @@ const App = () => {
     if (isDevtoolsOpen) {
         const user = auth.getCurrentUser();
         if (user && !user.isAdmin) {
-            socket.emit('fraud', { email: user.email });
+            socket.emit("fraud", { email: user.email });
             auth.logout();
-            window.location = '/registration';
+            window.location = "/registration";
         }
     }
 
@@ -174,47 +177,59 @@ const App = () => {
         if (e.keyCode === 123) e.preventDefault();
     };
     return (
-        <Provider store={store}>
-            <PersistGate loading={null} persistor={persistor}>
-                <ToastContainer />
-                <div className="App">
-                    <Switch>
-                        <Route
-                            path="/registration"
-                            render={(props) => {
-                                if (auth.getCurrentUser())
-                                    return (
-                                        <Redirect
-                                            to={{
-                                                pathname: "/",
-                                                state: { from: props.location },
-                                            }}
-                                        />
-                                    );
-                                return <Registration {...props} />;
-                            }}
-                        />
-                        <Route
-                            path="/verification"
-                            render={(props) => {
-                                if (auth.getCurrentUser())
-                                    return (
-                                        <Redirect
-                                            to={{
-                                                pathname: "/",
-                                                state: { from: props.location },
-                                            }}
-                                        />
-                                    );
-                                return <Verification {...props} />;
-                            }}
-                        />
-                        <Route path="/logout" component={Logout} />
-                        <Route path="/" component={AppRoute} />
-                    </Switch>
-                </div>
-            </PersistGate>
-        </Provider>
+        <CacheBuster
+            currentVersion={version}
+            isEnabled={true} //If false, the library is disabled.
+            isVerboseMode={false} //If true, the library writes verbose logs to console.
+            loadingComponent={<Loader />} //If not pass, nothing appears at the time of new version check.
+            metaFileDirectory={"."} //If public assets are hosted somewhere other than root on your server.
+        >
+            <Provider store={store}>
+                <PersistGate loading={null} persistor={persistor}>
+                    <ToastContainer />
+                    <div className="App">
+                        <Switch>
+                            <Route
+                                path="/registration"
+                                render={(props) => {
+                                    if (auth.getCurrentUser())
+                                        return (
+                                            <Redirect
+                                                to={{
+                                                    pathname: "/",
+                                                    state: {
+                                                        from: props.location,
+                                                    },
+                                                }}
+                                            />
+                                        );
+                                    return <Registration {...props} />;
+                                }}
+                            />
+                            <Route
+                                path="/verification"
+                                render={(props) => {
+                                    if (auth.getCurrentUser())
+                                        return (
+                                            <Redirect
+                                                to={{
+                                                    pathname: "/",
+                                                    state: {
+                                                        from: props.location,
+                                                    },
+                                                }}
+                                            />
+                                        );
+                                    return <Verification {...props} />;
+                                }}
+                            />
+                            <Route path="/logout" component={Logout} />
+                            <Route path="/" component={AppRoute} />
+                        </Switch>
+                    </div>
+                </PersistGate>
+            </Provider>
+        </CacheBuster>
     );
 };
 
