@@ -34,6 +34,16 @@ const App = () => {
     const [isDevtoolsOpen, setIsDevtoolsOpen] = useState(false);
 
     useEffect(() => {
+        const hasReloaded = localStorage.getItem('hasReloaded');
+        if (!hasReloaded) {
+          localStorage.setItem('hasReloaded', 'true');
+          window.location.reload(true);
+        } else {
+          localStorage.removeItem('hasReloaded');
+        }
+    }, []);
+
+    useEffect(() => {
         const config = {
             pollingIntervalSeconds: 0.25,
             maxMillisBeforeAckWhenClosed: 100,
