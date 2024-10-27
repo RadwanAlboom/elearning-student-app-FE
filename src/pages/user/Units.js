@@ -292,7 +292,7 @@ const Units = ({ match, ...other }) => {
                     <MenuIcon />
                 </IconButton>
             </Toolbar>
-            <main className={classes.content}>
+            <main className={`${classes.content} main-dev`}>
                 {/* <div className={classes.toolbar} /> */}
                 <div className="admin-courses">
                     <div className="courses-header">

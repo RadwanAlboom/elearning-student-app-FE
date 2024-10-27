@@ -20,7 +20,8 @@ import http from "../../services/httpService";
 import Card from "../../components/user/Card";
 
 import allAccess from "../../assets/all2.jpg";
-import homeImg from "../../assets/learn.jpg";
+import homeImg from "../../assets/quds.jpg";
+import homeImgNoBg from "../../assets/quds_no_bg.png";
 import simple from "../../assets/simple.png";
 import time from "../../assets/time.png";
 import slides from "../../assets/slides.png";
@@ -176,7 +177,7 @@ const HomeComponent = (props) => {
                     <MenuIcon />
                 </IconButton>
             </Toolbar>
-            <main className={classes.content}>
+            <main className={`${classes.content} main-dev`}>
                 <div className="home-wrraper" style={{ paddingTop: "20px" }}>
                     <div
                         className="home-container"
@@ -188,6 +189,10 @@ const HomeComponent = (props) => {
                     >
                         <div className="home-image">
                             <img className="image" alt="" src={homeImg} />
+                            <div className="home-no-bg-img">
+                                <img className="image" alt="" src={homeImgNoBg} />
+                            </div>
+                            <div className="home-img-overlay"></div>
                             <div className="logo-container">
                                 <img className="home-logo" alt="" src={book} />
                                 <div className="home-logo-text">

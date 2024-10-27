@@ -37,7 +37,7 @@ const useStyles = makeStyles({
         width: '100%',
     },
     container: {
-        maxHeight: 440,
+        maxHeight: 920,
     },
     
     button: {
@@ -84,6 +84,9 @@ export default function StickyHeadTable({
                                 </TableCell>
                             ))}
                             <TableCell style={{ minWidth: 170 }}>
+                                devices Info
+                            </TableCell>
+                            <TableCell style={{ minWidth: 170 }}>
                                 Payment Actions
                             </TableCell>
                             <TableCell style={{ minWidth: 170 }}>
@@ -129,6 +132,16 @@ export default function StickyHeadTable({
                                                 </TableCell>
                                             );
                                         })}
+                                        <TableCell>
+                                            <Link
+                                                to={{
+                                                    pathname: '/admin/device-info',
+                                                    state: { studentId: student.id },
+                                                }}
+                                            >
+                                                معلومات الاجهزة
+                                            </Link>
+                                        </TableCell>
                                         <TableCell>
                                             <Link
                                                 to={{

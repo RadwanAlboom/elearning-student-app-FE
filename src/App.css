@@ -693,6 +693,23 @@ h3 {
     .student-unit {
         background-color: black;
     }
+
+    .logo-container {
+        top: 50% !important;
+    }
+
+    .routes-no-padding {
+        overflow-y: auto !important;
+    }
+
+    .main-dev {
+        overflow-y: unset !important;
+    }
+
+    .admin-courses, .home-wrraper {
+        height: unset !important;
+        overflow-y: unset !important;
+    }
 }
 
 @media screen and (max-width: 599px) {

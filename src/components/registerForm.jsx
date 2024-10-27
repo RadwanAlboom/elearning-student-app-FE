@@ -56,7 +56,12 @@ class RegisterForm extends Form {
     }
 
     schema = {
-        registerName: Joi.string().required().min(5).max(255).label("اسم المستخدم"),
+        registerName: Joi.string()
+            .required()
+            .regex(/^[\u0600-\u06FF\s]+$/)
+            .min(5)
+            .max(255)
+            .label("اسم المستخدم"),
         registerEmail: Joi.string()
             .required()
             .min(5)
@@ -127,12 +132,12 @@ class RegisterForm extends Form {
 
     render() {
         const lock = <AiFillLock style={{ marginRight: "5px" }} />;
-        const email = <MdEmail style={{ marginRight: "5px" }} />;
-        const user = <FaUserTie style={{ marginRight: "5px" }} />;
-        const phone = <FaPhone style={{ marginRight: "5px" }} />;
+        const email = <div>البريد الإلكتروني <MdEmail style={{ marginRight: "5px" }} /></div>;
+        const user = <div>اسم المستخدم الرباعي (بالعربي) <FaUserTie style={{ marginRight: "5px" }} /></div>;
+        const phone = <div>رقم الهاتف <FaPhone style={{ marginRight: "5px" }} /></div>;
         return (
             <div className="form-section">
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.handleSubmit} style={{textAlign: 'end'}}>
                     <h2
                         style={{
                             textAlign: "center",
@@ -147,14 +152,14 @@ class RegisterForm extends Form {
                     <ErrorMessage error={this.state.registerErrors.error} />
                     {this.renderInput(
                         "registerName",
-                        "Username",
+                        "",
                         "username",
                         user
                     )}
-                    {this.renderInput("registerPhone", "Phone", "phone", phone)}
-                    {this.renderInput("registerEmail", "Email", "email", email)}
+                    {this.renderInput("registerPhone", "", "phone", phone)}
+                    {this.renderInput("registerEmail", "", "email", email)}
 
-                    <div>{lock} Password</div>
+                    <div style={{textAlign: "right"}}>كلمة المرور {lock}</div>
                     {this.renderPasswordInput("registerPassword")}
                     <FormControlLabel
                         control={

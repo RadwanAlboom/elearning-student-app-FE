@@ -1,12 +1,14 @@
 import React from "react";
 import MotionHoc from "./MotionHoc";
 import TeamCarousel from "../../components/TeamCarousel";
+import homeImgNoBg from "../../assets/quds_no_bg.png";
 
 const TeamComponent = () => {
     return (
         <div className="team-container">
             <div style={{height: '140vh'}}>
                 <div className="about">
+                    <img style={{width: "100px"}} alt="" src={homeImgNoBg} />
                     <h2>المبدع للتعليم الإلكتروني</h2>
                     <div className="description">
                         أول منصة تعليم الكتروني بفلسطين تتكون من نخبة من

@@ -1,6 +1,7 @@
 import jwtDecode from 'jwt-decode';
 import http from './httpService';
 import getBrowserFingerprint from 'get-browser-fingerprint';
+import { isMobile, isTablet, isDesktop } from 'react-device-detect';
 
 let backendURL = process.env.REACT_APP_API_URL;
 
@@ -9,26 +10,53 @@ const reduxToken = 'persist:root';
 
 export async function login(email, password, teacherChecked, major) {
     const fingerprint = getBrowserFingerprint();
+    const deviceInfo = getDeviceInfo();
     const { data } = await http.post(backendURL + '/api/auth', {
         email,
         password,
         isModerator: teacherChecked,
         majorId: major,
-        fingerprint
+        fingerprint,
+        deviceInfo: {
+            fingerprint,
+            ...deviceInfo
+        }
     });
 
     localStorage.setItem(tokenKey, data.jwt);
 }
 
+function getDeviceInfo() {
+    let connection = "";
+    if (navigator.connection) {
+        connection = navigator.connection.effectiveType;
+    }
+    return {
+        connection,
+        platform: navigator.platform,
+        productSub: navigator.productSub,
+        userAgent: navigator.userAgent,
+        userAgentData: navigator.userAgentData,
+        isMobile,
+        isTablet,
+        isDesktop
+    }
+}
+
 export async function verify(code, email, password, teacherChecked, major) {
     const fingerprint = getBrowserFingerprint();
+    const deviceInfo = getDeviceInfo();
     const result = await http.post(backendURL + '/api/auth/verification', {
         code,
         email,
         password,
         isModerator: teacherChecked,
         majorId: major,
-        fingerprint
+        fingerprint,
+        deviceInfo: {
+            fingerprint,
+            ...deviceInfo
+        }
     });
 
     localStorage.setItem(tokenKey, result.data.jwt);

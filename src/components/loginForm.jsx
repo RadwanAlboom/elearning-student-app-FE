@@ -36,8 +36,8 @@ class LoginForm extends Form {
     };
 
     schema = {
-        loginEmail: Joi.string().required().email().label('Email'),
-        password: Joi.string().required().min(5).max(255).label('Password'),
+        loginEmail: Joi.string().required().email().label('البريد الإلكتروني'),
+        password: Joi.string().required().min(5).max(255).label('كلمة المرور'),
     };
 
     handleCheckChange = (event) => {
@@ -110,8 +110,8 @@ class LoginForm extends Form {
                         تسجيل الدخول
                     </h2>
                     <ErrorMessage error={this.state.loginErrors.error} />
-                    {this.renderInput('loginEmail', 'Email', 'email', email)}
-                    <div>{lock} Password</div>
+                    {this.renderInput('loginEmail', 'البريد الإلكتروني', 'email', email)}
+                    <div>{lock} كلمة المرور</div>
                     {this.renderPasswordInput('password')}
                     <FormControlLabel
                         control={

@@ -3,6 +3,7 @@ import adminCoursesReducer from './adminCourses';
 import teachersReducer from './teachers';
 import teamReducer from './team';
 import paymentActionsReducer from './paymentActions';
+import deviceInfoReducer from './deviceInfo';
 import classCoursesReducer from './classCourses';
 import unitsReducer from './units';
 import usersUnitReducer from './usersUnit';
@@ -16,6 +17,7 @@ export default combineReducers({
     teachers: teachersReducer,
     team: teamReducer,
     paymentActions: paymentActionsReducer,
+    deviceInfo: deviceInfoReducer,
     classCourses: classCoursesReducer,
     units: unitsReducer,
     usersUnit: usersUnitReducer,

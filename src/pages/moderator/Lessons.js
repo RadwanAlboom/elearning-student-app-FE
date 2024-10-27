@@ -712,7 +712,10 @@ function ResponsiveDrawer({ match, ...other }) {
                     </div>
                 )}
                 {!isPdf && (
-                    <div className="Courses-container video-conatiner">
+                    <div 
+                        className="Courses-container video-conatiner" 
+                        style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}
+                    >
                         <div
                             style={{
                                 position: 'relative',

@@ -14,6 +14,7 @@ import Teachers from './../pages/admin/Teachers';
 import ZoomLink from '../pages/admin/ZoomLink';
 import StudentUnit from '../pages/admin/StudentUnit';
 import PaymentActions from '../pages/admin/PaymentActions';
+import DeviceInfo from '../pages/admin/DeviceInfo';
 import '../components/style.css';
 
 const Pages = styled.div`
@@ -67,6 +68,10 @@ function AdminRoute() {
                             <ProtectedRoute
                                 path="/admin/students"
                                 component={Students}
+                            />
+                             <ProtectedRoute
+                                path="/admin/device-info"
+                                component={DeviceInfo}
                             />
                             <ProtectedRoute
                                 path="/admin/payment-actions"
