@@ -20,8 +20,6 @@ import { persistStore } from "redux-persist";
 import Verification from "./pages/user/Verification";
 import Loader from "./components/Loader";
 
-const devTools = require("browser-detect-devtools");
-const devToolsManager = devTools.Manager;
 
 const store = configureStore();
 let persistor = persistStore(store);
@@ -33,7 +31,22 @@ const App = () => {
     const history = useHistory();
     const [isDevtoolsOpen, setIsDevtoolsOpen] = useState(false);
 
-    useEffect(() => {
+    useEffect(async () => {
+        if ('caches' in window) {
+            try {
+                const cacheNames = await caches.keys();
+                for (const cacheName of cacheNames) {
+                    if (cacheName.includes('creative-elearning.com')) {
+                        await caches.delete(cacheName);
+                    }
+                }
+            } catch (error) {
+              console.error('Failed to clear cache:', error);
+            }
+        } else {
+            console.warn('Cache API not supported in this browser.');
+        }
+
         const hasReloaded = localStorage.getItem('hasReloaded');
         if (!hasReloaded) {
           localStorage.setItem('hasReloaded', 'true');

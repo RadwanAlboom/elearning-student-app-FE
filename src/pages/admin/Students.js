@@ -24,7 +24,7 @@ import BlockStatusForm from "../../components/admin/BlockStatusForm.jsx";
 let backendURL = process.env.REACT_APP_API_URL;
 let socket;
 
-const RequestsComponent = () => {
+const StudentsComponent = () => {
     const dispatch = useDispatch();
 
     const [block , setBlock] = useState(false);
@@ -210,6 +210,6 @@ const RequestsComponent = () => {
     );
 };
 
-const Requests = MotionHoc(RequestsComponent);
+const Students = MotionHoc(StudentsComponent);
 
-export default Requests;
+export default Students;
