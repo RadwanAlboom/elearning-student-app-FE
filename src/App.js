@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import CacheBuster from "react-cache-buster";
 import { version } from "../package.json";
 import socketIOClient from "socket.io-client";
-import { Switch, Route, useHistory } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import { Redirect } from "react-router-dom";
@@ -28,7 +28,6 @@ let backendURL = process.env.REACT_APP_API_URL;
 let socket;
 
 const App = () => {
-    const history = useHistory();
     const [isDevtoolsOpen, setIsDevtoolsOpen] = useState(false);
 
     useEffect(async () => {

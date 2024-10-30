@@ -705,11 +705,6 @@ h3 {
     .main-dev {
         overflow-y: unset !important;
     }
-
-    .admin-courses, .home-wrraper {
-        height: unset !important;
-        overflow-y: unset !important;
-    }
 }
 
 @media screen and (max-width: 599px) {
