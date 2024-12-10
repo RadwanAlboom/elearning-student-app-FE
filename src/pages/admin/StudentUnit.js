@@ -43,7 +43,8 @@ function StudentUnitComponent(props) {
 
     const ref = useRef(null);
 
-    const studentsUnit = useSelector((state) => state.entities.usersUnit.list);
+    const studentsUnit = useSelector((state) => state.entities.usersUnit);
+    const pagination = studentsUnit.pagination;
 
     useEffect(() => {
         socket = socketIOClient(backendURL);
@@ -55,18 +56,14 @@ function StudentUnitComponent(props) {
             history.goBack();
         }
         const { unitId: id, unitName: name } = location.state;
-        dispatch(loadSpecificUsersUnit(id));
+        dispatch(loadSpecificUsersUnit(0, pagination.limit, id));
         setUnitId(id);
         setUnitName(name);
     }, [dispatch]);
 
     const fetchData = async (value) => {
         try {
-            const { data } =
-                await studentUnitService.getNotAssignedStudentsUnit(
-                    unitId,
-                    value
-                );
+            const { data } = await studentUnitService.getNotAssignedStudentsUnit(0, 10, unitId, value);
             setResults(data);
         } catch (ex) {
             console.log(ex);
@@ -80,7 +77,7 @@ function StudentUnitComponent(props) {
 
     const handleChangeEmailFilter = (value) => {
         setEmailFilter(value);
-        dispatch(loadAssignedUsersUnit(unitId, value));
+        dispatch(loadAssignedUsersUnit(0, pagination.limit, unitId, value));
     };
 
     useEffect(() => {
@@ -122,11 +119,12 @@ function StudentUnitComponent(props) {
         setStudentName(name);
     };
 
-    const unassiagnUserFromUnit = () => {
+    const unassiagnUserFromUnit = async () => {
         setModalShow(false);
         try {
-            dispatch(deleteUserFromUnit(studentId, unitId));
+            await dispatch(deleteUserFromUnit(studentId, unitId));
             toast.success("تم حذف هذا الطالب من هذه الوحدة بنجاح");
+            dispatch(loadSpecificUsersUnit(0, pagination.limit, unitId));
 
             const receiver = { id: studentId };
             socket.emit(
@@ -142,10 +140,11 @@ function StudentUnitComponent(props) {
     const addStudentToUnit = async (paymentAmount) => {
         setModalShow(false);
         try {
-            dispatch(addUserToUnit(studentId, unitId, paymentAmount));
+            await dispatch(addUserToUnit(studentId, unitId, paymentAmount));
             setResults([]);
             setEmail("");
             toast.success("تم اضافة الطالب لهذه الوحدة بنجاح");
+            dispatch(loadSpecificUsersUnit(0, pagination.limit, unitId));
 
             const receiver = { id: studentId };
             socket.emit(
@@ -156,6 +155,10 @@ function StudentUnitComponent(props) {
         } catch (error) {
             console.log(error);
         }
+    };
+
+    const handleChangePage = (event, newPage) => {
+        dispatch(loadSpecificUsersUnit(newPage, pagination.limit, unitId))
     };
 
     return (
@@ -242,8 +245,11 @@ function StudentUnitComponent(props) {
                 </div>
             </div>
             <StudentsUnitTable
-                studentsUnit={studentsUnit}
+                studentsUnit={studentsUnit.list}
+                pagination={pagination}
+                loading={studentsUnit.loading}
                 deleteClicked={deleteClicked}
+                handleChangePage={handleChangePage}
             />
             <div style={{ width: "100%", height: "200px" }}></div>
         </div>

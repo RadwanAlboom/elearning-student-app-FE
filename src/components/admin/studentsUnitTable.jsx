@@ -10,7 +10,7 @@ import { TablePagination } from "@material-ui/core";
 import TableRow from "@material-ui/core/TableRow";
 import Button from "@material-ui/core/Button";
 import DeleteIcon from "@material-ui/icons/Delete";
-import TableDropDown from "../tableDropDown";
+import TableRowsLoader from "../TableRowsLoader";
 
 const columns = [
     { id: "name", label: "Name", minWidth: 170 },
@@ -27,20 +27,15 @@ const useStyles = makeStyles({
     },
 });
 
-export default function StudentsUnitTable({ studentsUnit, deleteClicked }) {
+export default function StudentsUnitTable({ 
+    studentsUnit,
+    pagination,
+    loading,
+    deleteClicked,
+    handleChangePage
+}) {
     const classes = useStyles();
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
-    const handleChangePage = (event, newPage) => {
-        setPage(newPage);
-    };
-
-    const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(+event.target.value);
-        setPage(0);
-    };
-
+    
     return (
         <Paper className={classes.root}>
             <TableContainer className={classes.container}>
@@ -62,11 +57,11 @@ export default function StudentsUnitTable({ studentsUnit, deleteClicked }) {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {studentsUnit
-                            .slice(
-                                page * rowsPerPage,
-                                page * rowsPerPage + rowsPerPage
-                            )
+                        {   
+                            loading ? (
+                                <TableRowsLoader rowsNum={pagination.limit} columnsNum={4} />
+                            ) : (
+                            studentsUnit
                             .map((user) => {
                                 return (
                                     <TableRow
@@ -103,27 +98,15 @@ export default function StudentsUnitTable({ studentsUnit, deleteClicked }) {
                                         </TableCell>
                                     </TableRow>
                                 );
-                            })}
+                            }))}
                     </TableBody>
                 </Table>
             </TableContainer>
-            <div
-                style={{
-                    width: "20px",
-                    marginTop: "15px",
-                    marginLeft: "10px",
-                }}
-            >
-                <TableDropDown
-                    handleChange={handleChangeRowsPerPage}
-                    val={rowsPerPage}
-                />
-            </div>
             <TablePagination
                 component="div"
-                count={studentsUnit.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
+                count={pagination.totalUsersUnit}
+                rowsPerPage={pagination.limit}
+                page={pagination.page}
                 onChangePage={handleChangePage}
             />
         </Paper>

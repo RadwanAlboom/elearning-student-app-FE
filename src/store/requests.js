@@ -6,6 +6,12 @@ const slice = createSlice({
     name: "requests",
     initialState: {
         list: [],
+        pagination: {
+            page: 0,
+            totalPages: 0,
+            totalUserRequests: 0,
+            limit: 10,
+        },
         loading: false,
         lastFetch: null,
     },
@@ -14,7 +20,8 @@ const slice = createSlice({
             requests.loading = true;
         },
         requestsReceived: (requests, action) => {
-            requests.list = action.payload;
+            requests.list = action.payload.data;
+            requests.pagination = action.payload.pagination;
             requests.loading = false;
             requests.lastFetch = Date.now();
         },
@@ -59,7 +66,7 @@ const resetData = () => ({
     type: RESET_DATA,
 });
 
-export const loadRequests = (emailFilter) => (dispatch, getState) => {
+export const loadRequests = (page, limit, emailFilter) => (dispatch, getState) => {
     const { lastFetch } = getState().requests;
     const diffInMinutes = moment().diff(moment(lastFetch), "minutes");
     if (diffInMinutes < 0) return;
@@ -67,7 +74,7 @@ export const loadRequests = (emailFilter) => (dispatch, getState) => {
 
     return dispatch(
         apiCallBegan({
-            url: `/userRequest?email=${emailFilter}`,
+            url: `/userRequest?${new URLSearchParams({ email: emailFilter, page, limit }).toString()}`,
             onStart: requestsRequested.type,
             onSuccess: requestsReceived.type,
             onError: requestsRequestFailed.type,
@@ -84,18 +91,24 @@ export const addRequest = (newRequest) =>
         onSuccess: requestAdded.type,
     });
 
-export const deleteRequest = (id) =>
-    apiCallBegan({
-        url: `/userRequest/${id}`,
-        method: "delete",
-        name: "requests",
-        onSuccess: requestDeleted.type,
-    });
+export const deleteRequest = (id) => (dispatch, getState) => {
+    return dispatch(
+        apiCallBegan({
+            url: `/userRequest/${id}`,
+            method: "delete",
+            name: "requests",
+            onSuccess: requestDeleted.type,
+        })
+    )
+}
 
-export const acceptRequest = (id) =>
-    apiCallBegan({
-        url: `/userRequest/${id}`,
-        method: "put",
-        name: "requests",
-        onSuccess: requestAccepted.type,
-    });
+export const acceptRequest = (id) => (dispatch, getState) => {
+    return dispatch(
+        apiCallBegan({
+            url: `/userRequest/${id}`,
+            method: "put",
+            name: "requests",
+            onSuccess: requestAccepted.type,
+        })
+    );
+}

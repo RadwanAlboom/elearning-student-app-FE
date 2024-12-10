@@ -32,17 +32,18 @@ const RequestsComponent = () => {
     const [emailChecked, setEmailChecked] = useState(false);
     const [emailFilter, setEmailFilter] = useState('');
 
-    const userRequests = useSelector((state) => state.requests.list);
+    const userRequests = useSelector((state) => state.requests);
+    const pagination = userRequests.pagination;
 
     useEffect(() => {
-        dispatch(loadRequests(emailFilter));
+        dispatch(loadRequests(0, pagination.limit, emailFilter));
         //eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch]);
 
     useEffect(() => {
         socket = socketIOClient(backendURL);
         socket.on('requests', (payload) => {
-            dispatch(loadRequests(''));
+            dispatch(loadRequests(0, pagination.limit, ''));
         });
 
         return () => socket.disconnect();
@@ -67,8 +68,9 @@ const RequestsComponent = () => {
     const handleDeleteSubmitted = async () => {
         setModalShow(false);
         try {
-            dispatch(deleteRequest(requestId));
+            await dispatch(deleteRequest(requestId));
             toast.success('تم حذف الطلب بنجاح');
+            dispatch(loadRequests(0, pagination.limit, emailFilter));
         } catch (err) {
             console.log(err.response);
         }
@@ -76,9 +78,10 @@ const RequestsComponent = () => {
     const handleAcceptSubmitted = async () => {
         setModalShow(false);
         try {
-            dispatch(acceptRequest(requestId));
-
+            await dispatch(acceptRequest(requestId));
             toast.success('تم قبول الطلب بنجاح');
+            dispatch(loadRequests(0, pagination.limit, emailFilter));
+
             socket = socketIOClient(backendURL);
             socket.emit(
                 'acceptTeacher',
@@ -94,6 +97,10 @@ const RequestsComponent = () => {
         if (event.target.name === 'email') {
             setEmailChecked(event.target.checked);
         }
+    };
+
+    const handleChangePage = (event, newPage) => {
+        dispatch(loadRequests(newPage, pagination.limit, emailFilter))
     };
 
     return (
@@ -148,7 +155,7 @@ const RequestsComponent = () => {
                         <button
                             style={{marginBottom: '10px'}}
                             className="btn btn-primary"
-                            onClick={() => dispatch(loadRequests(emailFilter))}
+                            onClick={() => dispatch(loadRequests(0, pagination.limit, emailFilter))}
                         >
                             Search
                         </button>
@@ -157,7 +164,7 @@ const RequestsComponent = () => {
                             className="btn btn-primary"
                             onClick={() => {
                                 setEmailFilter('');
-                                dispatch(loadRequests(''));
+                                dispatch(loadRequests(0, pagination.limit, ''));
                             }}
                         >
                             Reset
@@ -166,9 +173,12 @@ const RequestsComponent = () => {
                 </div>
             }
             <RequestTable
-                userRequests={userRequests}
+                userRequests={userRequests.list}
+                pagination={pagination}
+                loading={userRequests.loading}
                 deleteClicked={deleteClicked}
                 acceptClicked={acceptClicked}
+                handleChangePage={handleChangePage}
             />
             <div style={{width: '100%', height: '200px'}}></div>
         </div>

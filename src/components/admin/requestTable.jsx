@@ -12,7 +12,7 @@ import Button from '@material-ui/core/Button';
 import DeleteIcon from '@material-ui/icons/Delete';
 import UpdateSharpIcon from '@material-ui/icons/UpdateSharp';
 
-import TableDropDown from '../tableDropDown';
+import TableRowsLoader from '../TableRowsLoader';
 
 const columns = [
     { id: 'name', label: 'Name', minWidth: 170 },
@@ -38,22 +38,14 @@ const useStyles = makeStyles({
 
 export default function StickyHeadTable({
     userRequests,
+    pagination,
+    loading,
     acceptClicked,
     deleteClicked,
     btnName,
+    handleChangePage
 }) {
     const classes = useStyles();
-    const [page, setPage] = React.useState(0);
-    const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
-    const handleChangePage = (event, newPage) => {
-        setPage(newPage);
-    };
-
-    const handleChangeRowsPerPage = (event) => {
-        setRowsPerPage(+event.target.value);
-        setPage(0);
-    };
 
     return (
         <Paper className={classes.root}>
@@ -79,11 +71,11 @@ export default function StickyHeadTable({
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {userRequests
-                            .slice(
-                                page * rowsPerPage,
-                                page * rowsPerPage + rowsPerPage
-                            )
+                        {
+                            loading ? (
+                                <TableRowsLoader rowsNum={pagination.limit} columnsNum={6} />
+                            ) : (
+                            userRequests
                             .map((userRequest) => {
                                 return (
                                     <TableRow
@@ -141,27 +133,15 @@ export default function StickyHeadTable({
                                         </TableCell>
                                     </TableRow>
                                 );
-                            })}
+                            }))}
                     </TableBody>
                 </Table>
             </TableContainer>
-            <div
-                style={{
-                    width: '20px',
-                    marginTop: '15px',
-                    marginLeft: '10px',
-                }}
-            >
-                <TableDropDown
-                    handleChange={handleChangeRowsPerPage}
-                    val={rowsPerPage}
-                />
-            </div>
             <TablePagination
                 component="div"
-                count={userRequests.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
+                count={pagination.totalUserRequests}
+                rowsPerPage={pagination.limit}
+                page={pagination.page}
                 onChangePage={handleChangePage}
             />
         </Paper>

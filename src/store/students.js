@@ -6,6 +6,12 @@ const slice = createSlice({
     name: "students",
     initialState: {
         list: [],
+        pagination: {
+            page: 0,
+            totalPages: 0,
+            totalUsers: 0,
+            limit: 10,
+        },
         loading: false,
         lastFetch: null,
     },
@@ -14,7 +20,8 @@ const slice = createSlice({
             students.loading = true;
         },
         studentsReceived: (students, action) => {
-            students.list = action.payload;
+            students.list = action.payload.data;
+            students.pagination = action.payload.pagination;
             students.loading = false;
             students.lastFetch = Date.now();
         },
@@ -55,7 +62,7 @@ const resetData = () => ({
     type: RESET_DATA,
 });
 
-export const loadStudents = (emailFilter) => (dispatch, getState) => {
+export const loadStudents = (page, limit, emailFilter) => (dispatch, getState) => {
     const { lastFetch } = getState().students;
     const diffInMinutes = moment().diff(moment(lastFetch), "minutes");
     if (diffInMinutes < 0) return;
@@ -63,7 +70,7 @@ export const loadStudents = (emailFilter) => (dispatch, getState) => {
 
     return dispatch(
         apiCallBegan({
-            url: `/users?email=${emailFilter}`,
+            url: `/users?${new URLSearchParams({ email: emailFilter, page, limit }).toString()}`,
             onStart: studentsRequested.type,
             onSuccess: studentsReceived.type,
             onError: studentsRequestFailed.type,
@@ -71,12 +78,15 @@ export const loadStudents = (emailFilter) => (dispatch, getState) => {
     );
 };
 
-export const deleteStudent = (id) =>
-    apiCallBegan({
-        url: `/users/${id}`,
-        method: "delete",
-        onSuccess: studentDeleted.type,
-    });
+export const deleteStudent = (id) => (dispatch, getState) => {
+    return dispatch(
+        apiCallBegan({
+            url: `/users/${id}`,
+            method: "delete",
+            onSuccess: studentDeleted.type,
+        })
+    );
+}
 
 export const updateStudent = (id, updatedStudent) =>
     apiCallBegan({

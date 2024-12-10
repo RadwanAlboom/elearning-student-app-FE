@@ -15,14 +15,11 @@ import Logout from "./components/logout";
 import AppRoute from "./routes/AppRoute";
 import auth from "./services/authService";
 import configureStore from "./store/configureStore";
-import { PersistGate } from "redux-persist/integration/react";
-import { persistStore } from "redux-persist";
 import Verification from "./pages/user/Verification";
 import Loader from "./components/Loader";
 
 
 const store = configureStore();
-let persistor = persistStore(store);
 
 let backendURL = process.env.REACT_APP_API_URL;
 let socket;
@@ -207,49 +204,47 @@ const App = () => {
             metaFileDirectory={"."} //If public assets are hosted somewhere other than root on your server.
         >
             <Provider store={store}>
-                <PersistGate loading={null} persistor={persistor}>
-                    <ToastContainer />
-                    <div className="App">
-                        <Switch>
-                            <Route
-                                path="/registration"
-                                render={(props) => {
-                                    if (auth.getCurrentUser())
-                                        return (
-                                            <Redirect
-                                                to={{
-                                                    pathname: "/",
-                                                    state: {
-                                                        from: props.location,
-                                                    },
-                                                }}
-                                            />
-                                        );
-                                    return <Registration {...props} />;
-                                }}
-                            />
-                            <Route
-                                path="/verification"
-                                render={(props) => {
-                                    if (auth.getCurrentUser())
-                                        return (
-                                            <Redirect
-                                                to={{
-                                                    pathname: "/",
-                                                    state: {
-                                                        from: props.location,
-                                                    },
-                                                }}
-                                            />
-                                        );
-                                    return <Verification {...props} />;
-                                }}
-                            />
-                            <Route path="/logout" component={Logout} />
-                            <Route path="/" component={AppRoute} />
-                        </Switch>
-                    </div>
-                </PersistGate>
+                <ToastContainer />
+                <div className="App">
+                    <Switch>
+                        <Route
+                            path="/registration"
+                            render={(props) => {
+                                if (auth.getCurrentUser())
+                                    return (
+                                        <Redirect
+                                            to={{
+                                                pathname: "/",
+                                                state: {
+                                                    from: props.location,
+                                                },
+                                            }}
+                                        />
+                                    );
+                                return <Registration {...props} />;
+                            }}
+                        />
+                        <Route
+                            path="/verification"
+                            render={(props) => {
+                                if (auth.getCurrentUser())
+                                    return (
+                                        <Redirect
+                                            to={{
+                                                pathname: "/",
+                                                state: {
+                                                    from: props.location,
+                                                },
+                                            }}
+                                        />
+                                    );
+                                return <Verification {...props} />;
+                            }}
+                        />
+                        <Route path="/logout" component={Logout} />
+                        <Route path="/" component={AppRoute} />
+                    </Switch>
+                </div>
             </Provider>
         </CacheBuster>
     );

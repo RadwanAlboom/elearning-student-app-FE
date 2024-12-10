@@ -38,10 +38,11 @@ const StudentsComponent = () => {
     const [emailChecked, setEmailChecked] = useState(false);
     const [emailFilter, setEmailFilter] = useState("");
 
-    const students = useSelector((state) => state.students.list);
+    const students = useSelector((state) => state.students);
+    const pagination = students.pagination;
 
     useEffect(() => {
-        dispatch(loadStudents(emailFilter));
+        dispatch(loadStudents(0, pagination.limit, emailFilter));
     }, [dispatch]);
 
     const deleteClicked = (id) => {
@@ -75,8 +76,9 @@ const StudentsComponent = () => {
     const handleDeleteSubmitted = async () => {
         setModalShow(false);
         try {
-            dispatch(deleteStudent(studentId));
+            await dispatch(deleteStudent(studentId));
             toast.success("تم حذف الطالب بنجاح");
+            dispatch(loadStudents(0, pagination.limit, emailFilter));
 
             socket = socketIOClient(backendURL);
             socket.emit("students", { id: studentId }, (error) => {});
@@ -115,6 +117,10 @@ const StudentsComponent = () => {
         if (event.target.name === "email") {
             setEmailChecked(event.target.checked);
         }
+    };
+
+    const handleChangePage = (event, newPage) => {
+        dispatch(loadStudents(newPage, pagination.limit, emailFilter))
     };
 
     return (
@@ -181,7 +187,7 @@ const StudentsComponent = () => {
                         <button
                             style={{ marginBottom: "10px" }}
                             className="btn btn-primary"
-                            onClick={() => dispatch(loadStudents(emailFilter))}
+                            onClick={() => dispatch(loadStudents(0, pagination.limit, emailFilter))}
                         >
                             Search
                         </button>
@@ -190,7 +196,7 @@ const StudentsComponent = () => {
                             className="btn btn-primary"
                             onClick={() => {
                                 setEmailFilter("");
-                                dispatch(loadStudents(""));
+                                dispatch(loadStudents(0, pagination.limit, ""));
                             }}
                         >
                             Reset
@@ -199,11 +205,14 @@ const StudentsComponent = () => {
                 </div>
             )}
             <UserTable
-                students={students}
+                students={students.list}
+                pagination={pagination}
+                loading={students.loading}
                 deleteClicked={deleteClicked}
                 acceptClicked={updateClicked}
                 btnName="Update"
                 updateUserBlockStatusClicked={updateUserBlockStatusClicked}
+                handleChangePage={handleChangePage}
             />
             <div style={{ width: "100%", height: "200px" }}></div>
         </div>
