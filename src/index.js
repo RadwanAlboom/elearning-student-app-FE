@@ -5,7 +5,6 @@ import App from './App';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
-import logger from './services/logService';
 
 import TimeAgo from 'javascript-time-ago';
 
@@ -15,7 +14,7 @@ import ru from 'javascript-time-ago/locale/ru';
 TimeAgo.addDefaultLocale(ar);
 TimeAgo.addLocale(ru);
 
-logger.init();
+
 ReactDOM.render(
     <BrowserRouter>
         <App />
