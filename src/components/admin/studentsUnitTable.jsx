@@ -11,6 +11,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Button from "@material-ui/core/Button";
 import DeleteIcon from "@material-ui/icons/Delete";
 import TableRowsLoader from "../TableRowsLoader";
+import auth from '../../services/authService';
 
 const columns = [
     { id: "name", label: "Name", minWidth: 170 },
@@ -35,6 +36,7 @@ export default function StudentsUnitTable({
     handleChangePage
 }) {
     const classes = useStyles();
+    const currentUser = auth.getCurrentUser();
     
     return (
         <Paper className={classes.root}>
@@ -42,24 +44,31 @@ export default function StudentsUnitTable({
                 <Table stickyHeader aria-label="sticky table">
                     <TableHead>
                         <TableRow>
-                            {columns.map((column) => (
-                                <TableCell
-                                    key={column.id}
-                                    align={column.align}
-                                    style={{ minWidth: column.minWidth }}
-                                >
-                                    {column.label}
-                                </TableCell>
-                            ))}
-                            <TableCell style={{ minWidth: 170 }}>
-                                Delete
-                            </TableCell>
+                            {
+                                columns.map((column) => (
+                                    <TableCell
+                                        key={column.id}
+                                        align={column.align}
+                                        style={{ minWidth: column.minWidth }}
+                                    >
+                                        {column.label}
+                                    </TableCell>
+                                ))
+                            }
+
+                            {
+                                currentUser && currentUser.isAdmin && (
+                                    <TableCell style={{ minWidth: 170 }}>
+                                        Delete
+                                    </TableCell>
+                                )
+                            }
                         </TableRow>
                     </TableHead>
                     <TableBody>
                         {   
                             loading ? (
-                                <TableRowsLoader rowsNum={pagination.limit} columnsNum={4} />
+                                <TableRowsLoader rowsNum={pagination.limit} columnsNum={(currentUser && currentUser.isAdmin) ? 4 : 3 } />
                             ) : (
                             studentsUnit
                             .map((user) => {
@@ -82,20 +91,24 @@ export default function StudentsUnitTable({
                                             );
                                         })}
 
-                                        <TableCell>
-                                            <Button
-                                                variant="contained"
-                                                color="secondary"
-                                                size="small"
-                                                className={classes.button}
-                                                startIcon={<DeleteIcon />}
-                                                onClick={() =>
-                                                    deleteClicked(user)
-                                                }
-                                            >
-                                                حذف
-                                            </Button>
-                                        </TableCell>
+                                        {
+                                            currentUser && currentUser.isAdmin && (
+                                                <TableCell>
+                                                    <Button
+                                                        variant="contained"
+                                                        color="secondary"
+                                                        size="small"
+                                                        className={classes.button}
+                                                        startIcon={<DeleteIcon />}
+                                                        onClick={() =>
+                                                            deleteClicked(user)
+                                                        }
+                                                    >
+                                                        حذف
+                                                    </Button>
+                                                </TableCell>
+                                            )
+                                        }
                                     </TableRow>
                                 );
                             }))}

@@ -42,14 +42,6 @@ const App = () => {
         } else {
             console.warn('Cache API not supported in this browser.');
         }
-
-        const hasReloaded = localStorage.getItem('hasReloaded');
-        if (!hasReloaded) {
-          localStorage.setItem('hasReloaded', 'true');
-          window.location.reload(true);
-        } else {
-          localStorage.removeItem('hasReloaded');
-        }
     }, []);
 
     useEffect(() => {

@@ -67,7 +67,7 @@ class LoginForm extends Form {
             let redirectUrl = state ? state.from.pathname : '/';
 
             const user = auth.getCurrentUser();
-            if (user && user.isAdmin) {
+            if (user && (user.isAdmin || user.isModerator)) {
                 window.location = redirectUrl;
             } else {
                 this.props.history.push("/verification", {

@@ -8,6 +8,8 @@ import Sidebar from '../components/moderator/Sidebar';
 import '../components/style.css';
 import RequestLoader from '../components/RequestLoader';
 
+const Requests = lazy(() => import('../pages/admin/Requests'));
+const StudentUnit = lazy(() => import('../pages/admin/StudentUnit'));
 const ZoomLink = lazy(() => import('../pages/moderator/ZoomLink'));
 const Export = lazy(() => import('./../pages/moderator/Export'));
 const Review = lazy(() => import('../pages/moderator/Review'));
@@ -44,6 +46,14 @@ function ModeratorRoute() {
                                 <ProtectedRoute
                                     path="/moderator/zoomLink"
                                     component={ZoomLink}
+                                />
+                                <ProtectedRoute
+                                    path="/moderator/studentUnit"
+                                    component={StudentUnit}
+                                />
+                                <ProtectedRoute
+                                    path="/moderator/requests"
+                                    component={Requests}
                                 />
                                 <ProtectedRoute
                                     path="/moderator/export"

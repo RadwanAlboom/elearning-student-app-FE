@@ -16,10 +16,12 @@ class Form extends Component {
     validate = () => {
         const options = { abortEarly: false };
         const { error } = Joi.validate(this.state.data, this.schema, options);
-        if (!error) return null;
+        if (!error && (Object.keys(this.state.errors).length === 0)) return null;
 
         const errors = {};
-        for (let item of error.details) errors[item.path[0]] = item.message;
+        if (error && error.details) {
+            for (let item of error.details) errors[item.path[0]] = item.message;
+        }
         return errors;
     };
 
@@ -61,9 +63,38 @@ class Form extends Component {
         else delete errors[input.name];
 
         const data = { ...this.state.data };
-        data[input.name] = input.value;
+        data[input.name] = input.value.trim();
 
         this.setState({ data, errors });
+    };
+
+    handleArabicNameChange = (e) => {
+        const { name, value } = e.target;
+        const errors = this.state.errors;
+
+        // Arabic letters regex pattern
+        const arabicRegex = /^[\u0621-\u064A\u0660-\u0669\s]+$/;
+
+        // Split the name by spaces
+        const nameParts = value.trim().split(/\s+/);
+    
+        // Validate the input value
+        if (!arabicRegex.test(value)) {
+          errors[name] = '.الرجاء إدخال الاسم بالأحرف العربية فقط';
+        } else if (nameParts.length !== 4) {
+          errors[name] = `.الرجاء إدخال الاسم الرباعي`;
+        } else {
+            delete errors[name];
+        }
+    
+        // Update state with the new value and errors
+        this.setState({
+          data: {
+            ...this.state.data,
+            [name]: value.trim(),
+          },
+          errors,
+        });
     };
 
     handleChangeDropDown = (event) => {
@@ -72,11 +103,11 @@ class Form extends Component {
         const errors = { ...this.state.errors };
         if (name && value) {
             this.setState({ [name]: value });
-            errors[name] = '';
+            delete errors[name];
             this.setState({ errors });
         } else {
             this.setState({ [name]: value });
-            errors[name] = 'Your major should not be empty';
+            errors[name] = "لا ينبغي أن يكون تخصصك فارغا";
             this.setState({ errors });
         }
     };
@@ -155,6 +186,23 @@ class Form extends Component {
                 value={data[name]}
                 label={label}
                 onChange={this.handleChange}
+                error={errors[name]}
+            />
+        );
+    }
+
+    renderArabicNameInput(name, label, type = 'text', icon, disabled = false) {
+        const { data, errors } = this.state;
+
+        return (
+            <Input
+                icon={icon}
+                disabled={disabled}
+                type={type}
+                name={name}
+                value={data[name]}
+                label={label}
+                onChange={this.handleArabicNameChange}
                 error={errors[name]}
             />
         );

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Lottie from 'react-lottie';
 import socketIOClient from 'socket.io-client';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -34,6 +35,7 @@ import PDFAddForm from '../../components/admin/pdfAddForm';
 import PDFDeleteForm from './../../components/admin/pdfDeleteForm';
 import PDFUpdateForm from '../../components/admin/pdfUpdateForm';
 import PDFReader from './../../components/PDFReader';
+import musicEqualizer from '../../assets/admin/music_equalizer.json';
 
 import {
     loadLessons,
@@ -49,6 +51,15 @@ import {uploadPdfFile, handleDeleteFile} from "../../services/uploadService";
 const drawerWidth = 400;
 let socket;
 let backendURL = process.env.REACT_APP_API_URL;
+
+const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: musicEqualizer,
+    rendererSettings: {
+        preserveAspectRatio: 'xMidYMid slice',
+    },
+};
 
 
 const useStyles = makeStyles((theme) => ({
@@ -448,10 +459,16 @@ function ResponsiveDrawer({ match, ...other }) {
                                     onClick={() => handleClick(lesson.link)}
                                 >
                                     <ListItemIcon>
-                                        <MdOndemandVideo
-                                            size={'1.5rem'}
-                                            color="#803bec"
-                                        />
+                                        {
+                                            'lesson' + lesson.id === activeLink ? (
+                                                <Lottie options={defaultOptions} height={50} width={50} />
+                                            ) : (
+                                                <MdOndemandVideo
+                                                    size={'1.5rem'}
+                                                    color="#803bec"
+                                                />
+                                            )
+                                        }
                                     </ListItemIcon>
                                     <ListItemText primary={lesson.name} />
                                 </ListItem>

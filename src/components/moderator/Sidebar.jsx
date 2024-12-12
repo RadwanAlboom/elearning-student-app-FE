@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import Avatar from '@material-ui/core/Avatar';
 
 //All the svg files
+import Requests from '../../assets/admin/social.svg';
 import logo from '../../assets/admin/logo.svg';
 import Home from '../../assets/admin/home-solid.svg';
 import Exams from '../../assets/admin/sceduled.svg';
@@ -270,7 +271,17 @@ const Sidebar = () => {
                             المساقات
                         </Text>
                     </Item>
-
+                    <Item
+                        onClick={() => setClick(false)}
+                        activeClassName="active"
+                        to="/moderator/requests"
+                    >
+                        <img src={Requests} alt="Requests" />
+                        <Text clicked={click}>
+                            <img src={Requests} alt="Requests" className='side-bar-hidden-logo' />
+                            الطلبات
+                        </Text>
+                    </Item>
                     <Item
                         onClick={() => setClick(false)}
                         activeClassName="active"

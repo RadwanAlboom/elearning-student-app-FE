@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import Lottie from 'react-lottie';
+import { FcInfo } from "react-icons/fc";
 import socketIOClient from 'socket.io-client';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
@@ -23,6 +25,7 @@ import GetAppIcon from '@material-ui/icons/GetApp';
 import auth from '../../services/authService';
 import http from '../../services/httpService';
 import PDFReader from './../../components/PDFReader';
+import musicEqualizer from '../../assets/admin/music_equalizer.json';
 
 import { loadLessons } from '../../store/lessons';
 import { loadExams } from '../../store/exams';
@@ -32,6 +35,15 @@ import { socketMsg } from '../../socket';
 const drawerWidth = 400;
 let socket;
 let backendURL = process.env.REACT_APP_API_URL;
+
+const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: musicEqualizer,
+    rendererSettings: {
+        preserveAspectRatio: 'xMidYMid slice',
+    },
+};
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -270,10 +282,16 @@ function Lessons({ match, ...other }) {
                                 onClick={() => handleClick(lesson.link)}
                             >
                                 <ListItemIcon>
-                                    <MdOndemandVideo
-                                        size={'1.5rem'}
-                                        color="#803bec"
-                                    />
+                                    {
+                                        'lesson' + lesson.id === activeLink ? (
+                                            <Lottie options={defaultOptions} height={50} width={50} />
+                                        ) : (
+                                            <MdOndemandVideo
+                                                size={'1.5rem'}
+                                                color="#803bec"
+                                            />
+                                        )
+                                    }
                                 </ListItemIcon>
                                 <ListItemText primary={lesson.name} />
                             </ListItem>
@@ -426,22 +444,30 @@ function Lessons({ match, ...other }) {
                     </div>
                 )}
                 {!isPdf && (
-                    <div 
-                        className="Courses-container video-conatiner" 
-                        style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}
-                    >
-                        <div
-                            style={{
-                                position: 'relative',
-                                width: '65rem',
-                                height: '40rem',
-                                padding: '0 0 0 0',
-                            }}
-                            onContextMenu={(e) => e.preventDefault()}
-                        >
-                            <iframe title='user-frame' frameborder="0" width="100%" height="100%" src={`https://drive.google.com/file/d/${link}/preview`} sandbox="allow-same-origin allow-scripts" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe>
+                    <>
+                        <div className='video-support'>
+                            <div className='video-info'><FcInfo size='1.5rem'/></div>
+                            <div>
+                            اذا واجهتك أي مشكلة اثناء تشغيل الفيديو قم بتحديث المتصفح ل أحدث اصدار او تواصل معنا عبر <a className='video-info-ref' href="https://wa.me/970592078053" target="_blank" rel="noreferrer" style={{textDecoration: 'underline'}}>الواتساب</a> 
+                            </div>
                         </div>
-                    </div>
+                        <div 
+                            className="Courses-container video-conatiner" 
+                            style={{ display: 'flex', justifyContent: 'center', alignItems: 'center'}}
+                        >
+                            <div
+                                style={{
+                                    position: 'relative',
+                                    width: '65rem',
+                                    height: '40rem',
+                                    padding: '0 0 0 0',
+                                }}
+                                onContextMenu={(e) => e.preventDefault()}
+                            >
+                                <iframe className='user-video-frame' title='user-frame' frameborder="0" width="100%" height="100%" src={`https://drive.google.com/file/d/${link}/preview`} sandbox="allow-same-origin allow-scripts" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe>
+                            </div>
+                        </div>
+                    </>
                 )}
             </main>
             <nav className={classes.drawer} aria-label="mailbox folders">

@@ -11,9 +11,9 @@
     height: 100vh;
     overflow-y: auto;
     overflow-x: hidden;
-    padding: 20px;
-    padding-top: 65px;
-    padding-bottom: 60px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 100px;
 }
 
 .home-empty-bottom {
@@ -28,7 +28,7 @@
 }
 
 .requests-page {
-    padding-top: 20px !important;
+    padding-top: 20px;
 }
 
 .requests-header {

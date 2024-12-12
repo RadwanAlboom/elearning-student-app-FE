@@ -132,9 +132,9 @@ class RegisterForm extends Form {
 
     render() {
         const lock = <AiFillLock style={{ marginRight: "5px" }} />;
-        const email = <div>البريد الإلكتروني <MdEmail style={{ marginRight: "5px" }} /></div>;
-        const user = <div>اسم المستخدم الرباعي (بالعربي) <FaUserTie style={{ marginRight: "5px" }} /></div>;
-        const phone = <div>رقم الهاتف <FaPhone style={{ marginRight: "5px" }} /></div>;
+        const email = <div>(gmail.com) البريد الإلكتروني<MdEmail style={{ marginRight: "5px" }} /></div>;
+        const user = <div>اسم المستخدم الرباعي (باللعة العربية) <FaUserTie style={{ marginRight: "5px" }} /></div>;
+        const phone = <div>رقم الهاتف (باللعة الانجليزية)<FaPhone style={{ marginRight: "5px" }} /></div>;
         return (
             <div className="form-section">
                 <form onSubmit={this.handleSubmit} style={{textAlign: 'end'}}>
@@ -150,7 +150,7 @@ class RegisterForm extends Form {
                         انشاء حساب جديد
                     </h2>
                     <ErrorMessage error={this.state.registerErrors.error} />
-                    {this.renderInput(
+                    {this.renderArabicNameInput(
                         "registerName",
                         "",
                         "username",

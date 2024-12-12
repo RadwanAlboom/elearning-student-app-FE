@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import DeleteIcon from '@material-ui/icons/Delete';
-import UpdateSharpIcon from '@material-ui/icons/UpdateSharp';
-import Button from '@material-ui/core/Button';
-import { Link } from 'react-router-dom';
+import React, { Component } from "react";
+import UpdateSharpIcon from "@material-ui/icons/UpdateSharp";
+import AddCircleSharpIcon from "@material-ui/icons/AddCircleSharp";
+import Button from "@material-ui/core/Button";
+import { Link } from "react-router-dom";
 
 class Unit extends Component {
     state = {};
@@ -12,9 +12,10 @@ class Unit extends Component {
             chapter,
             title,
             component,
-            link,
             updateClicked,
             deleteClicked,
+            addStudentClicked,
+            url,
         } = this.props;
         return (
             <div className="admin-unit">
@@ -24,7 +25,14 @@ class Unit extends Component {
                     </div>
 
                     <div className="title">
-                        <Link to={link}>{title} </Link>
+                        <Link
+                            to={{
+                                pathname: url,
+                                state: { id },
+                            }}
+                        >
+                            {title}{" "}
+                        </Link>
                     </div>
                 </div>
                 <div className="actions-container">
@@ -33,20 +41,22 @@ class Unit extends Component {
                             <Button
                                 variant="contained"
                                 color="primary"
+                                startIcon={<AddCircleSharpIcon />}
+                                onClick={() =>
+                                    addStudentClicked(id, title)
+                                }
+                            >
+                                اضف طالب
+                            </Button>
+                        </div>
+                        <div className="update-btn">
+                            <Button
+                                variant="contained"
+                                color="primary"
                                 startIcon={<UpdateSharpIcon />}
                                 onClick={() => updateClicked(id, chapter)}
                             >
-                                Update
-                            </Button>
-                        </div>
-                        <div className="delete-btn">
-                            <Button
-                                variant="contained"
-                                color="secondary"
-                                startIcon={<DeleteIcon />}
-                                onClick={() => deleteClicked(id, chapter)}
-                            >
-                                Delete
+                                تحديث
                             </Button>
                         </div>
                     </div>

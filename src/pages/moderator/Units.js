@@ -13,7 +13,7 @@ import VerticalModal from '../../components/admin/verticalModel';
 import ChapterAddForm from '../../components/admin/chapterAddForm';
 import ChapterDeleteForm from '../../components/admin/chapterDeleteForm';
 import ChapterUpdateForm from '../../components/admin/chapterUpdateForm';
-import Unit from '../../components/admin/unit.jsx';
+import Unit from '../../components/moderator/unit';
 import DropDownLevel from '../../components/dropDownLevel';
 import { BsFillGrid3X3GapFill } from 'react-icons/bs';
 
@@ -127,6 +127,13 @@ const Units = ({ match }) => {
         toast.success('تم حذف الفصل بنجاح');
     };
 
+    const addStudentClicked = (unitId, unitName) => {
+        history.push({
+            pathname: '/moderator/studentUnit',
+            state: { unitId, unitName },
+        });  
+    }
+
     const displayChapters = chapters.map((chapter) => {
         return classCourseId + '' === chapter.classcourse_id + '' ? (
             <div
@@ -143,6 +150,7 @@ const Units = ({ match }) => {
                     component={<AiOutlineMenuFold size="2rem" color="white" />}
                     updateClicked={updateClicked}
                     deleteClicked={deleteClicked}
+                    addStudentClicked={addStudentClicked}
                     url="/moderator/courses/teachers/classCourses/chapters/lessons"
                 />
             </div>

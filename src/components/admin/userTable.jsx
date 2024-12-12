@@ -21,9 +21,9 @@ const columns = [
     { id: 'phone', label: 'Phone', minWidth: 100 },
     {
         id: 'isModerator',
-        label: 'Is-Moderator',
+        label: 'Type',
         minWidth: 170,
-        align: 'left',
+        align: 'center',
         format: (value) => value.toLocaleString('en-US'),
     },
     { id: 'fingerprint_count', label: 'Fingerprint Count', minWidth: 100 },
@@ -108,17 +108,21 @@ export default function StickyHeadTable({
                                         key={student.id}
                                     >
                                         {columns.map((column) => {
-                                            const value =
-                                                student[column.id] + '';
+                                            let value;
+                                            if (column.id === 'isModerator') {
+                                                value = student[column.id] === 0 ?
+                                                <span style={{backgroundColor: 'yellow', fontWeight: 'bold', fontSize: '18px', padding: '5px 10px 5px 10px'}}>طالب</span> :
+                                                <span style={{backgroundColor: 'lightgreen', fontWeight: 'bold', fontSize: '18px', padding: '5px 10px 5px 10px'}}>معلم</span>
+                                            } else {
+                                                value = student[column.id] + '';
+                                            }
+
                                             return (
                                                 <TableCell
                                                     key={column.id}
                                                     align={column.align}
                                                 >
-                                                    {column.format &&
-                                                    typeof value === 'number'
-                                                        ? column.format(value)
-                                                        : value}
+                                                    {value}
                                                 </TableCell>
                                             );
                                         })}

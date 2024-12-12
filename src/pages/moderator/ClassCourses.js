@@ -8,7 +8,7 @@ import AddCircleSharpIcon from '@material-ui/icons/AddCircleSharp';
 import { BsFillGrid3X3GapFill } from 'react-icons/bs';
 import { toast } from 'react-toastify';
 
-import Card from '../../components/admin/Card';
+import Card from '../../components/moderator/Card.jsx';
 import VerticalModal from '../../components/admin/verticalModel';
 import CourseForm from '../../components/admin/courseForm';
 import UpdateForm from '../../components/admin/updateForm';
@@ -84,16 +84,6 @@ const ClassCourses = () => {
         setImageId(course.imageId)
     };
 
-    const deleteClicked = (id, course) => {
-        setFormTitle('حذف مساق مخصص');
-        setModalShow(true);
-        setDeleteFormShow(true);
-        setUpdateFormShow(false);
-        setCourseFormShow(false);
-        setClassCourseId(id);
-        setImageId(course.imageId)
-    };
-
     const addClicked = () => {
         setFormTitle('مساق مخصص جديد');
         setModalShow(true);
@@ -163,7 +153,6 @@ const ClassCourses = () => {
                     img={classCourse.image}
                     url="/moderator/courses/teachers/classCourses/chapters"
                     updateClicked={updateClicked}
-                    deleteClicked={deleteClicked}
                 />
             </div>
         ) : (

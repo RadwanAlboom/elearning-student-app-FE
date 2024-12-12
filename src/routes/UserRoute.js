@@ -40,6 +40,8 @@ const Pages = styled.div`
 
 function UserRoute() {
     const location = useLocation();
+    const isTeamPage = location.pathname === '/team';
+
     useEffect(() => {
         document.addEventListener('keydown', keydownHandler);
 
@@ -54,7 +56,7 @@ function UserRoute() {
     return (
         <div onContextMenu={(e) => e.preventDefault()}>
             <Sidebar />
-            <Pages className="routes-no-padding">
+            <Pages className={`routes-no-padding ${isTeamPage ? 'no-padding' : ''}`}>
                 <AnimatePresence exitBeforeEnter>
                     <div
                         style={{

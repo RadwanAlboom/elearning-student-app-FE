@@ -24,17 +24,23 @@ export default function MediaCard({
     img,
     descreption,
     title,
-    link,
     id,
     updateClicked,
     deleteClicked,
     course,
+    url,
 }) {
     const classes = useStyles();
 
     return (
         <Card className={classes.root}>
-            <Link to={link} style={{ textDecoration: 'none' }}>
+            <Link
+                to={{
+                    pathname: url,
+                    state: { id, classCourseName: title },
+                }}
+                style={{ textDecoration: 'none' }}
+            >
                 <CardActionArea>
                     <CardMedia
                         className={classes.media}
@@ -67,16 +73,7 @@ export default function MediaCard({
                     startIcon={<UpdateSharpIcon />}
                     onClick={() => updateClicked(id, course)}
                 >
-                    Update
-                </Button>
-                <Button
-                    variant="contained"
-                    color="secondary"
-                    className={classes.button}
-                    startIcon={<DeleteIcon />}
-                    onClick={() => deleteClicked(id, course)}
-                >
-                    Delete
+                    تحديث
                 </Button>
             </CardActions>
         </Card>
