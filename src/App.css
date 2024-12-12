@@ -745,6 +745,10 @@ h3 {
     .profile-container {
         padding-top: 60px !important;
     }
+
+    .admin-courses {
+        padding-top: 100px !important;
+    }
 }
 
 @media screen and (max-width: 599px) {

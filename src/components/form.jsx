@@ -63,7 +63,7 @@ class Form extends Component {
         else delete errors[input.name];
 
         const data = { ...this.state.data };
-        data[input.name] = input.value.trim();
+        data[input.name] = input.value;
 
         this.setState({ data, errors });
     };
@@ -91,7 +91,7 @@ class Form extends Component {
         this.setState({
           data: {
             ...this.state.data,
-            [name]: value.trim(),
+            [name]: value,
           },
           errors,
         });

@@ -316,7 +316,7 @@ const Units = ({ match, ...other }) => {
                         {displayChapters}
                         { isLoading && <RequestLoader width={160} height={160}/>}
                     </div>
-                    <div style={{ marginTop: "210px" }}></div>
+                    <div style={{ marginTop: "300px" }}></div>
                     <div className="bottom-container courses-bottom-wave">
                         <div className="wavy" style={{width: '0px'}}>
                             <div className="waveWrapperInner bgTop">
