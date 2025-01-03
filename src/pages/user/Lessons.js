@@ -31,6 +31,7 @@ import { loadLessons } from '../../store/lessons';
 import { loadExams } from '../../store/exams';
 import { loadFiles } from '../../store/files';
 import { socketMsg } from '../../socket';
+import RequestLoader from '../../components/RequestLoader';
 
 const drawerWidth = 400;
 let socket;
@@ -91,8 +92,10 @@ function Lessons({ match, ...other }) {
     const [activeLink, setActiveLink] = useState(null);
     const [counter, setCounter] = useState(0);
     const [link, setLink] = useState('');
+    const [type, setType] = useState('');
     const [pdf, setPdf] = useState('');
     const [isPdf, setIsPdf] = useState(false);
+    const [isLoading, setIsLoading] = useState(false); 
 
     const lessons = useSelector((state) =>
         state.entities.lessons.list.filter(
@@ -200,10 +203,13 @@ function Lessons({ match, ...other }) {
         fetchUserExams();
     }, [userId, fetchUserExams]);
 
-    const handleClick = (link) => {
+    const handleClick = (link, type) => {
+        setIsLoading(true);
         auth.authMe();
         setMobileOpen(false);
         setLink(link);
+        setIsLoading(false);
+        setType(type);
         setIsPdf(false);
     };
 
@@ -264,6 +270,7 @@ function Lessons({ match, ...other }) {
                         chapterId + '' === lesson.chapter_id + ''
                     ) {
                         setLink(lesson.link);
+                        setType(lesson.type);
                         setActiveLink('lesson' + lesson.id);
                         setCounter(index + 1);
                     }
@@ -279,7 +286,7 @@ function Lessons({ match, ...other }) {
                             <ListItem
                                 button
                                 key={lesson.name}
-                                onClick={() => handleClick(lesson.link)}
+                                onClick={() => handleClick(lesson.link, lesson.type)}
                             >
                                 <ListItemIcon>
                                     {
@@ -448,7 +455,7 @@ function Lessons({ match, ...other }) {
                         <div className='video-support'>
                             <div className='video-info'><FcInfo size='1.5rem'/></div>
                             <div>
-                            اذا واجهتك أي مشكلة اثناء تشغيل الفيديو قم بتحديث المتصفح ل أحدث اصدار او تواصل معنا عبر <a className='video-info-ref' href="https://wa.me/970592078053" target="_blank" rel="noreferrer" style={{textDecoration: 'underline'}}>الواتساب</a> 
+                            اذا واجهتك أي مشكلة اثناء تشغيل الفيديو قم بالتواصل معنا عبر <a className='video-info-ref' href="https://wa.me/970592078053" target="_blank" rel="noreferrer" style={{textDecoration: 'underline'}}>الواتساب</a> 
                             </div>
                         </div>
                         <div 
@@ -464,7 +471,23 @@ function Lessons({ match, ...other }) {
                                 }}
                                 onContextMenu={(e) => e.preventDefault()}
                             >
-                                <iframe className='user-video-frame' title='user-frame' frameborder="0" width="100%" height="100%" src={`https://drive.google.com/file/d/${link}/preview`} sandbox="allow-same-origin allow-scripts" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe>
+                                {type === 'drive' && (
+                                    <iframe title='user-frame' frameBorder="0" width="100%" height="100%" src={`https://drive.google.com/file/d/${link}/preview`} sandbox="allow-same-origin allow-scripts" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe>
+                                )}
+
+                                {type === 'vimeo' && (
+                                    <iframe
+                                        src={`https://player.vimeo.com/video/${link}`}
+                                        width="100%"
+                                        height="100%"
+                                        frameBorder="0"
+                                        allow="autoplay; fullscreen"
+                                        allowFullScreen
+                                        title="user-frame"
+                                    ></iframe>
+                                )}
+
+                                {(!type || type === '' || isLoading) && <RequestLoader width={160} height={160}/>}
                             </div>
                         </div>
                     </>

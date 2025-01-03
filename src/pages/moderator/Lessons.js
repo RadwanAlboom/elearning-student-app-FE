@@ -48,6 +48,7 @@ import { loadExams, deleteExam } from '../../store/exams';
 import { loadFiles, addFile, deleteFile, updateFile } from '../../store/files';
 import {uploadPdfFile, handleDeleteFile} from "../../services/uploadService";
 import auth from '../../services/authService';
+import RequestLoader from '../../components/RequestLoader';
 
 const drawerWidth = 400;
 let socket;
@@ -120,11 +121,13 @@ function ResponsiveDrawer({ match, ...other }) {
     const [linkId, setLinkId] = useState('');
     const [activeLink, setActiveLink] = useState(null);
     const [link, setLink] = useState('');
+    const [type, setType] = useState('');
     const [pdf, setPdf] = useState('');
     const [counter, setCounter] = useState(0);
     const [isPdf, setIsPdf] = useState(false);
     const[progress, setProgress] = useState(0)
     const[clicked, setClicked] = useState(false);
+    const [isLoading, setIsLoading] = useState(false); 
 
     const lessons = useSelector((state) =>
         state.entities.lessons.list.filter(
@@ -317,9 +320,12 @@ function ResponsiveDrawer({ match, ...other }) {
         toast.success('تم حذف المحاضرة بنجاح');
     };
 
-    const handleClick = (link) => {
+    const handleClick = (link, type) => {
+        setIsLoading(true);
         auth.authMe();
         setLink(link);
+        setIsLoading(false);
+        setType(type);
         setIsPdf(false);
     };
 
@@ -443,6 +449,7 @@ function ResponsiveDrawer({ match, ...other }) {
                         chapterId + '' === lesson.chapter_id + ''
                     ) {
                         setLink(lesson.link);
+                        setType(lesson.type);
                         setActiveLink('lesson' + lesson.id);
                         setCounter(index + 1);
                     }
@@ -459,7 +466,7 @@ function ResponsiveDrawer({ match, ...other }) {
                                 <ListItem
                                     button
                                     key={lesson.name}
-                                    onClick={() => handleClick(lesson.link)}
+                                    onClick={() => handleClick(lesson.link, lesson.type)}
                                 >
                                     <ListItemIcon>
                                         {
@@ -741,7 +748,22 @@ function ResponsiveDrawer({ match, ...other }) {
                                 padding: '0 0 0 0',
                             }}
                         >
-                            <iframe title='user-frame' frameborder="0" width="100%" height="100%" src={`https://drive.google.com/file/d/${link}/preview`} sandbox="allow-same-origin allow-scripts" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe>
+                            {type === 'drive' && (
+                                <iframe title='user-frame' frameBorder="0" width="100%" height="100%" src={`https://drive.google.com/file/d/${link}/preview`} sandbox="allow-same-origin allow-scripts" allowfullscreen allow="autoplay; fullscreen; picture-in-picture"></iframe>
+                            )}
+
+                            {type === 'vimeo' && (
+                                <iframe
+                                    src={`https://player.vimeo.com/video/${link}`}
+                                    width="100%"
+                                    height="100%"
+                                    frameBorder="0"
+                                    allow="autoplay; fullscreen"
+                                    allowFullScreen
+                                    title="user-frame"
+                                ></iframe>
+                            )}
+                            {(!type || type === '' || isLoading) && <RequestLoader width={160} height={160}/>}
                         </div>
                     </div>
                 )}
